@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 viewEngine(app);
 initWebRoutes(app);
-// initAPIRoutes(app);
+initAPIRoutes(app);
 
 connectDB();
 
