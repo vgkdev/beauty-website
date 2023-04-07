@@ -9,6 +9,13 @@ import {
   handleChangePassword,
 } from "../controllers/userController";
 
+import {
+  handleCreateNewCategory,
+  handleGetALlCategories,
+  handleEditCategory,
+  handleDeleteCategory,
+} from "../controllers/categoryController";
+
 const router = express.Router();
 
 let initAPIRoutes = (app) => {
@@ -19,6 +26,11 @@ let initAPIRoutes = (app) => {
   router.post("/login", handleLoginUser);
   router.post("/verify-user", handleVerifyUser);
   router.put("/change-password", handleChangePassword);
+
+  router.post("/create-new-category", handleCreateNewCategory);
+  router.get("/get-all-categories", handleGetALlCategories);
+  router.put("/edit-category", handleEditCategory);
+  router.delete("/delete-category", handleDeleteCategory);
 
   return app.use("/api/v1/", router);
 };
