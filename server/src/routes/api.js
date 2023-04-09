@@ -16,7 +16,17 @@ import {
   handleDeleteCategory,
 } from "../controllers/categoryController";
 
+import {
+  handleCreateNewProduct,
+  handleGetALlProducts,
+  handleEditProduct,
+  handleDeleteProduct,
+} from "../controllers/productController";
+
 const router = express.Router();
+//--------------------------------------------------------
+
+// console.log("check upload: ", upload);
 
 let initAPIRoutes = (app) => {
   router.post("/create-new-user", handleCreateNewUser);
@@ -31,6 +41,16 @@ let initAPIRoutes = (app) => {
   router.get("/get-all-categories", handleGetALlCategories);
   router.put("/edit-category", handleEditCategory);
   router.delete("/delete-category", handleDeleteCategory);
+
+  // router.post(
+  //   "/create-new-product",
+  //   upload.single("file"),
+  //   handleCreateNewProduct
+  // );
+  router.post("/create-new-product", handleCreateNewProduct);
+  router.get("/get-all-products", handleGetALlProducts);
+  router.put("/edit-product", handleEditProduct);
+  router.delete("/delete-product", handleDeleteProduct);
 
   return app.use("/api/v1/", router);
 };

@@ -25,7 +25,7 @@ module.exports = {
         type: Sequelize.TEXT,
       },
       imageUrl: {
-        type: Sequelize.STRING,
+        type: Sequelize.BLOB,
       },
       price: {
         type: Sequelize.FLOAT,
