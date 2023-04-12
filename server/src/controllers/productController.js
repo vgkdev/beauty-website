@@ -38,13 +38,22 @@ const handleCreateNewProduct = async (req, res) => {
 };
 
 const handleGetALlProducts = async (req, res) => {
-  const response = await getALlProducts(req);
+  const response = await getALlProducts();
   return res.status(200).json(response);
 };
 
 const handleEditProduct = async (req, res) => {
-  const response = await editProduct(req.body);
-  return res.status(200).json(response);
+  upload(req, res, async (err) => {
+    if (err) {
+      console.error(err);
+      res.status(400).json({ message: "Error uploading image" });
+    } else {
+      const response = await editProduct(req.body, req.file);
+      return res.status(200).json(response);
+    }
+  });
+  // const response = await editProduct(req.body);
+  // return res.status(200).json(response);
 };
 
 const handleDeleteProduct = async (req, res) => {

@@ -42,7 +42,7 @@ function App() {
           <div style={{ width: "35%", paddingLeft: "5%", marginTop: "-18px" }}>
             <Link to={"/"}>
               <img
-                alt=""
+                alt="logo"
                 style={{ width: "100%", borderRadius: "5px" }}
                 src="http://localhost:3000/static/media/beautybebo_logo.d62a355dd09d371e83e2.png"
               />{" "}

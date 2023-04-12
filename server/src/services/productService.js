@@ -6,7 +6,7 @@ const createNewProduct = (data, image) => {
   // console.log("check imageUrl: ", image);
   return new Promise(async (resolve, reject) => {
     try {
-      if (!(categoryId && productName && description && price)) {
+      if (!(categoryId && productName && description && price && imageUrl)) {
         resolve({
           errCode: 1,
           message: "Missing paremeter !",
@@ -52,18 +52,18 @@ const createNewProduct = (data, image) => {
   });
 };
 
-const getALlProducts = (req) => {
+const getALlProducts = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const product = await db.Product.findAll(); // => array
 
       if (product.length !== 0) {
-        const productsWithImageUrl = product.map((item) => ({
-          ...item.toJSON(),
-          imageUrl: `${req.protocol}://${req.get("host")}/${item.imageUrl}`,
-        }));
-        // product.imageUrl = productsWithImageUrl;
-        console.log("check product: ", product);
+        // const productsWithImageUrl = product.map((item) => ({
+        //   ...item.toJSON(),
+        //   imageUrl: `${req.protocol}://${req.get("host")}/${item.imageUrl}`,
+        // }));
+        // // product.imageUrl = productsWithImageUrl;
+        // console.log("check product: ", product);
         resolve({
           errCode: 0,
           message: "Get all categories successfully",
@@ -81,11 +81,24 @@ const getALlProducts = (req) => {
   });
 };
 
-const editProduct = (data) => {
-  console.log("check data edit: ", data);
+const editProduct = (data, image) => {
+  const { id, categoryId, productName, description, price, newProductName } =
+    data;
+  const imageUrl = image.buffer;
   return new Promise(async (resolve, reject) => {
     try {
-      if (!(data.productName && data.newProductName && data.id)) {
+      if (
+        !(
+          productName &&
+          newProductName &&
+          id &&
+          categoryId &&
+          description &&
+          price &&
+          imageUrl
+        )
+      ) {
+        console.log("check missing paremeter: ", imageUrl);
         resolve({
           errCode: 1,
           message: "Missing paremeter !",
@@ -93,7 +106,7 @@ const editProduct = (data) => {
       }
 
       const isExist = await db.Product.findOne({
-        where: { productName: data.newProductName },
+        where: { productName: newProductName },
       });
 
       if (isExist) {
@@ -104,7 +117,11 @@ const editProduct = (data) => {
       } else {
         const [numAffectedRows, updatedRows] = await db.Product.update(
           {
-            productName: data.newProductName,
+            categoryId: categoryId,
+            productName: newProductName,
+            description: description,
+            imageUrl: imageUrl,
+            price: price,
           },
           {
             where: { id: data.id },

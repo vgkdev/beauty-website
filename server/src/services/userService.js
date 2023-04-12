@@ -62,7 +62,7 @@ const createNewUser = (data) => {
       } else {
         const hashPassword = await hashUserPassword(data.password);
 
-        const user = await db.User.create({
+        const response = await db.User.create({
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
@@ -71,11 +71,21 @@ const createNewUser = (data) => {
           phoneNumber: data.phoneNumber,
         });
 
-        resolve({
-          errCode: 0,
-          message: "Create new user successfully",
-          user,
-        });
+        if (response) {
+          const user = await db.User.findAll({
+            attributes: { exclude: ["password"] },
+          });
+          resolve({
+            errCode: 0,
+            message: "Create new user successfully",
+            user,
+          });
+        } else {
+          resolve({
+            errCode: 6,
+            message: "Error create new user !",
+          });
+        }
       }
     } catch (e) {
       reject(e);
