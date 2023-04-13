@@ -1,21 +1,37 @@
-import { Box, SimpleGrid, Wrap, Text, Image } from "@chakra-ui/react";
+import { Box, Text, Image } from "@chakra-ui/react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import Hotdeals from "./Hotdeals";
 import { NavLink } from "react-router-dom";
 
-import { Images } from "./Data";
+// import { Images } from "./Data";
 import { useEffect, useState } from "react";
 import BestSeller from "./BestSeller";
 import axios from "axios";
 import { IoIosMenu } from "react-icons/io";
 import React from "react";
 import { dataUrl } from "../../share";
+import banner1 from "../../assets/images/banner1.jpg";
+import banner2 from "../../assets/images/banner2.jpg";
+import banner3 from "../../assets/images/banner3.jpg";
+import banner4 from "../../assets/images/banner4.jpg";
+import banner5 from "../../assets/images/banner5.jpg";
+import banner6 from "../../assets/images/banner6.jpg";
 
 const Home = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    cssEase: "linear",
+  };
   const [data, setData] = useState([]);
-
-  const [slide, setSlider] = useState(0);
-
-  const [next, setNext] = useState(slide + 1);
 
   useEffect(() => {
     axios
@@ -24,29 +40,13 @@ const Home = () => {
       .catch((er) => console.log(er));
   }, []);
 
-  if (next === Images.length - 1) {
-    setSlider(0);
-
-    setNext(slide + 1);
-  }
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (slide >= Images.length - 1) {
-        setSlider(0);
-        setNext(next + 1);
-      }
-      setSlider((prev) => prev + 1);
-    }, 1500);
-
-    return () => clearInterval(intervalId);
-  }, [slide]);
   useEffect(() => {
     console.log("data------", data);
   }, [data]);
 
   return (
     <>
+      {/* menu */}
       <Box
         w="90%"
         m="auto"
@@ -55,6 +55,7 @@ const Home = () => {
         p="2px"
         justifyContent="space-between"
         border="0.3px solid grey"
+        style={{ zIndex: "-100" }}
       >
         <Box
           ml={["16px", "16px", "16px"]}
@@ -162,56 +163,46 @@ const Home = () => {
             </NavLink>
           </Box>
         </Box>
-        <Box p="0.5px" margin="auto" width={["89%", "73%", "73%"]}>
-          <Image w="100%" src={Images[slide]}></Image>
+        <Box
+          p="0.5px"
+          margin="auto"
+          width={["89%", "73%", "73%"]}
+          style={{ zIndex: "-100" }}
+        >
+          <Slider {...settings}>
+            <Box>
+              <Image w={"100%"} /*h={"500px"}*/ src={banner1} />
+            </Box>
+            <Box>
+              <Image w={"100%"} /*h={"500px"}*/ src={banner2} />
+            </Box>
+          </Slider>
         </Box>
       </Box>
+
       <Hotdeals dt={data} />
       <br />
       <Box w="90%" m="auto">
-        <Image
-          w="100%"
-          src="https://www.beautybebo.com/pub/media/ads/1599-Forent-banner-4.gif"
-        ></Image>
+        <Image w="100%" src={banner3} />
       </Box>
-      <br />
-      <Box
-        w="91%"
-        m="auto"
-        display={["inline", "flex", "flex"]}
-        justifyContent="space-between"
-      >
-        <Box margin="auto" width={["91%", "49%", "49%"]}>
-          <Image
-            w="100%"
-            src="https://www.beautybebo.com/pub/media/ads/joy_banner.gif"
-          ></Image>
-        </Box>
-        <Box margin="auto" width={["91%", "49%", "49%"]}>
-          <Image
-            w="100%"
-            src="https://www.beautybebo.com/pub/media/ads/lotus_banner.gif"
-          ></Image>
-        </Box>
-      </Box>
+
       <br />
       <BestSeller />
-
       <br />
       <Box w="90%" m="auto">
-        <Image
-          w="100%"
-          src="https://www.beautybebo.com/pub/media/ads/Forent_Banner_5-min.jpg"
-        ></Image>
+        <Image w="100%" src={banner4}></Image>
       </Box>
 
       <br />
       <Box w="90%" m="auto">
-        <Image
-          w="100%"
-          src="https://www.beautybebo.com/pub/media/ads/Blue_heaven_Forent_3-min.jpg"
-        ></Image>
+        <Image w="100%" src={banner5}></Image>
       </Box>
+
+      <br />
+      <Box w="90%" m="auto">
+        <Image w="100%" src={banner6}></Image>
+      </Box>
+      <br />
     </>
   );
 };

@@ -25,11 +25,10 @@ import Reports from "./Reports";
 import Photos from "./Photos";
 import Exercises from "./Exercises";
 import Messages from "./Messages";
-import { Link } from "react-router-dom";
-import axios from "axios";
 import Dashboard from "./Dashboard";
 import "./profile.css";
-import { dataUrl } from "../../share";
+import { FaUsers, FaWineBottle, FaClipboardList } from "react-icons/fa";
+import { MdCategory } from "react-icons/md";
 import {
   createNewUserService,
   deleteUserService,
@@ -37,11 +36,20 @@ import {
   getAllUsersService,
 } from "../../api/userApi";
 import FormUser from "./Comp/FormUser";
+import AllCategories from "./AllCategories";
+import {
+  deleteCategoryService,
+  editCategoryService,
+  getAllCategorysService,
+} from "../../api/categoryApi";
+import FormCategory from "./Comp/FormCategory";
+import { createNewCategoryService } from "../../api/categoryApi";
 
 const init1 = {
-  routines: false,
-  logs: false,
-  reports: false,
+  userSection: false,
+  productSection: false,
+  orderSection: false,
+  categorySection: false,
   photos: false,
   exercises: false,
   messages: false,
@@ -49,23 +57,36 @@ const init1 = {
 
 export const Profile = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isModalUserOpen, setIsModalUserOpen] = useState(false);
+  const [isModalCategoryOpen, setIsModalCategoryOpen] = useState(false);
   const [change, setChange] = useState(0);
   const { smallScreen, mediumScreen } = useMedia();
-  const [section, setSection] = useState({ ...init1, routines: true });
-  const { routines, logs, reports, photos, exercises, messages } = section;
+  const [section, setSection] = useState({ ...init1, userSection: true });
+  const {
+    userSection,
+    productSection,
+    orderSection,
+    categorySection,
+    photos,
+    exercises,
+    messages,
+  } = section;
   const [loading, setLoading] = useState(false);
   const toast = useToast();
   /* dashboard */
   const [users, setUsers] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [admins, setAdmins] = useState([]);
   const [products, setProducts] = useState([]);
   const [carts, setCarts] = useState([]);
   const [userDetailInModal, setUserDetailInModal] = useState(null);
+  const [categoryDetailInModal, setCategoryDetailInModal] = useState(null);
   const [modalType, setModalType] = useState("");
 
   useEffect(() => {
     let newId = setTimeout(() => {
       getUser();
+      getAllCategories();
       getProducts();
       getCart();
     }, 1000);
@@ -80,16 +101,30 @@ export const Profile = () => {
 
   const handleShowModalUser = (id, type) => {
     if (type !== "Create") {
-      const user = users.filter((users) => users.id === id);
-      console.log("check id is showed: ", user[0]);
-      console.log("check type: ", type);
+      const user = users.filter((value) => value.id === id);
+      // console.log("check id is showed: ", user[0]);
+      // console.log("check type: ", type);
       setUserDetailInModal(user[0]);
     } else {
       setUserDetailInModal(null);
     }
 
     setModalType(type);
-    onOpen();
+    setIsModalUserOpen(true);
+  };
+
+  const handleShowModalCategory = (id, type) => {
+    if (type !== "Create") {
+      const category = categories.filter((value) => value.id === id);
+      // console.log("check id is showed: ", user[0]);
+      // console.log("check type: ", type);
+      setCategoryDetailInModal(category[0]);
+    } else {
+      setCategoryDetailInModal(null);
+    }
+
+    setModalType(type);
+    setIsModalCategoryOpen(true);
   };
 
   const printS = (mess) => {
@@ -119,7 +154,7 @@ export const Profile = () => {
     setTimeout(() => {
       setSection({ ...init1, [value]: true });
       setLoading(false);
-    }, 3500);
+    }, 3000);
   };
 
   function changeIt() {
@@ -127,13 +162,6 @@ export const Profile = () => {
   }
 
   const getUser = async () => {
-    // axios
-    //   .get(`${dataUrl}/users/`)
-    //   .then((res) => {
-    //     setUsers(res.data);
-    //   })
-    //   .catch((e) => printF(e?.response?.data || e.message));
-
     const response = await getAllUsersService();
     if (response.data.errCode === 0) {
       setUsers(response.data.user);
@@ -176,6 +204,50 @@ export const Profile = () => {
     if (response.data.errCode === 0) {
       // console.log("check user edit: ", response.data.user);
       setUsers(response.data.user);
+      printS(response.data.message);
+    } else {
+      printF(response.data.message);
+    }
+  };
+
+  // modal category
+
+  const getAllCategories = async () => {
+    const response = await getAllCategorysService();
+    if (response.data.errCode === 0) {
+      setCategories(response.data.category);
+      printS(response.data.message);
+    } else {
+      printF(response.data.message);
+    }
+  };
+
+  const createNewCategory = async (data) => {
+    const response = await createNewCategoryService(data);
+    if (response.data.errCode === 0) {
+      setCategories(response.data.category);
+      printS(response.data.message);
+    } else {
+      printF(response.data.message);
+    }
+    setIsModalCategoryOpen(false);
+  };
+
+  const editCategory = async (data) => {
+    const response = await editCategoryService(data);
+    if (response.data.errCode === 0) {
+      setCategories(response.data.category);
+      printS(response.data.message);
+    } else {
+      printF(response.data.message);
+    }
+    setIsModalCategoryOpen(false);
+  };
+
+  const deleteCategory = async (id) => {
+    const response = await deleteCategoryService(id);
+    if (response.data.errCode === 0) {
+      setCategories(response.data.category);
       printS(response.data.message);
     } else {
       printF(response.data.message);
@@ -276,7 +348,11 @@ export const Profile = () => {
         w={mediumScreen ? "95%" : "90%"}
       >
         {/* Modal detail */}
-        <Modal onClose={onClose} size={"lg"} isOpen={isOpen}>
+        <Modal
+          onClose={() => setIsModalUserOpen(false)}
+          size={"lg"}
+          isOpen={isModalUserOpen}
+        >
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>{modalType} user</ModalHeader>
@@ -290,7 +366,32 @@ export const Profile = () => {
               />
             </ModalBody>
             <ModalFooter>
-              <Button onClick={onClose}>Close</Button>
+              <Button onClick={() => setIsModalUserOpen(false)}>Close</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
+        <Modal
+          onClose={() => setIsModalCategoryOpen(false)}
+          size={"lg"}
+          isOpen={isModalCategoryOpen}
+        >
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>{modalType} category</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <FormCategory
+                category={categoryDetailInModal}
+                type={modalType}
+                handleEditCategory={editCategory}
+                handleCreateCategory={createNewCategory}
+              />
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={() => setIsModalCategoryOpen(false)}>
+                Close
+              </Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
@@ -304,92 +405,43 @@ export const Profile = () => {
           <Box m="auto" w={["96%", "96%", "20%", "17%"]} mt="50px">
             <Flex
               mb="7px"
-              onClick={() => changePages("routines")}
+              onClick={() => changePages("userSection")}
               style={{ cursor: "pointer" }}
             >
-              <Image
-                w="20px"
-                mr="5px"
-                src="https://www.jefit.com/images/routine_icon_64_64.png"
-              />
+              <FaUsers style={{ width: "20px", marginRight: "5px" }} />
               <Text fontSize="sm"> All Users </Text>
             </Flex>
-            <Divider
-              mt="3px"
-              mb="3px"
-              orientation="horizontal"
-              style={{ color: "red", size: "20" }}
-            />
+            <Divider mt="3px" mb="3px" orientation="horizontal" />
 
             <Flex
               mb="7px"
-              onClick={() => changePages("logs")}
+              onClick={() => changePages("categorySection")}
               style={{ cursor: "pointer" }}
             >
-              <Image
-                w="20px"
-                mr="5px"
-                src="https://www.jefit.com/images/main_menu_logs_70_70.png"
-              />
+              <MdCategory style={{ width: "20px", marginRight: "5px" }} />
+              <Text fontSize="sm"> All Categories </Text>
+            </Flex>
+            <Divider mt="3px" mb="3px" orientation="horizontal" />
+
+            <Flex
+              mb="7px"
+              onClick={() => changePages("productSection")}
+              style={{ cursor: "pointer" }}
+            >
+              <FaWineBottle style={{ width: "20px", marginRight: "5px" }} />
               <Text fontSize="sm"> All Products </Text>
             </Flex>
             <Divider mt="3px" mb="3px" orientation="horizontal" />
             <Flex
               mb="7px"
-              onClick={() => changePages("reports")}
+              onClick={() => changePages("orderSection")}
               style={{ cursor: "pointer" }}
             >
-              <Image
-                w="20px"
-                mr="5px"
-                src="https://www.jefit.com/images/training_reports_icon_70_70.png"
-              />
+              <FaClipboardList style={{ width: "20px", marginRight: "5px" }} />
               <Text fontSize="sm"> All Orders </Text>
             </Flex>
-            <Divider
-              mt="3px"
-              mb="3px"
-              orientation="horizontal"
-              style={{ cursor: "pointer" }}
-            />
-            <Flex
-              mb="7px"
-              onClick={() => changePages("photos")}
-              style={{ cursor: "pointer" }}
-            >
-              <Image
-                w="20px"
-                mr="5px"
-                src="https://www.jefit.com/images/pictureicon.png"
-              />
-              <Text fontSize="sm"> Add Product </Text>
-            </Flex>
+
             <Divider mt="3px" mb="3px" orientation="horizontal" />
-            <Flex
-              mb="7px"
-              onClick={() => changePages("exercises")}
-              style={{ cursor: "pointer" }}
-            >
-              <Image
-                w="20px"
-                mr="5px"
-                src="https://www.jefit.com/images/exercise_icon3_64_64.png"
-              />
-              <Text fontSize="sm"> Add User </Text>
-            </Flex>
-            <Divider mt="3px" mb="3px" orientation="horizontal" />
-            <Flex
-              mb="7px"
-              onClick={() => changePages("messages")}
-              style={{ cursor: "pointer" }}
-            >
-              <Image
-                w="20px"
-                mr="5px"
-                src="https://www.jefit.com/images/message_icon.png"
-              />
-              <Text fontSize="sm"> My Details </Text>
-            </Flex>
           </Box>
 
           <Spacer />
@@ -403,24 +455,26 @@ export const Profile = () => {
             fontSize="xl"
           >
             {loading && <Loading />}
-            {routines && (
+            {userSection && (
               <MyRoutine
-                deleteFun={deleteFun}
                 users={users}
-                changeRole={changeRole}
-                userBan={userBan}
                 handleShowModalUser={handleShowModalUser}
                 handleDeleteUser={deleteUser}
               />
             )}
-            {logs && <LogsPage products={products} deletePro={deletePro} />}
-            {reports && <Reports carts={carts} cartChange={cartChange} />}
+            {categorySection && (
+              <AllCategories
+                categories={categories}
+                handleShowModalCategory={handleShowModalCategory}
+                handleDeleteCategory={deleteCategory}
+              />
+            )}
+            {productSection && (
+              <LogsPage products={products} deletePro={deletePro} />
+            )}
+            {orderSection && <Reports carts={carts} cartChange={cartChange} />}
             {photos && <Photos />}
             {exercises && <Exercises />}
-            {messages && <Messages />}
-            {/* <Button style={{ margin: "0 auto" }} colorScheme="whatsapp">
-              Add new user
-            </Button> */}
           </Box>
 
           <Spacer />

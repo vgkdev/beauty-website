@@ -1,4 +1,5 @@
 import db from "../models/index";
+import { Sequelize } from "sequelize";
 
 const createNewCategory = (data) => {
   return new Promise(async (resolve, reject) => {
@@ -26,7 +27,23 @@ const createNewCategory = (data) => {
         });
 
         if (result) {
-          const category = await db.Category.findAll();
+          const category = await db.Category.findAll({
+            attributes: [
+              "id",
+              "categoryName",
+              [
+                Sequelize.fn("count", Sequelize.col("Products.categoryId")),
+                "productCount",
+              ],
+            ],
+            include: [
+              {
+                model: db.Product,
+                attributes: [],
+              },
+            ],
+            group: ["Category.id"],
+          });
           resolve({
             errCode: 0,
             message: "Create new category successfully",
@@ -48,7 +65,23 @@ const createNewCategory = (data) => {
 const getALlCategories = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const category = await db.Category.findAll(); // => array
+      const category = await db.Category.findAll({
+        attributes: [
+          "id",
+          "categoryName",
+          [
+            Sequelize.fn("count", Sequelize.col("Products.categoryId")),
+            "productCount",
+          ],
+        ],
+        include: [
+          {
+            model: db.Product,
+            attributes: [],
+          },
+        ],
+        group: ["Category.id"],
+      }); // => array
 
       if (category.length !== 0) {
         resolve({
@@ -101,7 +134,23 @@ const editCategory = (data) => {
         );
 
         if (updatedRows !== 0) {
-          const category = await db.Category.findAll();
+          const category = await db.Category.findAll({
+            attributes: [
+              "id",
+              "categoryName",
+              [
+                Sequelize.fn("count", Sequelize.col("Products.categoryId")),
+                "productCount",
+              ],
+            ],
+            include: [
+              {
+                model: db.Product,
+                attributes: [],
+              },
+            ],
+            group: ["Category.id"],
+          });
 
           resolve({
             errCode: 0,
@@ -137,7 +186,23 @@ const deleteCategory = (id) => {
 
       // console.log("check delete category: ", result);
       if (result !== 0) {
-        const category = await db.Category.findAll();
+        const category = await db.Category.findAll({
+          attributes: [
+            "id",
+            "categoryName",
+            [
+              Sequelize.fn("count", Sequelize.col("Products.categoryId")),
+              "productCount",
+            ],
+          ],
+          include: [
+            {
+              model: db.Product,
+              attributes: [],
+            },
+          ],
+          group: ["Category.id"],
+        });
         resolve({
           errCode: 0,
           message: "Category has been deleted !",

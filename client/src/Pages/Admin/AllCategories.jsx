@@ -1,11 +1,16 @@
 import React from "react";
 import { Box, Button, Divider, Text } from "@chakra-ui/react";
 import UserComp from "./Comp/UserComp";
+import CategoryComp from "./Comp/CategoryComp";
 
-const MyRoutine = ({ users = [], handleShowModalUser, handleDeleteUser }) => {
+const AllCategories = ({
+  categories = [],
+  handleShowModalCategory,
+  handleDeleteCategory,
+}) => {
   return (
     <Box>
-      <Text>All Users</Text>
+      <Text>All categories</Text>
       <Divider
         mt="3px"
         mb="3px"
@@ -14,25 +19,25 @@ const MyRoutine = ({ users = [], handleShowModalUser, handleDeleteUser }) => {
       />
       <hr color="black" size="50px" />
       <Box>
-        {users &&
-          users.map((el, index) => (
-            <UserComp
+        {categories &&
+          categories.map((el, index) => (
+            <CategoryComp
               key={index}
               {...el}
-              handleShowModalUser={handleShowModalUser}
-              handleDeleteUser={handleDeleteUser}
+              handleShowModalCategory={handleShowModalCategory}
+              handleDeleteCategory={handleDeleteCategory}
             />
           ))}
       </Box>
       <Button
         style={{ margin: "0 auto" }}
         colorScheme="whatsapp"
-        onClick={() => handleShowModalUser(null, "Create")}
+        onClick={() => handleShowModalCategory(null, "Create")}
       >
-        + Create new user
+        + Create new category
       </Button>
     </Box>
   );
 };
 
-export default MyRoutine;
+export default AllCategories;

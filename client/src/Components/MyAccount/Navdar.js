@@ -44,7 +44,7 @@ export default function Navdar() {
         <div className="mid_nav_first">
           <div style={{ width: "30%", paddingLeft: "5%", marginTop: "-15px" }}>
             <Link to={"/"}>
-              <img style={{ width: "100%" }} src={logo1} />{" "}
+              <img alt="" style={{ width: "100%" }} src={logo1} />{" "}
             </Link>
           </div>
 
@@ -91,8 +91,10 @@ export default function Navdar() {
           <div className="search_div">
             <select className="select">
               <option>All Categories</option>
-              {data.map((item) => (
-                <option value="option1">{item}</option>
+              {data.map((item, index) => (
+                <option key={index} value="option1">
+                  {item}
+                </option>
               ))}
             </select>
             <input className="input" type="search" style={{ border: "none" }} />

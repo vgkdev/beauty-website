@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Select, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Button, SimpleGrid, Text } from "@chakra-ui/react";
 import React from "react";
 
 const UserComp = ({
@@ -7,11 +7,6 @@ const UserComp = ({
   lastName,
   email,
   phoneNumber,
-  status,
-  role,
-  deleteFun,
-  changeRole,
-  userBan,
   handleShowModalUser,
   handleDeleteUser,
 }) => {
