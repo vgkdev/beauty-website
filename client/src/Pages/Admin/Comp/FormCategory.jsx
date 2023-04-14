@@ -34,7 +34,7 @@ const FormCategory = (props) => {
     <form>
       <Stack spacing={3}>
         <FormControl>
-          <FormLabel>First Name</FormLabel>
+          <FormLabel>Catogory name</FormLabel>
           <Input
             type="text"
             value={categoryName}

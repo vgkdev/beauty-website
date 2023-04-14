@@ -40,10 +40,20 @@ import AllCategories from "./AllCategories";
 import {
   deleteCategoryService,
   editCategoryService,
-  getAllCategorysService,
+  getAllCategoriesService,
 } from "../../api/categoryApi";
 import FormCategory from "./Comp/FormCategory";
 import { createNewCategoryService } from "../../api/categoryApi";
+import {
+  createNewProductService,
+  deleteProductService,
+  editProductService,
+  getAllProductsService,
+} from "../../api/productApi";
+
+import ConvertImgToBase64 from "../../Utils/ConvertImgToBase64";
+import { Buffer } from "buffer";
+import FormProduct from "./Comp/FromProduct";
 
 const init1 = {
   userSection: false,
@@ -59,6 +69,7 @@ export const Profile = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isModalUserOpen, setIsModalUserOpen] = useState(false);
   const [isModalCategoryOpen, setIsModalCategoryOpen] = useState(false);
+  const [isModalProductOpen, setIsModalProductOpen] = useState(false);
   const [change, setChange] = useState(0);
   const { smallScreen, mediumScreen } = useMedia();
   const [section, setSection] = useState({ ...init1, userSection: true });
@@ -81,13 +92,14 @@ export const Profile = () => {
   const [carts, setCarts] = useState([]);
   const [userDetailInModal, setUserDetailInModal] = useState(null);
   const [categoryDetailInModal, setCategoryDetailInModal] = useState(null);
+  const [productDetailInModal, setProductDetailInModal] = useState(null);
   const [modalType, setModalType] = useState("");
 
   useEffect(() => {
     let newId = setTimeout(() => {
       getUser();
       getAllCategories();
-      getProducts();
+      getAllProducts();
       getCart();
     }, 1000);
   }, [change]);
@@ -125,6 +137,19 @@ export const Profile = () => {
 
     setModalType(type);
     setIsModalCategoryOpen(true);
+  };
+
+  const handleShowModalProduct = (id, type) => {
+    if (type !== "Create") {
+      const product = products.filter((value) => value.id === id);
+      // console.log("check detail product: ", product[0]);
+      setProductDetailInModal(product[0]);
+    } else {
+      setProductDetailInModal(null);
+    }
+
+    setModalType(type);
+    setIsModalProductOpen(true);
   };
 
   const printS = (mess) => {
@@ -169,7 +194,7 @@ export const Profile = () => {
     } else {
       printF(response.data.message);
     }
-    console.log("check data from server: ", response);
+    // console.log("check data from server: ", response);
   };
 
   const editUser = async (data) => {
@@ -182,7 +207,7 @@ export const Profile = () => {
     } else {
       printF(response.data.message);
     }
-    onClose();
+    setIsModalUserOpen(false);
   };
 
   const createNewUser = async (data) => {
@@ -196,7 +221,7 @@ export const Profile = () => {
     } else {
       printF(response.data.message);
     }
-    onClose();
+    setIsModalUserOpen(false);
   };
 
   const deleteUser = async (id) => {
@@ -213,8 +238,9 @@ export const Profile = () => {
   // modal category
 
   const getAllCategories = async () => {
-    const response = await getAllCategorysService();
+    const response = await getAllCategoriesService();
     if (response.data.errCode === 0) {
+      // console.log("check categories: ", response.data.category);
       setCategories(response.data.category);
       printS(response.data.message);
     } else {
@@ -254,14 +280,79 @@ export const Profile = () => {
     }
   };
 
-  const getProducts = async () => {
-    // axios
-    //   .get(`${dataUrl}/products`)
-    //   .then((res) => {
-    //     setProducts(res.data);
-    //   })
-    //   .catch((e) => printF(e?.response?.data || e.message));
+  const getAllProducts = async () => {
+    const response = await getAllProductsService();
+    if (response.data.errCode === 0) {
+      // console.log("chech img server: ", response.data.product[0].imageUrl);
+      const products = response.data.product;
+      for (let i = 0; i < products.length; i++) {
+        // console.log("check image: ", products[i].imageUrl);
+        const buffer = products[i].imageUrl;
+        const base64String = new Buffer(buffer, "base64").toString("base64");
+        products[i].imageUrl = base64String;
+      }
+      // console.log("check products: ", products);
+      setProducts(products);
+      printS(response.data.message);
+    } else {
+      printF(response.data.message);
+    }
   };
+
+  const handleCreateProduct = async (data) => {
+    const response = await createNewProductService(data);
+    if (response.data.errCode === 0) {
+      const products = response.data.product;
+      for (let i = 0; i < products.length; i++) {
+        const buffer = products[i].imageUrl;
+        const base64String = new Buffer(buffer, "base64").toString("base64");
+        products[i].imageUrl = base64String;
+      }
+      // console.log("check products: ", products);
+      setProducts(products);
+      printS(response.data.message);
+      setIsModalProductOpen(false);
+    } else {
+      printF(response.data.message);
+    }
+  };
+
+  const editProduct = async (data) => {
+    const response = await editProductService(data);
+    if (response.data.errCode === 0) {
+      const products = response.data.product;
+      for (let i = 0; i < products.length; i++) {
+        const buffer = products[i].imageUrl;
+        const base64String = new Buffer(buffer, "base64").toString("base64");
+        products[i].imageUrl = base64String;
+      }
+      // console.log("check products: ", products);
+      setProducts(products);
+      printS(response.data.message);
+      setIsModalProductOpen(false);
+    } else {
+      printF(response.data.message);
+    }
+  };
+
+  const deleteProduct = async (id) => {
+    const response = await deleteProductService(id);
+    if (response.data.errCode === 0) {
+      const products = response.data.product;
+      for (let i = 0; i < products.length; i++) {
+        const buffer = products[i].imageUrl;
+        const base64String = new Buffer(buffer, "base64").toString("base64");
+        products[i].imageUrl = base64String;
+      }
+      // console.log("check products: ", products);
+      setProducts(products);
+      printS(response.data.message);
+      setIsModalProductOpen(false);
+    } else {
+      printF(response.data.message);
+    }
+  };
+
   const getCart = async () => {
     // axios
     //   .get(`${dataUrl}/carts/allcarts/sujeet`, { withCredentials: true })
@@ -396,6 +487,32 @@ export const Profile = () => {
           </ModalContent>
         </Modal>
 
+        <Modal
+          onClose={() => setIsModalProductOpen(false)}
+          size={"lg"}
+          isOpen={isModalProductOpen}
+        >
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>{modalType} product</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <FormProduct
+                product={productDetailInModal}
+                categories={categories}
+                type={modalType}
+                handleEditProduct={editProduct}
+                handleCreateProduct={handleCreateProduct}
+              />
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={() => setIsModalProductOpen(false)}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
         <Text mt="100px" fontSize={"5xl"} color="#00ff2a">
           Admin Management Page
         </Text>
@@ -470,7 +587,11 @@ export const Profile = () => {
               />
             )}
             {productSection && (
-              <LogsPage products={products} deletePro={deletePro} />
+              <LogsPage
+                products={products}
+                handleShowModalProduct={handleShowModalProduct}
+                handleDeleteProduct={deleteProduct}
+              />
             )}
             {orderSection && <Reports carts={carts} cartChange={cartChange} />}
             {photos && <Photos />}

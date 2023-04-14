@@ -9,7 +9,7 @@ const CategoryComp = ({
   handleDeleteCategory,
 }) => {
   return (
-    <Box textAlign={"left"} mb="20px" border={"1px solid #9130c2"} p={3}>
+    <Box textAlign={"left"} mb="20px" border={"2px solid #50555e"} p={3}>
       <Grid templateColumns="repeat(5, 1fr)" gap={4}>
         <GridItem colSpan={{ base: 5, md: 3, lg: 4 }}>
           <Text fontSize="lg">

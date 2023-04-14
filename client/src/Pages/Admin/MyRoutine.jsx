@@ -12,7 +12,7 @@ const MyRoutine = ({ users = [], handleShowModalUser, handleDeleteUser }) => {
         orientation="horizontal"
         style={{ color: "red", size: "20" }}
       />
-      <hr color="black" size="50px" />
+      {/* <hr color="black" size="50px" /> */}
       <Box>
         {users &&
           users.map((el, index) => (

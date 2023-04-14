@@ -11,7 +11,7 @@ const UserComp = ({
   handleDeleteUser,
 }) => {
   return (
-    <Box textAlign={"center"} mb="20px" border={"1px solid #9130c2"} p={3}>
+    <Box textAlign={"center"} mb="20px" border={"2px solid #50555e"} p={3}>
       <SimpleGrid columns={[1, 2, 2, 3, 3]} spacing={10}>
         <Text fontSize="lg">Name: {firstName + " " + lastName} </Text>
         <Text fontSize="lg">Email: {email} </Text>

@@ -1,3 +1,4 @@
+import e from "express";
 import {
   createNewProduct,
   getALlProducts,
@@ -6,17 +7,17 @@ import {
 } from "../services/productService";
 
 const multer = require("multer");
-const path = require("path");
+// const path = require("path");
 
-const storage = multer.diskStorage({
-  destination: "./public/images",
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: "./public/images",
+//   filename: function (req, file, cb) {
+//     cb(
+//       null,
+//       file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+//     );
+//   },
+// });
 
 // Init upload
 // const upload = multer({
@@ -30,9 +31,16 @@ const handleCreateNewProduct = async (req, res) => {
       console.error(err);
       res.status(400).json({ message: "Error uploading image" });
     } else {
-      console.log("check file: ", req.file);
-      const response = await createNewProduct(req.body, req.file);
-      return res.status(200).json(response);
+      if (req.file) {
+        console.log("check file: ", req.file);
+        const response = await createNewProduct(req.body, req.file);
+        return res.status(200).json(response);
+      } else {
+        return res.status(200).json({
+          errCode: 1,
+          message: "Please choose a photo !",
+        });
+      }
     }
   });
 };
@@ -48,8 +56,16 @@ const handleEditProduct = async (req, res) => {
       console.error(err);
       res.status(400).json({ message: "Error uploading image" });
     } else {
-      const response = await editProduct(req.body, req.file);
-      return res.status(200).json(response);
+      if (req.file) {
+        console.log("check file: ", req.file);
+        const response = await editProduct(req.body, req.file);
+        return res.status(200).json(response);
+      } else {
+        return res.status(200).json({
+          errCode: 1,
+          message: "Please choose a photo !",
+        });
+      }
     }
   });
   // const response = await editProduct(req.body);

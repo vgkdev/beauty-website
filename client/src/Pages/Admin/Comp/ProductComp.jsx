@@ -1,27 +1,66 @@
-import { Box, Button, Flex, Image, Select, SimpleGrid, Spacer, Text } from '@chakra-ui/react'
-import axios from 'axios'
-import React from 'react'
+import {
+  Box,
+  Button,
+  Flex,
+  Image,
+  Divider,
+  Grid,
+  Spacer,
+  Text,
+  GridItem,
+} from "@chakra-ui/react";
+import React from "react";
 
-const ProductComp = ({deletePro,name,image,_id,price,quantity,category}) => {
-    
+const ProductComp = ({
+  handleDeleteProduct,
+  productName,
+  imageUrl,
+  id,
+  price,
+  quantity,
+  Category,
+  handleShowModalProduct,
+}) => {
+  // console.log("check image url: ", imageUrl);
   return (
-    <Box textAlign={"center"}  mb="20px" border={"1px solid #9130c2"} >
-      <Text>Name - {name} </Text>
-      <Flex flexDirection={["column","row","row","row"]} alignItems='center' >
-        <Box w="35%" >
-            <Image w="100%" src={image} />
+    <Box p={"2"} textAlign={"center"} mb="20px" border={"2px solid #50555e"}>
+      <Text fontWeight={"bold"}>{productName} </Text>
+      <Divider mt="3px" mb="3px" orientation="horizontal" />
+      <Flex flexDirection={["column", "row", "row", "row"]} alignItems="center">
+        <Box w="35%">
+          <Image
+            objectFit="contain"
+            boxSize="200px"
+            src={`data:image/jpeg;base64,${imageUrl}`}
+          />
         </Box>
-        <Spacer/>
-        <SimpleGrid w="60%" mt={"15px"}  columns={[1,2,2,2,2]} spacing={10} >
+        <Spacer />
+        <Grid w="60%" mt={"15px"} templateColumns="repeat(5, 1fr)" gap={4}>
+          <GridItem colSpan={{ base: 5, lg: 4 }}>
             <Text>Price - {price} </Text>
             <Text>Quantity - {quantity} </Text>
-            <Text>Category - {category} </Text>
-            <Button colorScheme={"blue"} onClick={()=>deletePro(_id)} > Delete </Button>
-        </SimpleGrid>
-        </Flex>
+            <Text>Category name - {Category.categoryName} </Text>
+          </GridItem>
 
+          <GridItem colSpan={{ base: 5, lg: 1 }}>
+            <Button
+              mr={{ base: 5, lg: 0 }}
+              colorScheme={"blue"}
+              onClick={() => handleShowModalProduct(id, "Update")}
+            >
+              Update
+            </Button>
+            <Button
+              colorScheme={"blue"}
+              onClick={() => handleDeleteProduct(id)}
+            >
+              Delete
+            </Button>
+          </GridItem>
+        </Grid>
+      </Flex>
     </Box>
-  )
-}
+  );
+};
 
-export default ProductComp
+export default ProductComp;

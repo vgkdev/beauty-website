@@ -29,6 +29,11 @@ const AllCategories = ({
             />
           ))}
       </Box>
+      <Divider
+        my={5}
+        orientation="horizontal"
+        style={{ color: "red", size: "20" }}
+      />
       <Button
         style={{ margin: "0 auto" }}
         colorScheme="whatsapp"

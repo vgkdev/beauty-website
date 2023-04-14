@@ -12,7 +12,7 @@ export default function Navdar() {
   useEffect(() => {
     setUserName(name.name);
   });
-  console.log(name);
+  // console.log(name);
   const doIt = () => {
     seloginDropDown(false);
     seloginDropDown2(false);

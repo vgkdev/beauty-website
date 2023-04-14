@@ -5,7 +5,7 @@ const createNewCategoryService = (data) => {
   return axios.post(`${dataUrl}/create-new-category`, data);
 };
 
-const getAllCategorysService = () => {
+const getAllCategoriesService = () => {
   return axios.get(`${dataUrl}/get-all-categories`);
 };
 
@@ -23,7 +23,7 @@ const deleteCategoryService = (id) => {
 
 export {
   createNewCategoryService,
-  getAllCategorysService,
+  getAllCategoriesService,
   editCategoryService,
   deleteCategoryService,
 };

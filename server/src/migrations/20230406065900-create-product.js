@@ -21,11 +21,14 @@ module.exports = {
       productName: {
         type: Sequelize.STRING,
       },
+      quantity: {
+        type: Sequelize.INTEGER,
+      },
       description: {
         type: Sequelize.TEXT,
       },
       imageUrl: {
-        type: Sequelize.BLOB,
+        type: Sequelize.BLOB("long"),
       },
       price: {
         type: Sequelize.FLOAT,

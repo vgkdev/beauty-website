@@ -1,12 +1,21 @@
 import db from "../models/index";
 
 const createNewProduct = (data, image) => {
-  const { categoryId, productName, description, price } = data;
+  const { categoryId, productName, description, price, quantity } = data;
   const imageUrl = image.buffer;
-  // console.log("check imageUrl: ", image);
+  console.log("check image: ", image.buffer);
   return new Promise(async (resolve, reject) => {
     try {
-      if (!(categoryId && productName && description && price && imageUrl)) {
+      if (
+        !(
+          categoryId &&
+          productName &&
+          description &&
+          price &&
+          imageUrl &&
+          quantity
+        )
+      ) {
         resolve({
           errCode: 1,
           message: "Missing paremeter !",
@@ -30,10 +39,18 @@ const createNewProduct = (data, image) => {
           description: description,
           imageUrl: imageUrl,
           price: price,
+          quantity: quantity,
         });
 
         if (result) {
-          const product = await db.Product.findAll();
+          const product = await db.Product.findAll({
+            include: [
+              {
+                model: db.Category,
+                attributes: ["categoryName"],
+              },
+            ],
+          });
           resolve({
             errCode: 0,
             message: "Create new product successfully",
@@ -55,7 +72,14 @@ const createNewProduct = (data, image) => {
 const getALlProducts = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const product = await db.Product.findAll(); // => array
+      const product = await db.Product.findAll({
+        include: [
+          {
+            model: db.Category,
+            attributes: ["categoryName"],
+          },
+        ],
+      }); // => array
 
       if (product.length !== 0) {
         // const productsWithImageUrl = product.map((item) => ({
@@ -82,8 +106,15 @@ const getALlProducts = () => {
 };
 
 const editProduct = (data, image) => {
-  const { id, categoryId, productName, description, price, newProductName } =
-    data;
+  const {
+    id,
+    categoryId,
+    productName,
+    description,
+    price,
+    newProductName,
+    quantity,
+  } = data;
   const imageUrl = image.buffer;
   return new Promise(async (resolve, reject) => {
     try {
@@ -95,7 +126,8 @@ const editProduct = (data, image) => {
           categoryId &&
           description &&
           price &&
-          imageUrl
+          imageUrl &&
+          quantity
         )
       ) {
         console.log("check missing paremeter: ", imageUrl);
@@ -105,9 +137,14 @@ const editProduct = (data, image) => {
         });
       }
 
-      const isExist = await db.Product.findOne({
-        where: { productName: newProductName },
-      });
+      let isExist = "";
+      if (productName !== newProductName) {
+        isExist = await db.Product.findOne({
+          where: { productName: newProductName },
+        });
+      } else {
+        isExist = false;
+      }
 
       if (isExist) {
         resolve({
@@ -122,6 +159,7 @@ const editProduct = (data, image) => {
             description: description,
             imageUrl: imageUrl,
             price: price,
+            quantity: quantity,
           },
           {
             where: { id: data.id },
@@ -131,7 +169,14 @@ const editProduct = (data, image) => {
         );
 
         if (updatedRows !== 0) {
-          const product = await db.Product.findAll();
+          const product = await db.Product.findAll({
+            include: [
+              {
+                model: db.Category,
+                attributes: ["categoryName"],
+              },
+            ],
+          });
 
           resolve({
             errCode: 0,
@@ -167,7 +212,14 @@ const deleteProduct = (id) => {
 
       // console.log("check delete product: ", result);
       if (result !== 0) {
-        const product = await db.Product.findAll();
+        const product = await db.Product.findAll({
+          include: [
+            {
+              model: db.Category,
+              attributes: ["categoryName"],
+            },
+          ],
+        });
         resolve({
           errCode: 0,
           message: "Product has been deleted !",
