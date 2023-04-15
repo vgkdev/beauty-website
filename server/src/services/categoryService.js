@@ -66,21 +66,46 @@ const getALlCategories = () => {
   return new Promise(async (resolve, reject) => {
     try {
       const category = await db.Category.findAll({
-        attributes: [
-          "id",
-          "categoryName",
-          [
-            Sequelize.fn("count", Sequelize.col("Products.categoryId")),
-            "productCount",
-          ],
-        ],
         include: [
           {
             model: db.Product,
-            attributes: [],
+            attributes: [
+              [
+                Sequelize.fn("COUNT", Sequelize.col("categoryId")),
+                "productCount",
+              ],
+            ],
           },
         ],
-        group: ["Category.id"],
+        // attributes: [
+        //   "id",
+        //   "categoryName",
+        //   [
+        //     Sequelize.fn("count", Sequelize.col("Products.categoryId")),
+        //     "productCount",
+        //   ],
+        // ],
+        // include: [
+        //   {
+        //     model: db.Product,
+        //     attributes: [],
+        //   },
+        // ],
+        include: {
+          model: db.Product,
+          where: { categoryId: Sequelize.col("Category.id") },
+          // attributes: [
+          //   "id",
+          //   "categoryId",
+          //   "productName",
+          //   "quantity",
+          //   "description",
+          //   "imageUrl",
+          //   "price",
+          // ],
+          required: false,
+        },
+        // group: ["Category.id"],
       }); // => array
 
       if (category.length !== 0) {

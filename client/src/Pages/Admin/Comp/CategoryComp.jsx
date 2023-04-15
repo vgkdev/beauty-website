@@ -4,7 +4,7 @@ import React from "react";
 const CategoryComp = ({
   id,
   categoryName,
-  productCount,
+  Products,
   handleShowModalCategory,
   handleDeleteCategory,
 }) => {
@@ -13,7 +13,7 @@ const CategoryComp = ({
       <Grid templateColumns="repeat(5, 1fr)" gap={4}>
         <GridItem colSpan={{ base: 5, md: 3, lg: 4 }}>
           <Text fontSize="lg">
-            {categoryName} ({productCount} products)
+            {categoryName} ({Products.length} products)
           </Text>
         </GridItem>
 

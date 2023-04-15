@@ -105,7 +105,7 @@ const getALlProducts = () => {
   });
 };
 
-const editProduct = (data, image) => {
+const editProduct = (data) => {
   const {
     id,
     categoryId,
@@ -115,7 +115,7 @@ const editProduct = (data, image) => {
     newProductName,
     quantity,
   } = data;
-  const imageUrl = image.buffer;
+
   return new Promise(async (resolve, reject) => {
     try {
       if (
@@ -126,11 +126,9 @@ const editProduct = (data, image) => {
           categoryId &&
           description &&
           price &&
-          imageUrl &&
           quantity
         )
       ) {
-        console.log("check missing paremeter: ", imageUrl);
         resolve({
           errCode: 1,
           message: "Missing paremeter !",
@@ -157,7 +155,6 @@ const editProduct = (data, image) => {
             categoryId: categoryId,
             productName: newProductName,
             description: description,
-            imageUrl: imageUrl,
             price: price,
             quantity: quantity,
           },
@@ -189,6 +186,56 @@ const editProduct = (data, image) => {
             message: "Product not found !",
           });
         }
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+const editProductInage = (data, image) => {
+  const imageUrl = image.buffer;
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!imageUrl) {
+        // console.log("check missing paremeter: ", imageUrl);
+        resolve({
+          errCode: 1,
+          message: "Missing paremeter !",
+        });
+      }
+
+      const [numAffectedRows, updatedRows] = await db.Product.update(
+        {
+          imageUrl: imageUrl,
+        },
+        {
+          where: { id: data.id },
+          returning: true,
+          plain: true,
+        }
+      );
+
+      if (updatedRows !== 0) {
+        const product = await db.Product.findAll({
+          include: [
+            {
+              model: db.Category,
+              attributes: ["categoryName"],
+            },
+          ],
+        });
+
+        resolve({
+          errCode: 0,
+          message: "Product image has been updated",
+          product,
+        });
+      } else {
+        resolve({
+          errCode: 3,
+          message: "Product not found !",
+        });
       }
     } catch (e) {
       reject(e);
@@ -241,5 +288,6 @@ module.exports = {
   createNewProduct,
   getALlProducts,
   editProduct,
+  editProductInage,
   deleteProduct,
 };

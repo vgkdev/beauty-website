@@ -22,19 +22,37 @@ import Topnavbar from "./Components/MyAccount/Topnavbar";
 import { Navbar } from "./Components/NavBar/NavBar";
 import { useMedia } from "./MediaQuery/UseMedia";
 import AllRoutes from "./Routes/AllRoutes";
+import logoApp from "./assets/images/logo-app.png";
+import { useEffect, useState } from "react";
+import { getAllProductsService } from "./api/productApi";
+import { Buffer } from "buffer";
+
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategories } from "./reducers/categories";
 
 function App() {
   const { smallScreen, mediumScreen } = useMedia();
+
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.categories.categories);
+  const loading = useSelector((state) => state.categories.loading);
+  const error = useSelector((state) => state.categories.error);
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+    // console.log("check categories redux: ", categories);
+  }, [dispatch]);
+
   return (
     <div className="App">
-      <Topnavbar />
+      {/* <Topnavbar /> */}
       {mediumScreen && <Navdar />}
 
       {mediumScreen && <Navbar />}
       {!mediumScreen && (
         <Flex
           style={{ position: "sticky", top: "0px", zIndex: 12 }}
-          bgColor={"pink.500"}
+          bgColor={"#6bc6d9"}
           w="100%"
           justifyContent={"space-between"}
           p={"5px 5%"}
@@ -44,7 +62,7 @@ function App() {
               <img
                 alt="logo"
                 style={{ width: "100%", borderRadius: "5px" }}
-                src="http://localhost:3000/static/media/beautybebo_logo.d62a355dd09d371e83e2.png"
+                src={logoApp}
               />{" "}
             </Link>
           </div>

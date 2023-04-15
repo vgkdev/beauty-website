@@ -8,28 +8,26 @@ const Most = () => {
   const [pro, setPro] = useState([]);
 
   const getPro = () => {
-    axios
-      .get(`${dataUrl}/products/`)
-      .then((res) => setPro(res.data))
-      .catch((er) => console.log(er));
+    // axios
+    //   .get(`${dataUrl}/products/`)
+    //   .then((res) => setPro(res.data))
+    //   .catch((er) => console.log(er));
   };
 
   useEffect(() => {
     getPro();
   }, []);
-  const addcart=(payload)=>{
-    axios.post(`${dataUrl}/order/add`,payload)
-    .then((res) => toast.success("Item added to your Cart"))
+  const addcart = (payload) => {
+    axios
+      .post(`${dataUrl}/order/add`, payload)
+      .then((res) => toast.success("Item added to your Cart"))
       .catch((er) => toast.error("something went wrong!"));
-  }
+  };
   const handleCart = (id) => {
-    
-
-      axios
-      .get(`${dataUrl}/products/${id}`)
-      .then((res) =>addcart(res.data))
-      .catch((er) => console.log(er));
-  
+    // axios
+    //   .get(`${dataUrl}/products/${id}`)
+    //   .then((res) => addcart(res.data))
+    //   .catch((er) => console.log(er));
   };
   return (
     <div>

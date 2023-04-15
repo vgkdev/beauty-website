@@ -3,7 +3,7 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { GiShoppingBag } from "react-icons/gi";
 import { NavSingle } from "./navSingle";
 import { Link } from "react-router-dom";
-import "./cart.css"
+import "./cart.css";
 export const BottomNav = () => {
   const [navDropDown, setnavDropDown] = useState(false);
   const [makeup, setMakeup] = useState(false);
@@ -204,6 +204,7 @@ export const BottomNav = () => {
     { "": ["Perfumes", "Deodorants roll ons", "Body Mist/Spray"] },
   ];
   const brands = [{ "": [] }];
+
   return (
     <div id="bottom_nav">
       <div id="nav_content">
@@ -223,8 +224,9 @@ export const BottomNav = () => {
             setnavDropDown(false);
           }}
         >
-          MAKEUP <IoIosArrowDown />
+          MAKE UP <IoIosArrowDown />
         </div>
+
         <div
           onMouseEnter={() => {
             setnavDropDown(true);
@@ -243,6 +245,7 @@ export const BottomNav = () => {
         >
           SKIN <IoIosArrowDown />
         </div>
+
         <div
           onMouseEnter={() => {
             setnavDropDown(true);
@@ -261,6 +264,7 @@ export const BottomNav = () => {
         >
           HAIR <IoIosArrowDown />
         </div>
+
         <div
           onMouseEnter={() => {
             setnavDropDown(true);
@@ -279,7 +283,8 @@ export const BottomNav = () => {
         >
           PERSONAL CARE <IoIosArrowDown />
         </div>
-        <div
+
+        {/* <div
           onMouseEnter={() => {
             setnavDropDown(true);
             setMakeup(false);
@@ -296,8 +301,9 @@ export const BottomNav = () => {
           }}
         >
           MOM & BABY CARE <IoIosArrowDown />
-        </div>
-        <div
+        </div> */}
+
+        {/* <div
           onMouseEnter={() => {
             setnavDropDown(true);
             setMakeup(false);
@@ -314,8 +320,9 @@ export const BottomNav = () => {
           }}
         >
           FRAGRANCE <IoIosArrowDown />
-        </div>
-        <div
+        </div> */}
+
+        {/* <div
           onMouseEnter={() => {
             setnavDropDown(true);
             setMakeup(false);
@@ -332,8 +339,9 @@ export const BottomNav = () => {
           }}
         >
           AYURVEDA <IoIosArrowDown />
-        </div>
-        <div
+        </div> */}
+
+        {/* <div
           onMouseEnter={() => {
             setnavDropDown(true);
             setMakeup(false);
@@ -350,14 +358,17 @@ export const BottomNav = () => {
           }}
         >
           BRANDS <IoIosArrowDown />
-        </div>
+        </div> */}
+
         <Link to="/cart">
           <div id="cart">
             <GiShoppingBag></GiShoppingBag> MY CART
           </div>
         </Link>
       </div>
-      {navDropDown ? (
+
+      {/* dropdown */}
+      {/* {navDropDown ? (
         <>
           <NavSingle
             array={makeupArr}
@@ -408,7 +419,7 @@ export const BottomNav = () => {
             setnav={setnavDropDown}
           ></NavSingle>
         </>
-      ) : null}
+      ) : null} */}
     </div>
   );
 };

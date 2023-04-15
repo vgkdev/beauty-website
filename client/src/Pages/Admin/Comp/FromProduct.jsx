@@ -9,18 +9,24 @@ import {
 } from "@chakra-ui/react";
 
 const FormProduct = (props) => {
-  const { product, categories, type, handleEditProduct, handleCreateProduct } =
-    props;
+  const {
+    product,
+    categories,
+    type,
+    handleEditProduct,
+    handleCreateProduct,
+    handleEditProductImage,
+  } = props;
   const [categoryId, setCategoryId] = useState("");
   const [productName, setProductName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState();
   const [price, setPrice] = useState("");
-  console.log("check product form: ", product);
+  // console.log("check product form: ", product);
 
   useEffect(() => {
-    if (type !== "Create") {
+    if (type === "Update") {
       setProductName(product.productName);
       setQuantity(product.quantity);
       setPrice(product.price);
@@ -41,7 +47,7 @@ const FormProduct = (props) => {
         imageUrl: imageUrl,
       };
       handleCreateProduct(data);
-    } else {
+    } else if (type === "Update") {
       const data = {
         id: product.id,
         newProductName: productName,
@@ -50,9 +56,15 @@ const FormProduct = (props) => {
         quantity: quantity,
         price: price,
         description: description,
+      };
+      console.log("check data in form: ", data);
+      handleEditProduct(data);
+    } else {
+      const data = {
+        id: product.id,
         imageUrl: imageUrl,
       };
-      handleEditProduct(data);
+      handleEditProductImage(data);
     }
   };
 
@@ -60,7 +72,7 @@ const FormProduct = (props) => {
   return (
     <form>
       <Stack spacing={3}>
-        <FormControl>
+        <FormControl display={type === "Update_image" ? "none" : ""}>
           <FormLabel>Product name</FormLabel>
           <Input
             type="text"
@@ -71,7 +83,7 @@ const FormProduct = (props) => {
           />
         </FormControl>
 
-        <FormControl>
+        <FormControl display={type === "Update_image" ? "none" : ""}>
           <FormLabel>Quantity</FormLabel>
           <Input
             type="text"
@@ -82,7 +94,7 @@ const FormProduct = (props) => {
           />
         </FormControl>
 
-        <FormControl>
+        <FormControl display={type === "Update_image" ? "none" : ""}>
           <FormLabel>Price</FormLabel>
           <Input
             type="text"
@@ -93,7 +105,7 @@ const FormProduct = (props) => {
           />
         </FormControl>
 
-        <FormControl>
+        <FormControl display={type === "Update_image" ? "none" : ""}>
           <FormLabel>Description</FormLabel>
           <Input
             type="text"
@@ -104,7 +116,7 @@ const FormProduct = (props) => {
           />
         </FormControl>
 
-        <FormControl>
+        <FormControl display={type === "Update_image" ? "none" : ""}>
           <FormLabel>Category Name</FormLabel>
           <Select
             name="categoryName"
@@ -120,7 +132,7 @@ const FormProduct = (props) => {
           </Select>
         </FormControl>
 
-        <FormControl>
+        <FormControl display={type === "Update" ? "none" : ""}>
           <FormLabel>Image</FormLabel>
           <Input
             type="file"

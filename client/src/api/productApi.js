@@ -18,7 +18,11 @@ const getAllProductsService = () => {
 };
 
 const editProductService = (data) => {
-  return axios.put(`${dataUrl}/edit-product`, data, {
+  return axios.put(`${dataUrl}/edit-product`, data);
+};
+
+const editProductImageService = (data) => {
+  return axios.put(`${dataUrl}/edit-image-product`, data, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -37,5 +41,6 @@ export {
   createNewProductService,
   getAllProductsService,
   editProductService,
+  editProductImageService,
   deleteProductService,
 };

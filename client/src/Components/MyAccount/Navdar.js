@@ -3,7 +3,8 @@ import { FiSearch } from "react-icons/fi";
 import "./Responsive.css";
 import { BsSuitHeartFill, BsPersonFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import logo1 from "../NavBar/beautybebo_logo.png";
+import logo1 from "../../assets/images/logo-app.png";
+import { Image } from "@chakra-ui/react";
 export default function Navdar() {
   const [loginDropDown, seloginDropDown] = useState(false);
   const [loginDropDown2, seloginDropDown2] = useState(false);
@@ -36,17 +37,16 @@ export default function Navdar() {
     "------CC Cream",
   ];
   return (
-    <div
-      className="mid_nav_main"
-      style={{ backgroundColor: "rgb(247,247,247)" }}
-    >
+    <div className="mid_nav_main" style={{ backgroundColor: "#6bc6d9" }}>
       <div className="mid_nav_mid">
+        {/* logo */}
         <div className="mid_nav_first">
           <div style={{ width: "30%", paddingLeft: "5%", marginTop: "-15px" }}>
             <Link to={"/"}>
-              <img alt="" style={{ width: "100%" }} src={logo1} />{" "}
+              <Image alt="logo" objectFit={"contain"} src={logo1} />{" "}
             </Link>
           </div>
+          {/* end logo */}
 
           <div className="logo_div">
             <div
@@ -88,6 +88,7 @@ export default function Navdar() {
             ) : null}
           </div>
 
+          {/* search bar */}
           <div className="search_div">
             <select className="select">
               <option>All Categories</option>
@@ -98,10 +99,14 @@ export default function Navdar() {
               ))}
             </select>
             <input className="input" type="search" style={{ border: "none" }} />
-            <div className="search_icon">
+            <div
+              className="search_icon"
+              style={{ backgroundColor: "#ffffff", color: "black" }}
+            >
               <FiSearch />
             </div>
           </div>
+          {/* end search bar */}
         </div>
 
         <div className="mid_nav_sec">

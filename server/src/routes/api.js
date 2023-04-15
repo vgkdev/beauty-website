@@ -20,6 +20,7 @@ import {
   handleCreateNewProduct,
   handleGetALlProducts,
   handleEditProduct,
+  handleEditProductImage,
   handleDeleteProduct,
 } from "../controllers/productController";
 
@@ -50,6 +51,7 @@ let initAPIRoutes = (app) => {
   router.post("/create-new-product", handleCreateNewProduct);
   router.get("/get-all-products", handleGetALlProducts);
   router.put("/edit-product", handleEditProduct);
+  router.put("/edit-image-product", handleEditProductImage);
   router.delete("/delete-product", handleDeleteProduct);
 
   return app.use("/api/v1/", router);

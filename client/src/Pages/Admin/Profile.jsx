@@ -47,6 +47,7 @@ import { createNewCategoryService } from "../../api/categoryApi";
 import {
   createNewProductService,
   deleteProductService,
+  editProductImageService,
   editProductService,
   getAllProductsService,
 } from "../../api/productApi";
@@ -142,7 +143,6 @@ export const Profile = () => {
   const handleShowModalProduct = (id, type) => {
     if (type !== "Create") {
       const product = products.filter((value) => value.id === id);
-      // console.log("check detail product: ", product[0]);
       setProductDetailInModal(product[0]);
     } else {
       setProductDetailInModal(null);
@@ -240,7 +240,7 @@ export const Profile = () => {
   const getAllCategories = async () => {
     const response = await getAllCategoriesService();
     if (response.data.errCode === 0) {
-      // console.log("check categories: ", response.data.category);
+      console.log("check categories: ", response.data.category);
       setCategories(response.data.category);
       printS(response.data.message);
     } else {
@@ -319,6 +319,24 @@ export const Profile = () => {
 
   const editProduct = async (data) => {
     const response = await editProductService(data);
+    if (response.data.errCode === 0) {
+      const products = response.data.product;
+      for (let i = 0; i < products.length; i++) {
+        const buffer = products[i].imageUrl;
+        const base64String = new Buffer(buffer, "base64").toString("base64");
+        products[i].imageUrl = base64String;
+      }
+      // console.log("check products: ", products);
+      setProducts(products);
+      printS(response.data.message);
+      setIsModalProductOpen(false);
+    } else {
+      printF(response.data.message);
+    }
+  };
+
+  const editProductImage = async (data) => {
+    const response = await editProductImageService(data);
     if (response.data.errCode === 0) {
       const products = response.data.product;
       for (let i = 0; i < products.length; i++) {
@@ -503,6 +521,7 @@ export const Profile = () => {
                 type={modalType}
                 handleEditProduct={editProduct}
                 handleCreateProduct={handleCreateProduct}
+                handleEditProductImage={editProductImage}
               />
             </ModalBody>
             <ModalFooter>

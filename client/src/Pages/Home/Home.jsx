@@ -19,6 +19,12 @@ import banner3 from "../../assets/images/banner3.jpg";
 import banner4 from "../../assets/images/banner4.jpg";
 import banner5 from "../../assets/images/banner5.jpg";
 import banner6 from "../../assets/images/banner6.jpg";
+import makeupIcon from "../../assets/images/makeup-icon.jpg";
+import hairIcon from "../../assets/images/hair-icon.jpg";
+import skinCareIcon from "../../assets/images/skincare-icon.jpg";
+import personalCareIcon from "../../assets/images/personal-care-icon.jpg";
+import perfumeIcon from "../../assets/images/perfume-icon.jpg";
+import motherAndBabyIcon from "../../assets/images/mother-and-baby-icon.jpg";
 
 const Home = () => {
   const settings = {
@@ -33,15 +39,15 @@ const Home = () => {
   };
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(`${dataUrl}/products/`)
-      .then((res) => setData(res.data))
-      .catch((er) => console.log(er));
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${dataUrl}/products/`)
+  //     .then((res) => setData(res.data))
+  //     .catch((er) => console.log(er));
+  // }, []);
 
   useEffect(() => {
-    console.log("data------", data);
+    // console.log("data------", data);
   }, [data]);
 
   return (
@@ -57,6 +63,7 @@ const Home = () => {
         border="0.3px solid grey"
         style={{ zIndex: "-100" }}
       >
+        {/* option */}
         <Box
           ml={["16px", "16px", "16px"]}
           display={["none", "block", null, null, null]}
@@ -80,9 +87,11 @@ const Home = () => {
           <Box display="flex" p={["1px 10px", "1px 4px", "4px 11px"]}>
             <Box>
               <Image
-                width={["69%", "68%", "78%"]}
+                // width={["69%", "68%", "78%"]}
                 marginRight="5px"
-                src="https://www.beautybebo.com/pub/media/wysiwyg/menu-icons/makeup-small.png"
+                boxSize={"30px"}
+                objectFit={"contain"}
+                src={makeupIcon}
               />
             </Box>
             <NavLink to="/skin">
@@ -96,7 +105,9 @@ const Home = () => {
               <Image
                 width={["69%", "68%", "78%"]}
                 marginRight="5px"
-                src="https://www.beautybebo.com/pub/media/wysiwyg/menu-icons/skin-small.png"
+                boxSize={"30px"}
+                objectFit={"contain"}
+                src={hairIcon}
               />
             </Box>
             <NavLink to="/skin">
@@ -110,7 +121,9 @@ const Home = () => {
               <Image
                 width={["69%", "68%", "78%"]}
                 marginRight="5px"
-                src="https://www.beautybebo.com/pub/media/wysiwyg/menu-icons/hair-small.png"
+                boxSize={"30px"}
+                objectFit={"contain"}
+                src={skinCareIcon}
               />
             </Box>
             <NavLink to="/skin">
@@ -124,7 +137,9 @@ const Home = () => {
               <Image
                 width={["69%", "68%", "78%"]}
                 marginRight="5px"
-                src="https://www.beautybebo.com/pub/media/wysiwyg/menu-icons/personal-care-small.png"
+                boxSize={"30px"}
+                objectFit={"contain"}
+                src={personalCareIcon}
               />
             </Box>
             <NavLink to="/skin">
@@ -139,12 +154,14 @@ const Home = () => {
               <Image
                 width={["69%", "68%", "78%"]}
                 marginRight="5px"
-                src="https://www.beautybebo.com/pub/media/fragrance.png"
+                boxSize={"30px"}
+                objectFit={"contain"}
+                src={perfumeIcon}
               />
             </Box>
             <NavLink to="/skin">
               <Box>
-                <Text fontSize={["12px", "12px", "15px"]}>Fragnance</Text>
+                <Text fontSize={["12px", "12px", "15px"]}>Perfume</Text>
               </Box>
             </NavLink>
           </Box>
@@ -153,16 +170,20 @@ const Home = () => {
               <Image
                 width={["69%", "68%", "78%"]}
                 marginRight="5px"
-                src="https://www.beautybebo.com/pub/media/ayurveda.png"
+                boxSize={"30px"}
+                objectFit={"contain"}
+                src={motherAndBabyIcon}
               />
             </Box>
             <NavLink to="/skin">
               <Box>
-                <Text fontSize={["12px", "12px", "15px"]}>Ayurveda</Text>
+                <Text fontSize={["12px", "12px", "15px"]}>Mother and baby</Text>
               </Box>
             </NavLink>
           </Box>
         </Box>
+        {/* end option */}
+        {/* Slider */}
         <Box
           p="0.5px"
           margin="auto"
@@ -171,16 +192,25 @@ const Home = () => {
         >
           <Slider {...settings}>
             <Box>
-              <Image w={"100%"} /*h={"500px"}*/ src={banner1} />
+              <Image
+                objectFit="contain"
+                boxSize={"fit-content"}
+                src={banner1}
+              />
             </Box>
             <Box>
-              <Image w={"100%"} /*h={"500px"}*/ src={banner2} />
+              <Image
+                objectFit="contain"
+                boxSize={"fit-content"}
+                src={banner2}
+              />
             </Box>
           </Slider>
         </Box>
       </Box>
+      {/* end menu */}
 
-      <Hotdeals dt={data} />
+      {/* <Hotdeals dt={data} /> */}
       <br />
       <Box w="90%" m="auto">
         <Image w="100%" src={banner3} />

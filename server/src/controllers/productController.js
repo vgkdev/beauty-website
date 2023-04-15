@@ -1,8 +1,8 @@
-import e from "express";
 import {
   createNewProduct,
   getALlProducts,
   editProduct,
+  editProductInage,
   deleteProduct,
 } from "../services/productService";
 
@@ -51,6 +51,11 @@ const handleGetALlProducts = async (req, res) => {
 };
 
 const handleEditProduct = async (req, res) => {
+  const response = await editProduct(req.body);
+  return res.status(200).json(response);
+};
+
+const handleEditProductImage = async (req, res) => {
   upload(req, res, async (err) => {
     if (err) {
       console.error(err);
@@ -58,7 +63,7 @@ const handleEditProduct = async (req, res) => {
     } else {
       if (req.file) {
         console.log("check file: ", req.file);
-        const response = await editProduct(req.body, req.file);
+        const response = await editProductInage(req.body, req.file);
         return res.status(200).json(response);
       } else {
         return res.status(200).json({
@@ -68,8 +73,6 @@ const handleEditProduct = async (req, res) => {
       }
     }
   });
-  // const response = await editProduct(req.body);
-  // return res.status(200).json(response);
 };
 
 const handleDeleteProduct = async (req, res) => {
@@ -81,5 +84,6 @@ module.exports = {
   handleCreateNewProduct,
   handleGetALlProducts,
   handleEditProduct,
+  handleEditProductImage,
   handleDeleteProduct,
 };

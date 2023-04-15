@@ -48,7 +48,14 @@ const ProductComp = ({
               colorScheme={"blue"}
               onClick={() => handleShowModalProduct(id, "Update")}
             >
-              Update
+              Update product
+            </Button>
+            <Button
+              mr={{ base: 5, lg: 0 }}
+              colorScheme={"blue"}
+              onClick={() => handleShowModalProduct(id, "Update_image")}
+            >
+              Update image
             </Button>
             <Button
               colorScheme={"blue"}

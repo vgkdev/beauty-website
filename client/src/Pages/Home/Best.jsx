@@ -8,24 +8,23 @@ import { ToastContainer, toast } from "react-toastify";
 const Best = () => {
   const [pro, setPro] = useState([]);
 
-  console.log("pro");
-
-  useEffect(() => {
+  // useEffect(() => {
+  //   axios
+  //     .get(`${dataUrl}/products/`)
+  //     .then((res) => setPro(res.data))
+  //     .catch((er) => console.log(er));
+  // }, []);
+  const addcart = (payload) => {
     axios
-      .get(`${dataUrl}/products/`)
-      .then((res) => setPro(res.data))
-      .catch((er) => console.log(er));
-  }, []);
-  const addcart=(payload)=>{
-    axios.post(`${dataUrl}/order/add`,payload)
-    .then((res)=>console.log(res))
-    .catch((err)=>console.log(err))
-  }
+      .post(`${dataUrl}/order/add`, payload)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
   const handleCart = (id) => {
-    console.log(id)
+    console.log(id);
     axios
       .get(`${dataUrl}/products/${id}`)
-      .then((res) =>addcart(res.data))
+      .then((res) => addcart(res.data))
       .catch((er) => console.log(er));
   };
   return (

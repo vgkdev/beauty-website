@@ -16,19 +16,17 @@ import axios from "axios";
 
 import { dataUrl } from "../../share";
 const Hotdeals = ({ dt }) => {
-  const addcart=(payload)=>{
-    axios.post(`${dataUrl}/order/add`,payload)
-    .then((res) => toast.success("Item added to your Cart"))
+  const addcart = (payload) => {
+    axios
+      .post(`${dataUrl}/order/add`, payload)
+      .then((res) => toast.success("Item added to your Cart"))
       .catch((er) => toast.error("something went wrong!"));
-  }
+  };
   const handleCart = (id) => {
-    
-
-      axios
-      .get(`${dataUrl}/products/${id}`)
-      .then((res) =>addcart(res.data))
-      .catch((er) => console.log(er));
-  
+    // axios
+    //   .get(`${dataUrl}/products/${id}`)
+    //   .then((res) => addcart(res.data))
+    //   .catch((er) => console.log(er));
   };
   //console.log("hotdeal",data)
   return (

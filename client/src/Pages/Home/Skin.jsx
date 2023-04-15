@@ -18,10 +18,10 @@ const Skin = () => {
   const { token } = JSON.parse(localStorage.getItem("UserToken")) || false;
   console.log(pro);
   const getPro = () => {
-    axios
-      .get(`${dataUrl}/products/`)
-      .then((res) => setPro(res.data))
-      .catch((er) => console.log(er));
+    // axios
+    //   .get(`${dataUrl}/products/`)
+    //   .then((res) => setPro(res.data))
+    //   .catch((er) => console.log(er));
   };
 
   useEffect(() => {
@@ -35,10 +35,10 @@ const Skin = () => {
       .catch((er) => toast.error("something went wrong!"));
   };
   const handleCart = (id) => {
-    axios
-      .get(`${dataUrl}/products/${id}`)
-      .then((res) => addcart(res.data))
-      .catch((er) => console.log(er));
+    // axios
+    //   .get(`${dataUrl}/products/${id}`)
+    //   .then((res) => addcart(res.data))
+    //   .catch((er) => console.log(er));
   };
   // if (!token) {
   //   return <Navigate to="/login" />;
