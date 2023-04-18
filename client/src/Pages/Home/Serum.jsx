@@ -15,20 +15,21 @@ import { Navigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { MainProducts } from "../../Components/MainProducts";
+import Loading from "../../Components/Loading";
 
-const Skin = () => {
+const Serum = () => {
   const [products, setProducts] = useState([]);
   const { token } = JSON.parse(localStorage.getItem("UserToken")) || false;
 
   const categories = useSelector((state) => state.categories.categories);
 
   useEffect(() => {
-    const skinProducts = categories.filter((value) => {
-      return value.categoryName === "Skin care";
+    const serumProducts = categories.filter((value) => {
+      return value.categoryName === "Treatment";
     });
-    setProducts(skinProducts[0].Products);
+    setProducts(serumProducts[0].Products);
   }, [categories]);
-  console.log("check products: ", products);
+  console.log("check data from Serum: ", categories);
 
   return (
     <Box p={5}>
@@ -39,7 +40,7 @@ const Skin = () => {
         fontWeight="semibold"
         margin="15px"
       >
-        Skin Products
+        Serum Products
       </Text>
 
       <Wrap justify="center" my={"16"}>
@@ -61,4 +62,4 @@ const Skin = () => {
     </Box>
   );
 };
-export default Skin;
+export default Serum;

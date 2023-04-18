@@ -29,6 +29,7 @@ import { Buffer } from "buffer";
 
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "./reducers/categories";
+import Loading from "./Components/Loading";
 
 function App() {
   const { smallScreen, mediumScreen } = useMedia();
@@ -45,11 +46,13 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Topnavbar /> */}
-      {mediumScreen && <Navdar />}
+      {loading && <Loading />}
 
-      {mediumScreen && <Navbar />}
-      {!mediumScreen && (
+      {/* <Topnavbar /> */}
+      {mediumScreen && !loading && <Navdar />}
+
+      {mediumScreen && !loading && <Navbar />}
+      {!mediumScreen && !loading && (
         <Flex
           style={{ position: "sticky", top: "0px", zIndex: 12 }}
           bgColor={"#6bc6d9"}
@@ -124,8 +127,8 @@ function App() {
           </Flex>
         </Flex>
       )}
-      <AllRoutes />
-      <Footer />
+      {!loading && <AllRoutes />}
+      {!loading && <Footer />}
     </div>
   );
 }

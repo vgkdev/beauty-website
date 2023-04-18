@@ -1,30 +1,67 @@
 import { FaShoppingCart, FaRegBookmark, FaStar } from "react-icons/fa";
+import {
+  Card,
+  CardBody,
+  Stack,
+  Heading,
+  Text,
+  Divider,
+  CardFooter,
+  ButtonGroup,
+  Button,
+  Box,
+  Container,
+} from "@chakra-ui/react";
 import "./Products/Products.css";
+import { Image } from "@chakra-ui/react";
 export function MainProducts(props) {
+  const { setnav, setState } = props;
+  // console.log("check product from main products: ", props);
   return (
-    <div className="productList">
-      <div key={props.id} className="productCard">
-        <img src={props.image} className="productImage" alt="product-img"></img>
-        <h3 className="productName">{props.name}</h3>
-        <div className="displayStack_2">
-          <div className="productRating">
-            {[...Array(props.rating)].map((index) => (
-              <FaStar id={index + 1} key={index} />
-            ))}
-          </div>
-        </div>
-        <div className="productCard__content">
-          <div className="displayStack__1">
-            <div className="originalPrice">{props.originalprice}</div>
-            <div className="productPrice">{props.price}</div>
-            <div className="discount">{props.discount}</div>
-          </div>
-        </div>
-        <div className="displayStack__3">
-          <FaShoppingCart className={"productCard__cart"} />
-          <FaRegBookmark className={"productCard__wishlist"} />
-        </div>
-      </div>
-    </div>
+    <Box
+      // onMouseEnter={() => {
+      //   setnav(true);
+      //   setState(true);
+      // }}
+      // onMouseLeave={() => {
+      //   // setnav(false);
+      //   // setState(true);
+      // }}
+      border={"1px solid #757491"}
+      borderRadius={"5px"}
+      maxW={"270"}
+    >
+      <Card size="sm">
+        <CardBody>
+          <Image
+            margin={"0 auto"}
+            alignItems={"center"}
+            style={{ zIndex: "1000" }}
+            objectFit="contain"
+            boxSize="130"
+            src={`data:image/jpeg;base64,${props.image}`}
+            alt="product-img"
+          />
+          <Stack mt="6" spacing="3">
+            <Heading size="md">{props.name}</Heading>
+            <Text fontSize="sm">{props.description}</Text>
+            <Text color="blue.600" fontSize="md">
+              {props.price}đ
+            </Text>
+          </Stack>
+        </CardBody>
+        <Divider />
+        <CardFooter>
+          <ButtonGroup spacing="2">
+            <Button size={"sm"} variant="solid" colorScheme="blue">
+              Buy now
+            </Button>
+            <Button size={"sm"} variant="ghost" colorScheme="blue">
+              Add to cart
+            </Button>
+          </ButtonGroup>
+        </CardFooter>
+      </Card>
+    </Box>
   );
 }

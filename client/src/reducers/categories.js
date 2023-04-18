@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Buffer } from "buffer";
 
 import {
   editCategoryService,
@@ -6,7 +7,7 @@ import {
 } from "../api/categoryApi";
 
 const initialState = {
-  loading: false,
+  loading: true,
   categories: [],
   error: null,
 };
@@ -61,7 +62,20 @@ export const fetchCategories = () => async (dispatch) => {
     dispatch(getProductStart());
     const response = await getAllCategoriesService();
     console.log("check categories redux: ", response.data.category);
-    dispatch(getProductSuccess(response.data.category));
+
+    const categories = response.data.category;
+    for (let i = 0; i < categories.length; i++) {
+      const products = categories[i].Products;
+      console.log("products in reducer: ", products);
+      for (let j = 0; j < products.length; j++) {
+        // console.log("check image product: ", products[j]);
+        const buffer = products[j].imageUrl;
+        const base64String = new Buffer(buffer, "base64").toString("base64");
+        categories[i].Products[j].imageUrl = base64String;
+      }
+    }
+    console.log("check categories convert: ", categories);
+    dispatch(getProductSuccess(categories));
   } catch (error) {
     dispatch(getProductFailure(error.message));
   }

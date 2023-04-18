@@ -4,8 +4,15 @@ import { GiShoppingBag } from "react-icons/gi";
 import { NavSingle } from "./navSingle";
 import { Link } from "react-router-dom";
 import "./cart.css";
-export const BottomNav = () => {
+export const BottomNav = (props) => {
+  const { serumProducts, skinProducts, hairProducts, personalProducts } = props;
+
   const [navDropDown, setnavDropDown] = useState(false);
+  const [dropDownSerum, setDropDownSerum] = useState(false);
+  const [dropDownSkin, setDropDownSkin] = useState(false);
+  const [dropDownHair, setDropDownHair] = useState(false);
+  const [dropDownPersonalCare, setDropDownPersonalCare] = useState(false);
+
   const [makeup, setMakeup] = useState(false);
   const [skin, setSkin] = useState(false);
   const [hair, setHair] = useState(false);
@@ -204,13 +211,13 @@ export const BottomNav = () => {
     { "": ["Perfumes", "Deodorants roll ons", "Body Mist/Spray"] },
   ];
   const brands = [{ "": [] }];
-
   return (
     <div id="bottom_nav">
+      {/* menu */}
       <div id="nav_content">
         <div
           onMouseEnter={() => {
-            setnavDropDown(true);
+            setDropDownSerum(true);
             setSkin(false);
             setHair(false);
             setPcare(false);
@@ -221,15 +228,15 @@ export const BottomNav = () => {
             setMakeup(true);
           }}
           onMouseLeave={() => {
-            setnavDropDown(false);
+            setDropDownSerum(false);
           }}
         >
-          MAKE UP <IoIosArrowDown />
+          SẢN PHẨM ĐẶC TRỊ <IoIosArrowDown />
         </div>
 
         <div
           onMouseEnter={() => {
-            setnavDropDown(true);
+            setDropDownSkin(true);
             setMakeup(false);
             setHair(false);
             setPcare(false);
@@ -240,15 +247,15 @@ export const BottomNav = () => {
             setSkin(true);
           }}
           onMouseLeave={() => {
-            setnavDropDown(false);
+            setDropDownSkin(false);
           }}
         >
-          SKIN <IoIosArrowDown />
+          DƯỠNG DA <IoIosArrowDown />
         </div>
 
         <div
           onMouseEnter={() => {
-            setnavDropDown(true);
+            setDropDownHair(true);
             setMakeup(false);
             setSkin(false);
             setPcare(false);
@@ -259,15 +266,15 @@ export const BottomNav = () => {
             setHair(true);
           }}
           onMouseLeave={() => {
-            setnavDropDown(false);
+            setDropDownHair(false);
           }}
         >
-          HAIR <IoIosArrowDown />
+          LÀM SẠCH <IoIosArrowDown />
         </div>
 
         <div
           onMouseEnter={() => {
-            setnavDropDown(true);
+            setDropDownPersonalCare(true);
             setMakeup(false);
             setSkin(false);
             setHair(false);
@@ -278,148 +285,101 @@ export const BottomNav = () => {
             setPcare(true);
           }}
           onMouseLeave={() => {
-            setnavDropDown(false);
+            setDropDownPersonalCare(false);
           }}
         >
-          PERSONAL CARE <IoIosArrowDown />
+          SẢN PHẨM CHỨC NĂNG <IoIosArrowDown />
         </div>
-
-        {/* <div
-          onMouseEnter={() => {
-            setnavDropDown(true);
-            setMakeup(false);
-            setSkin(false);
-            setHair(false);
-            setPcare(false);
-            setFrag(false);
-            setAyurveda(false);
-            setBrand(false);
-            setmom(true);
-          }}
-          onMouseLeave={() => {
-            setnavDropDown(false);
-          }}
-        >
-          MOM & BABY CARE <IoIosArrowDown />
-        </div> */}
-
-        {/* <div
-          onMouseEnter={() => {
-            setnavDropDown(true);
-            setMakeup(false);
-            setSkin(false);
-            setHair(false);
-            setPcare(false);
-            setmom(false);
-            setAyurveda(false);
-            setBrand(false);
-            setFrag(true);
-          }}
-          onMouseLeave={() => {
-            setnavDropDown(false);
-          }}
-        >
-          FRAGRANCE <IoIosArrowDown />
-        </div> */}
-
-        {/* <div
-          onMouseEnter={() => {
-            setnavDropDown(true);
-            setMakeup(false);
-            setSkin(false);
-            setHair(false);
-            setPcare(false);
-            setmom(false);
-            setFrag(false);
-            setBrand(false);
-            setAyurveda(true);
-          }}
-          onMouseLeave={() => {
-            setnavDropDown(false);
-          }}
-        >
-          AYURVEDA <IoIosArrowDown />
-        </div> */}
-
-        {/* <div
-          onMouseEnter={() => {
-            setnavDropDown(true);
-            setMakeup(false);
-            setSkin(false);
-            setHair(false);
-            setPcare(false);
-            setmom(false);
-            setFrag(false);
-            setAyurveda(false);
-            setBrand(true);
-          }}
-          onMouseLeave={() => {
-            setnavDropDown(false);
-          }}
-        >
-          BRANDS <IoIosArrowDown />
-        </div> */}
 
         <Link to="/cart">
           <div id="cart">
-            <GiShoppingBag></GiShoppingBag> MY CART
+            <GiShoppingBag></GiShoppingBag> GIỎ HÀNG
           </div>
         </Link>
       </div>
 
-      {/* dropdown */}
       {/* {navDropDown ? (
         <>
           <NavSingle
             array={makeupArr}
+            products={serumProducts}
             state={makeup}
             setState={setMakeup}
             setnav={setnavDropDown}
-          ></NavSingle>
+          />
           <NavSingle
             array={skinArr}
+            products={skinProducts}
             state={skin}
             setState={setSkin}
             setnav={setnavDropDown}
-          ></NavSingle>
+          />
           <NavSingle
             array={hairArr}
+            products={hairProducts}
             state={hair}
             setState={setHair}
             setnav={setnavDropDown}
-          ></NavSingle>
+          />
           <NavSingle
             array={personalcare}
+            products={personalProducts}
             state={pcare}
             setState={setPcare}
             setnav={setnavDropDown}
-          ></NavSingle>
-          <NavSingle
-            array={mombabyArr}
-            state={mom}
-            setState={setmom}
-            setnav={setnavDropDown}
-          ></NavSingle>
-          <NavSingle
-            array={ayurvedaArr}
-            state={ayurveda}
-            setState={setAyurveda}
-            setnav={setnavDropDown}
-          ></NavSingle>
-          <NavSingle
-            array={fragrances}
-            state={frag}
-            setState={setFrag}
-            setnav={setnavDropDown}
-          ></NavSingle>
+          />
           <NavSingle
             array={brands}
             state={brand}
             setState={setBrand}
             setnav={setnavDropDown}
-          ></NavSingle>
+          />
         </>
       ) : null} */}
+
+      {dropDownSerum && (
+        <NavSingle
+          array={makeupArr}
+          products={serumProducts}
+          state={makeup}
+          setState={setMakeup}
+          setnav={setDropDownSerum}
+          path={"/serum"}
+        />
+      )}
+
+      {dropDownSkin && (
+        <NavSingle
+          array={skinArr}
+          products={skinProducts}
+          state={skin}
+          setState={setSkin}
+          setnav={setDropDownSkin}
+          path={"/skin"}
+        />
+      )}
+
+      {dropDownHair && (
+        <NavSingle
+          array={hairArr}
+          products={hairProducts}
+          state={hair}
+          setState={setHair}
+          setnav={setDropDownHair}
+          path={"/hair"}
+        />
+      )}
+
+      {dropDownPersonalCare && (
+        <NavSingle
+          array={personalcare}
+          products={personalProducts}
+          state={pcare}
+          setState={setPcare}
+          setnav={setDropDownPersonalCare}
+          path={"/personal-care"}
+        />
+      )}
     </div>
   );
 };

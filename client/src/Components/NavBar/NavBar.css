@@ -208,6 +208,7 @@
   background-color: #6bc6d9;
   position: sticky;
   top: 0;
+  z-index: 1000;
 }
 
 #nav_content {
@@ -251,15 +252,17 @@
 #nav_dropdown {
   /* border: 1px solid black; */
   position: absolute;
-  height: 420px;
+  /* height: 420px; */
   width: 70%;
   margin: auto;
   left: 15%;
   display: flex;
-  box-shadow: rgba(176, 176, 176, 0.15) 0px 0px 3px 0px;
-  background-color: white;
+  /* box-shadow: rgba(96, 86, 86, 0.15) 0px 0px 3px 0px; */
+  box-shadow: 0 0px 5px -1px;
+  background-color: #fff;
   margin-top: 1px;
   padding-bottom: 10px;
+  border-radius: 10px;
 }
 span {
   font-size: 80%;
