@@ -6,6 +6,7 @@ import {
   loginUser,
   verifyUser,
   changePassword,
+  registerUser,
 } from "../services/userService";
 
 const handleCreateNewUser = async (req, res) => {
@@ -43,6 +44,11 @@ const handleChangePassword = async (req, res) => {
   return res.status(200).json(response);
 };
 
+const handleRegisterUser = async (req, res) => {
+  const response = await registerUser(req.body);
+  return res.status(200).json(response);
+};
+
 module.exports = {
   handleCreateNewUser,
   handleGetALlUsers,
@@ -51,4 +57,5 @@ module.exports = {
   handleLoginUser,
   handleVerifyUser,
   handleChangePassword,
+  handleRegisterUser,
 };

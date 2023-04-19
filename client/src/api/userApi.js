@@ -21,9 +21,19 @@ const deleteUserService = (id) => {
   });
 };
 
+const loginUserService = (data) => {
+  return axios.post(`${dataUrl}/login`, data);
+};
+
+const registerUserService = (data) => {
+  return axios.post(`${dataUrl}/register`, data);
+};
+
 export {
   createNewUserService,
   getAllUsersService,
   editUserService,
   deleteUserService,
+  loginUserService,
+  registerUserService,
 };

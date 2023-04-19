@@ -4,20 +4,26 @@ import "./Responsive.css";
 import { BsSuitHeartFill, BsPersonFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import logo1 from "../../assets/images/logo-app.png";
-import { Image } from "@chakra-ui/react";
+import { Image, Text } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../reducers/user";
 export default function Navdar() {
-  const [loginDropDown, seloginDropDown] = useState(false);
-  const [loginDropDown2, seloginDropDown2] = useState(false);
-  const name = JSON.parse(localStorage.getItem("UserToken")) || false;
+  const [loginDropDown, setloginDropDown] = useState(false);
+  const [loginDropDown2, setloginDropDown2] = useState(false);
   const [userNmae, setUserName] = useState("");
+
+  const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.user.user);
   useEffect(() => {
-    setUserName(name.name);
-  });
-  // console.log(name);
+    if (user) setUserName(user.firstName + " " + user.lastName);
+  }, [user]);
+
   const doIt = () => {
-    seloginDropDown(false);
-    seloginDropDown2(false);
+    setloginDropDown(false);
+    setloginDropDown2(false);
   };
+
   const data = [
     "All Categories",
     "--Make up",
@@ -39,8 +45,8 @@ export default function Navdar() {
   return (
     <div className="mid_nav_main" style={{ backgroundColor: "#6bc6d9" }}>
       <div className="mid_nav_mid">
-        {/* logo */}
         <div className="mid_nav_first">
+          {/* logo */}
           <div style={{ width: "30%", paddingLeft: "5%", marginTop: "-15px" }}>
             <Link to={"/"}>
               <Image alt="logo" objectFit={"contain"} src={logo1} />{" "}
@@ -51,7 +57,7 @@ export default function Navdar() {
           <div className="logo_div">
             <div
               className="user"
-              onClick={() => seloginDropDown2(!loginDropDown2)}
+              onClick={() => setloginDropDown2(!loginDropDown2)}
             >
               <BsPersonFill />
             </div>
@@ -61,7 +67,7 @@ export default function Navdar() {
                   <Link to="/login">
                     <div
                       id="login_dropdown"
-                      onClick={() => seloginDropDown2(!loginDropDown2)}
+                      onClick={() => setloginDropDown2(!loginDropDown2)}
                     >
                       Login
                     </div>
@@ -69,18 +75,9 @@ export default function Navdar() {
                   <Link to="/signup">
                     <div
                       id="register_dropdown"
-                      onClick={() => seloginDropDown2(!loginDropDown2)}
+                      onClick={() => setloginDropDown2(!loginDropDown2)}
                     >
                       Register
-                    </div>
-                  </Link>
-                  <Link to="/admin">
-                    {" "}
-                    <div
-                      id="register_dropdown"
-                      onClick={() => seloginDropDown2(!loginDropDown2)}
-                    >
-                      Admin
                     </div>
                   </Link>
                 </div>
@@ -109,58 +106,53 @@ export default function Navdar() {
           {/* end search bar */}
         </div>
 
+        {/* user */}
         <div className="mid_nav_sec">
           <div className="like_div">
             <BsSuitHeartFill />
           </div>
+
           <div style={{ display: "flex", cursor: "pointer" }}>
             <div
               className="user_div"
-              onClick={() => seloginDropDown(!loginDropDown)}
+              onClick={() => setloginDropDown(!loginDropDown)}
             >
               <BsPersonFill />
             </div>
             {loginDropDown ? (
               <>
                 <div id="content_dropdown">
-                  <Link to="/login">
-                    <div
-                      id="login_dropdown"
-                      onClick={() => seloginDropDown(!loginDropDown)}
-                    >
-                      Login
-                    </div>
-                  </Link>
-                  {name ? (
+                  {user ? (
                     <div
                       id="register_dropdown"
                       onClick={() => {
-                        seloginDropDown(!loginDropDown);
+                        setloginDropDown(!loginDropDown);
                         localStorage.removeItem("UserToken");
+                        dispatch(logoutUser());
                       }}
                     >
                       Log Out
                     </div>
                   ) : (
-                    <Link to="/signup">
-                      <div
-                        id="register_dropdown"
-                        onClick={() => seloginDropDown(!loginDropDown)}
-                      >
-                        Register
-                      </div>
-                    </Link>
+                    <>
+                      <Link to="/login">
+                        <div
+                          id="login_dropdown"
+                          onClick={() => setloginDropDown(!loginDropDown)}
+                        >
+                          Login
+                        </div>
+                      </Link>
+                      <Link to="/signup">
+                        <div
+                          id="register_dropdown"
+                          onClick={() => setloginDropDown(!loginDropDown)}
+                        >
+                          Register
+                        </div>
+                      </Link>
+                    </>
                   )}
-                  {/* if user_role === admin => todo */}
-                  {/* <Link to="/admin">
-                    {" "}
-                    <div
-                      id="register_dropdown"
-                      onClick={() => seloginDropDown(!loginDropDown)}
-                    >
-                      Admin
-                    </div>
-                  </Link> */}
                 </div>
               </>
             ) : null}
@@ -168,10 +160,11 @@ export default function Navdar() {
               className="text"
               style={{ marginTop: "9px", marginLeft: "9px" }}
             >
-              {name ? userNmae : "My Account"}
+              {user ? <Text fontWeight={"bold"}>{userNmae}</Text> : ""}
             </div>
           </div>
         </div>
+        {/* end user */}
       </div>
     </div>
   );

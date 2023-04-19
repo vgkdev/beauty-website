@@ -7,6 +7,7 @@ import {
   handleLoginUser,
   handleVerifyUser,
   handleChangePassword,
+  handleRegisterUser,
 } from "../controllers/userController";
 
 import {
@@ -35,6 +36,7 @@ let initAPIRoutes = (app) => {
   router.put("/edit-user", handleEditUser);
   router.delete("/delete-user", handleDeleteUser);
   router.post("/login", handleLoginUser);
+  router.post("/register", handleRegisterUser);
   router.post("/verify-user", handleVerifyUser);
   router.put("/change-password", handleChangePassword);
 

@@ -93,6 +93,62 @@ const createNewUser = (data) => {
   });
 };
 
+const registerUser = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (
+        !(
+          data.email &&
+          data.password &&
+          data.firstName &&
+          data.lastName &&
+          data.address &&
+          data.phoneNumber
+        )
+      ) {
+        resolve({
+          errCode: 1,
+          message: "Missing paremeter !",
+        });
+      }
+
+      const isExist = await userExist(data.email);
+      if (isExist === true) {
+        resolve({
+          errCode: 2,
+          message: "User existed !",
+        });
+      } else {
+        const hashPassword = await hashUserPassword(data.password);
+
+        const response = await db.User.create({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          password: hashPassword,
+          address: data.address,
+          phoneNumber: data.phoneNumber,
+        });
+
+        if (response) {
+          resolve({
+            errCode: 0,
+            message: "Create new user successfully",
+            user: response,
+          });
+        } else {
+          resolve({
+            errCode: 6,
+            message: "Error create new user !",
+          });
+        }
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 const getALlUsers = () => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -369,4 +425,5 @@ module.exports = {
   loginUser,
   verifyUser,
   changePassword,
+  registerUser,
 };

@@ -61,12 +61,12 @@ export const fetchCategories = () => async (dispatch) => {
   try {
     dispatch(getProductStart());
     const response = await getAllCategoriesService();
-    console.log("check categories redux: ", response.data.category);
+    // console.log("check categories redux: ", response.data.category);
 
     const categories = response.data.category;
     for (let i = 0; i < categories.length; i++) {
       const products = categories[i].Products;
-      console.log("products in reducer: ", products);
+      // console.log("products in reducer: ", products);
       for (let j = 0; j < products.length; j++) {
         // console.log("check image product: ", products[j]);
         const buffer = products[j].imageUrl;
@@ -74,7 +74,7 @@ export const fetchCategories = () => async (dispatch) => {
         categories[i].Products[j].imageUrl = base64String;
       }
     }
-    console.log("check categories convert: ", categories);
+    // console.log("check categories convert: ", categories);
     dispatch(getProductSuccess(categories));
   } catch (error) {
     dispatch(getProductFailure(error.message));
