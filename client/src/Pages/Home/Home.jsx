@@ -20,8 +20,10 @@ import banner4 from "../../assets/images/banner4.jpg";
 import banner5 from "../../assets/images/banner5.jpg";
 import banner6 from "../../assets/images/banner6.jpg";
 import makeupIcon from "../../assets/images/makeup-icon.jpg";
+import treatmentIcon from "../../assets/images/treatment-icon.jpg";
 import hairIcon from "../../assets/images/hair-icon.jpg";
 import skinCareIcon from "../../assets/images/skincare-icon.jpg";
+import cleanIcon from "../../assets/images/clean-icon.jpg";
 import personalCareIcon from "../../assets/images/personal-care-icon.jpg";
 import perfumeIcon from "../../assets/images/perfume-icon.jpg";
 import motherAndBabyIcon from "../../assets/images/mother-and-baby-icon.jpg";
@@ -66,7 +68,7 @@ const Home = () => {
         {/* option */}
         <Box
           ml={["16px", "16px", "16px"]}
-          display={["none", "block", null, null, null]}
+          display={["block", "block", null, null, null]}
           width={["80%", "35%", "27%"]}
         >
           <Box display="flex" p={["5px 10px", "2px 2px", "2px 9px"]}>
@@ -84,6 +86,7 @@ const Home = () => {
               </Text>
             </Box>
           </Box>
+
           <Box display="flex" p={["1px 10px", "1px 4px", "4px 11px"]}>
             <Box>
               <Image
@@ -91,31 +94,18 @@ const Home = () => {
                 marginRight="5px"
                 boxSize={"30px"}
                 objectFit={"contain"}
-                src={makeupIcon}
+                src={treatmentIcon}
               />
             </Box>
             <NavLink to="/skin">
               <Box>
-                <Text fontSize={["12px", "12px", "15px"]}>Make Up</Text>
+                <Text fontSize={["12px", "12px", "15px"]}>
+                  Sản phẩm đặc trị
+                </Text>
               </Box>
             </NavLink>
           </Box>
-          <Box display="flex" p={["1px 10px", "1px 4px", "4px 11px"]}>
-            <Box>
-              <Image
-                width={["69%", "68%", "78%"]}
-                marginRight="5px"
-                boxSize={"30px"}
-                objectFit={"contain"}
-                src={hairIcon}
-              />
-            </Box>
-            <NavLink to="/skin">
-              <Box>
-                <Text fontSize={["12px", "12px", "15px"]}>Hair</Text>
-              </Box>
-            </NavLink>
-          </Box>
+
           <Box display="flex" p={["1px 10px", "1px 4px", "4px 11px"]}>
             <Box>
               <Image
@@ -128,10 +118,28 @@ const Home = () => {
             </Box>
             <NavLink to="/skin">
               <Box>
-                <Text fontSize={["12px", "12px", "15px"]}>Skin Care</Text>
+                <Text fontSize={["12px", "12px", "15px"]}>Dưỡng da</Text>
               </Box>
             </NavLink>
           </Box>
+
+          <Box display="flex" p={["1px 10px", "1px 4px", "4px 11px"]}>
+            <Box>
+              <Image
+                width={["69%", "68%", "78%"]}
+                marginRight="5px"
+                boxSize={"30px"}
+                objectFit={"contain"}
+                src={cleanIcon}
+              />
+            </Box>
+            <NavLink to="/skin">
+              <Box>
+                <Text fontSize={["12px", "12px", "15px"]}>Làm sạch</Text>
+              </Box>
+            </NavLink>
+          </Box>
+
           <Box display="flex" p={["1px 10px", "1px 4px", "4px 11px"]}>
             <Box>
               <Image
@@ -144,40 +152,9 @@ const Home = () => {
             </Box>
             <NavLink to="/skin">
               <Box>
-                <Text fontSize={["12px", "12px", "15px"]}>Personal Care</Text>
-              </Box>
-            </NavLink>
-          </Box>
-
-          <Box display="flex" p={["1px 10px", "1px 4px", "4px 11px"]}>
-            <Box>
-              <Image
-                width={["69%", "68%", "78%"]}
-                marginRight="5px"
-                boxSize={"30px"}
-                objectFit={"contain"}
-                src={perfumeIcon}
-              />
-            </Box>
-            <NavLink to="/skin">
-              <Box>
-                <Text fontSize={["12px", "12px", "15px"]}>Perfume</Text>
-              </Box>
-            </NavLink>
-          </Box>
-          <Box display="flex" p={["1px 10px", "1px 4px", "4px 11px"]}>
-            <Box>
-              <Image
-                width={["69%", "68%", "78%"]}
-                marginRight="5px"
-                boxSize={"30px"}
-                objectFit={"contain"}
-                src={motherAndBabyIcon}
-              />
-            </Box>
-            <NavLink to="/skin">
-              <Box>
-                <Text fontSize={["12px", "12px", "15px"]}>Mother and baby</Text>
+                <Text fontSize={["12px", "12px", "15px"]}>
+                  Sản phẩm chức năng
+                </Text>
               </Box>
             </NavLink>
           </Box>

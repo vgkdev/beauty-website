@@ -20,7 +20,7 @@ export const Navbar = () => {
     return value.categoryName === "Skin care";
   });
 
-  const hairProducts = categories.filter((value) => {
+  const cleanProducts = categories.filter((value) => {
     return value.categoryName === "Clean";
   });
 
@@ -33,7 +33,7 @@ export const Navbar = () => {
       <BottomNav
         serumProducts={serumProducts[0].Products}
         skinProducts={skinProducts[0].Products}
-        hairProducts={hairProducts[0].Products}
+        cleanProducts={cleanProducts[0].Products}
         personalProducts={personalProducts[0].Products}
       />
     </>

@@ -4,7 +4,16 @@ import "./Responsive.css";
 import { BsSuitHeartFill, BsPersonFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import logo1 from "../../assets/images/logo-app.png";
-import { Image, Text } from "@chakra-ui/react";
+import {
+  Image,
+  Text,
+  Menu,
+  MenuList,
+  MenuItem,
+  MenuButton,
+  Button,
+  Box,
+} from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../reducers/user";
 export default function Navdar() {
@@ -108,11 +117,69 @@ export default function Navdar() {
 
         {/* user */}
         <div className="mid_nav_sec">
-          <div className="like_div">
-            <BsSuitHeartFill />
-          </div>
+          <Button backgroundColor={"#6bc6d9"}>
+            <div
+              style={{
+                fontSize: "20px",
+                color: "#ffffff",
+              }}
+            >
+              <BsSuitHeartFill />
+            </div>
+          </Button>
 
-          <div style={{ display: "flex", cursor: "pointer" }}>
+          <Menu autoSelect={false}>
+            <MenuButton backgroundColor={"#6bc6d9"} as={Button}>
+              <div
+                style={{
+                  fontSize: "20px",
+                  color: "#ffffff",
+                }}
+              >
+                <BsPersonFill />
+              </div>
+            </MenuButton>
+
+            <Box style={{ zIndex: "10000" }}>
+              <MenuList>
+                {user ? (
+                  <MenuItem
+                    minH="40px"
+                    // id="register_dropdown"
+                    backgroundColor={"none"}
+                    onClick={() => {
+                      setloginDropDown(!loginDropDown);
+                      localStorage.removeItem("UserToken");
+                      dispatch(logoutUser());
+                    }}
+                  >
+                    Log Out
+                  </MenuItem>
+                ) : (
+                  <>
+                    <Link to="/login">
+                      <MenuItem
+                        minH="40px"
+                        onClick={() => setloginDropDown(!loginDropDown)}
+                      >
+                        Login
+                      </MenuItem>
+                    </Link>
+                    <Link to="/signup">
+                      <MenuItem
+                        minH="40px"
+                        onClick={() => setloginDropDown(!loginDropDown)}
+                      >
+                        Register
+                      </MenuItem>
+                    </Link>
+                  </>
+                )}
+              </MenuList>
+            </Box>
+          </Menu>
+          {user ? <Text fontWeight={"bold"}>{userNmae}</Text> : ""}
+          {/* <div style={{ display: "flex", cursor: "pointer" }}>
             <div
               className="user_div"
               onClick={() => setloginDropDown(!loginDropDown)}
@@ -162,7 +229,7 @@ export default function Navdar() {
             >
               {user ? <Text fontWeight={"bold"}>{userNmae}</Text> : ""}
             </div>
-          </div>
+          </div> */}
         </div>
         {/* end user */}
       </div>

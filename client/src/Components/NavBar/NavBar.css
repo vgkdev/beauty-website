@@ -235,7 +235,8 @@
   cursor: pointer;
 }
 #nav_content div:hover {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
+  background-color: #6bc6d9;
   color: black;
 }
 #nav_content div:nth-child(4) {

@@ -16,6 +16,7 @@ export const NavSingle = ({
 
   const handleOnClickShowMoreProducts = () => {
     setState(false);
+    setnav(false);
     navigate(path);
   };
 

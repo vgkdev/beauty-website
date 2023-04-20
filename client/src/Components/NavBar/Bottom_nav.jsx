@@ -4,18 +4,22 @@ import { GiShoppingBag } from "react-icons/gi";
 import { NavSingle } from "./navSingle";
 import { Link } from "react-router-dom";
 import "./cart.css";
+import { Image } from "@chakra-ui/react";
+import skinCareIcon from "../../assets/images/skincare-icon.jpg";
+import { TbVaccineBottle } from "react-icons/tb";
 export const BottomNav = (props) => {
-  const { serumProducts, skinProducts, hairProducts, personalProducts } = props;
+  const { serumProducts, skinProducts, cleanProducts, personalProducts } =
+    props;
 
   const [navDropDown, setnavDropDown] = useState(false);
   const [dropDownSerum, setDropDownSerum] = useState(false);
   const [dropDownSkin, setDropDownSkin] = useState(false);
-  const [dropDownHair, setDropDownHair] = useState(false);
+  const [dropDownClean, setDropDownClean] = useState(false);
   const [dropDownPersonalCare, setDropDownPersonalCare] = useState(false);
 
   const [makeup, setMakeup] = useState(false);
   const [skin, setSkin] = useState(false);
-  const [hair, setHair] = useState(false);
+  const [clean, setClean] = useState(false);
   const [pcare, setPcare] = useState(false);
   const [mom, setmom] = useState(false);
   const [frag, setFrag] = useState(false);
@@ -23,7 +27,7 @@ export const BottomNav = (props) => {
   const [brand, setBrand] = useState(false);
   const restState = [
     setSkin,
-    setHair,
+    setClean,
     setPcare,
     setmom,
     setFrag,
@@ -106,7 +110,7 @@ export const BottomNav = (props) => {
         "Dark Circles & Wrinkles",
         "Day Cream",
         "Foot Cream",
-        "Hair Remover Cream",
+        "Clean Remover Cream",
         "Hand Creams",
         "Hands & Feet",
         "Kits & Combos",
@@ -115,27 +119,27 @@ export const BottomNav = (props) => {
       ],
     },
   ];
-  const hairArr = [
+  const cleanArr = [
     {
       "HAIR CARE": [
         "Color Protection",
         "Dandruff",
         "Dry Shampoo",
         "Gels & Waxes",
-        "Hair Spray",
-        "Hair Color/ Dye",
-        "Hair Creams & Masks ",
-        "Hair Styling",
-        "Hairfall & Thinning ",
+        "Clean Spray",
+        "Clean Color/ Dye",
+        "Clean Creams & Masks ",
+        "Clean Styling",
+        "Cleanfall & Thinning ",
         "Straighteners ",
       ],
     },
     {
       "HAIR LOSS": [
         "Conditioner",
-        "Hair Oil",
-        "Hair Serum",
-        "Hair Growth Solutions",
+        "Clean Oil",
+        "Clean Serum",
+        "Clean Growth Solutions",
         "Shampoo",
       ],
     },
@@ -200,9 +204,9 @@ export const BottomNav = (props) => {
     {
       "NATURAL HAIR CARE": [
         "Conditioner",
-        "Hair Oils",
-        "Hair Serum",
-        "Hair Gel",
+        "Clean Oils",
+        "Clean Serum",
+        "Clean Gel",
         "Shampoo",
       ],
     },
@@ -219,7 +223,7 @@ export const BottomNav = (props) => {
           onMouseEnter={() => {
             setDropDownSerum(true);
             setSkin(false);
-            setHair(false);
+            setClean(false);
             setPcare(false);
             setmom(false);
             setFrag(false);
@@ -238,7 +242,7 @@ export const BottomNav = (props) => {
           onMouseEnter={() => {
             setDropDownSkin(true);
             setMakeup(false);
-            setHair(false);
+            setClean(false);
             setPcare(false);
             setmom(false);
             setFrag(false);
@@ -255,7 +259,7 @@ export const BottomNav = (props) => {
 
         <div
           onMouseEnter={() => {
-            setDropDownHair(true);
+            setDropDownClean(true);
             setMakeup(false);
             setSkin(false);
             setPcare(false);
@@ -263,10 +267,10 @@ export const BottomNav = (props) => {
             setFrag(false);
             setAyurveda(false);
             setBrand(false);
-            setHair(true);
+            setClean(true);
           }}
           onMouseLeave={() => {
-            setDropDownHair(false);
+            setDropDownClean(false);
           }}
         >
           LÀM SẠCH <IoIosArrowDown />
@@ -277,7 +281,7 @@ export const BottomNav = (props) => {
             setDropDownPersonalCare(true);
             setMakeup(false);
             setSkin(false);
-            setHair(false);
+            setClean(false);
             setmom(false);
             setFrag(false);
             setAyurveda(false);
@@ -290,6 +294,12 @@ export const BottomNav = (props) => {
         >
           SẢN PHẨM CHỨC NĂNG <IoIosArrowDown />
         </div>
+
+        <Link to="/cart">
+          <div id="cart">
+            <TbVaccineBottle /> Tất cả sản phẩm
+          </div>
+        </Link>
 
         <Link to="/cart">
           <div id="cart">
@@ -315,10 +325,10 @@ export const BottomNav = (props) => {
             setnav={setnavDropDown}
           />
           <NavSingle
-            array={hairArr}
-            products={hairProducts}
-            state={hair}
-            setState={setHair}
+            array={cleanArr}
+            products={cleanProducts}
+            state={clean}
+            setState={setClean}
             setnav={setnavDropDown}
           />
           <NavSingle
@@ -359,14 +369,14 @@ export const BottomNav = (props) => {
         />
       )}
 
-      {dropDownHair && (
+      {dropDownClean && (
         <NavSingle
-          array={hairArr}
-          products={hairProducts}
-          state={hair}
-          setState={setHair}
-          setnav={setDropDownHair}
-          path={"/hair"}
+          array={cleanArr}
+          products={cleanProducts}
+          state={clean}
+          setState={setClean}
+          setnav={setDropDownClean}
+          path={"/clean"}
         />
       )}
 

@@ -10,6 +10,8 @@ import Cart from "../Pages/Home/Cart";
 import Skin from "../Pages/Home/Skin";
 import PaymentPage from "../Pages/Home/PaymentPage";
 import Serum from "../Pages/Home/Serum";
+import Clean from "../Pages/Home/Clean";
+import PersonalCare from "../Pages/Home/PersonalCare";
 
 const AllRoutes = () => {
   return (
@@ -24,6 +26,8 @@ const AllRoutes = () => {
       <Route path="/cart" element={<Cart />}></Route>
       <Route path="/skin" element={<Skin />}></Route>
       <Route path="/serum" element={<Serum />}></Route>
+      <Route path="/clean" element={<Clean />}></Route>
+      <Route path="/personal-care" element={<PersonalCare />}></Route>
       <Route path="/payment" element={<PaymentPage />}></Route>
     </Routes>
   );

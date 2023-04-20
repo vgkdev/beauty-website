@@ -16,18 +16,20 @@ import "./Products/Products.css";
 import { Image } from "@chakra-ui/react";
 export function MainProducts(props) {
   const { setnav, setState } = props;
-  // console.log("check product from main products: ", props);
+
+  const handleMouseEnter = (e) => {
+    e.currentTarget.style.boxShadow = "0px 4px 30px rgba(0, 0, 0, 0.25)";
+  };
+
+  const handleMouseLeave = (e) => {
+    e.currentTarget.style.boxShadow = "";
+  };
+
   return (
     <Box
-      // onMouseEnter={() => {
-      //   setnav(true);
-      //   setState(true);
-      // }}
-      // onMouseLeave={() => {
-      //   // setnav(false);
-      //   // setState(true);
-      // }}
-      border={"1px solid #757491"}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      border={"1px solid #e7e7e7"}
       borderRadius={"5px"}
       maxW={"270"}
     >
@@ -50,7 +52,7 @@ export function MainProducts(props) {
             </Text>
           </Stack>
         </CardBody>
-        <Divider />
+        <Divider borderColor={"silver"} />
         <CardFooter>
           <ButtonGroup spacing="2">
             <Button size={"sm"} variant="solid" colorScheme="blue">
