@@ -31,6 +31,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "./reducers/categories";
 import Loading from "./Components/Loading";
 import { setProducts } from "./reducers/products";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const { smallScreen, mediumScreen } = useMedia();
@@ -67,6 +68,8 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer position="top-center" autoClose={3000} />
+
       {loading && <Loading />}
 
       {/* <Topnavbar /> */}

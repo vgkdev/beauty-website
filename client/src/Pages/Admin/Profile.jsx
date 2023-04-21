@@ -52,7 +52,6 @@ import {
   getAllProductsService,
 } from "../../api/productApi";
 
-import ConvertImgToBase64 from "../../Utils/ConvertImgToBase64";
 import { Buffer } from "buffer";
 import FormProduct from "./Comp/FromProduct";
 

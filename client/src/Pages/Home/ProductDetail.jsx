@@ -31,6 +31,9 @@ import {
 } from "../../api/productCommentApi";
 import moment from "moment";
 import ListComment from "../../Components/ListComment";
+import { createNewCartService } from "../../api/cartApi";
+import { toast } from "react-toastify";
+
 // import { addToCart } from "../redux/cartSlice";
 
 const ProductDetail = () => {
@@ -54,6 +57,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     setLoading(true);
+    setQuantity(1);
     scroll.scrollToTop();
     setTimeout(() => {
       setData(getProductData(products));
@@ -70,8 +74,22 @@ const ProductDetail = () => {
     }
   };
 
-  const handleAddToCart = () => {
-    // dispatch(addToCart(product));
+  const handleAddToCart = async () => {
+    const payload = {
+      userId: user.id,
+      productId: data.id,
+      quantity: quantity,
+    };
+
+    // console.log("check payload: ", payload);
+    const response = await createNewCartService(payload);
+    if (response.data.errCode === 0) {
+      toast.success("Đã thêm vào giỏ hàng");
+      // console.log("add success");
+    } else {
+      toast.error("Lỗi không thêm được vào giỏ hàng");
+    }
+    console.log("check add to cart: ", response);
   };
 
   const handleSubmitComment = async () => {

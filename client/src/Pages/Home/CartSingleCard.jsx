@@ -1,3 +1,4 @@
+import React, { useContext, useEffect, useState } from "react";
 import {
   Wrap,
   HStack,
@@ -12,111 +13,117 @@ import {
   Divider,
   Image,
   Box,
+} from "@chakra-ui/react";
 
+import { AddIcon, ArrowRightIcon, CloseIcon } from "@chakra-ui/icons";
+import { AiOutlineHeart } from "react-icons/ai";
+import { convertPrice } from "../../Utils/convertData";
 
-} from '@chakra-ui/react'
+const CartSingleCard = ({ cartData, deleteCart, updateCart }) => {
+  // console.log("check cartData: ", cartData.Product.quantity);
+  const [quantity, setQuantity] = useState(cartData.quantity);
 
-import { AddIcon, ArrowRightIcon, CloseIcon } from '@chakra-ui/icons';
-import { AiOutlineHeart } from 'react-icons/ai';
-
-import React, { useContext, useEffect, useState } from 'react'
-import { dataUrl } from '../../share';
-import axios from 'axios';
-
-
-const CartSingleCard = ({ el, del }) => {
-
-
-
-
-
-
-
-  const handleChange = () => {
-
-  }
-  const handleRemove = () => {
-        
-  }
-
+  const handleChange = () => {};
+  const handleRemove = () => {};
 
   return (
+    <Wrap
+      w={{ base: 320, md: 600 }}
+      spacing={3}
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+      padding="5"
+      // border={"1px solid red"}
+    >
+      <VStack w="full">
+        <Box w={"full"}>
+          <Text
+            textAlign={"center"}
+            fontSize={{ base: "15px", md: "xl" }}
+            color="gray.500"
+            fontWeight={"semibold"}
+          >
+            {cartData.Product.productName}
+          </Text>
 
+          <Stack>
+            <Image
+              src={`data:image/jpeg;base64,${cartData.Product.imageUrl}`}
+              style={{ borderRadius: "5px" }}
+              objectFit="contain"
+              boxSize="170"
+            />
+          </Stack>
 
-    <Wrap w={{ base: 320, md: 600 }} spacing={3} borderWidth='1px' borderRadius='lg' overflow='hidden' padding="5">
-
-      <VStack w="full" >
-
-        <Box  w={["230px","350px","420px"]}>
-
-
-          <VStack align="revert-layer" spacing={4} >
-
-
-            <Text fontSize={{ base: "15px", md: "xl" }} color="gray.500" >{el.name}</Text>
-
-
-
-            <Stack>
-
+          <Stack align="revert-layer" spacing={4}>
+            <Stack spacing={10} direction={{ base: "column", md: "row" }}>
               <HStack alignContent="center">
-                <Text fontWeight="bold" fontSize="2xl" >₹{el.price}</Text>
-
-                <Text as="s" marginLeft={4} fontSize="l" >₹{el.ofPrice}</Text>
+                <Text fontWeight="bold" fontSize="2xl">
+                  {cartData.Product.price.toLocaleString("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  })}
+                </Text>
               </HStack>
 
-              <Stack direction={{ base: "column", md: "row" }} spacing={35} >
+              <Stack direction={{ base: "column", md: "row" }} spacing={35}>
+                <ButtonGroup size="sm" isAttached variant="outline">
+                  <Button
+                    fontWeight="bold"
+                    fontSize="xl"
+                    onClick={() => setQuantity(() => Math.max(quantity - 1, 1))}
+                  >
+                    -
+                  </Button>
 
-
-                {/* <ButtonGroup size='sm' isAttached variant='outline'>
-
-                  <Button fontWeight="bold" fontSize="xl" onClick={() => handleChange(el.quantity, -1)} >-</Button>
-
-                  <Button>{el.quantity * el.price}</Button>
+                  <Button>
+                    {convertPrice(quantity * cartData.Product.price)}
+                  </Button>
 
                   <IconButton
-                    onClick={() => handleChange(el.quantity, 1)}
-                    aria-label='Add to friends' icon={<AddIcon w={3} h={3} />} />
-                </ButtonGroup> */}
-
-
+                    onClick={() => setQuantity(quantity + 1)}
+                    aria-label="Add to friends"
+                    icon={<AddIcon w={3} h={3} />}
+                  />
+                </ButtonGroup>
               </Stack>
 
+              <Stack>
+                <Text>Số lượng mua: {quantity}</Text>
+              </Stack>
             </Stack>
-
-
-
-
-
-          </VStack>
+          </Stack>
 
           <Spacer />
-
-          <Stack w={150}>
-            <Image src={el.image} style={{ borderRadius: "5px" }} />
-
-          </Stack>
         </Box>
-
-
-
       </VStack>
 
       <Divider />
 
-
-      <HStack w="full" spacing={5} >
-        <Button onClick={() => del(el._id)} w="40%" size='md'  colorScheme='teal' color="white" >REMOVE</Button>
-        <Divider orientation='vertical' />
-        <Button w="full" size='md'   colorScheme='pink' color="white" >
-
-          <HStack spac ><AiOutlineHeart fontSize="25px" /> <Text>ADD TO WISHLIST</Text></HStack>
-
+      <Stack w="full" spacing={5} direction={{ base: "column", lg: "row" }}>
+        <Button
+          onClick={() => deleteCart(cartData.id)}
+          w={{ base: "full", lg: "40%" }}
+          size="md"
+          colorScheme="red"
+          color="white"
+        >
+          Xóa
         </Button>
-      </HStack>
-      
+        <Divider orientation="vertical" />
+        <Button
+          w={{ base: "full", lg: "40%" }}
+          size="md"
+          colorScheme="cyan"
+          color="white"
+          onClick={() => updateCart(cartData.id, quantity)}
+        >
+          Cập nhật số lượng
+        </Button>
+      </Stack>
     </Wrap>
-  )
-}
+  );
+};
 
-export default CartSingleCard
+export default CartSingleCard;

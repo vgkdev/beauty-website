@@ -1,4 +1,4 @@
-export default class ConvertImgToBase64 {
+export class ConvertImgToBase64 {
   static getBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -8,3 +8,10 @@ export default class ConvertImgToBase64 {
     });
   }
 }
+
+export const convertPrice = (price) => {
+  return price.toLocaleString("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  });
+};

@@ -16,10 +16,16 @@ import "./Products/Products.css";
 import { Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { BsSuitHeartFill, BsFillCartPlusFill } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import { createNewCartService } from "../api/cartApi";
+import { toast } from "react-toastify";
 
 export function MainProducts(props) {
   const { setnav, setState } = props;
+
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.user);
+
   // console.log("check props: ", props);
 
   const handleMouseEnter = (e) => {
@@ -28,6 +34,24 @@ export function MainProducts(props) {
 
   const handleMouseLeave = (e) => {
     e.currentTarget.style.boxShadow = "";
+  };
+
+  const handleAddToCart = async () => {
+    const payload = {
+      userId: user.id,
+      productId: props.id,
+      quantity: 1,
+    };
+
+    // console.log("check payload: ", payload);
+    const response = await createNewCartService(payload);
+    if (response.data.errCode === 0) {
+      toast.success("Đã thêm vào giỏ hàng");
+      console.log("add success");
+    } else {
+      toast.error("Lỗi không thêm được vào giỏ hàng");
+    }
+    console.log("check add to cart: ", response);
   };
 
   return (
@@ -75,7 +99,7 @@ export function MainProducts(props) {
             <Button
               bgColor={"#6bc6d9"}
               color={"#ffffff"}
-              // onClick={handleAddToCart}
+              onClick={handleAddToCart}
               mb={4}
               mr={3}
             >

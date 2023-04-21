@@ -19,7 +19,14 @@ const createNewProductComment = (data) => {
       });
 
       if (result) {
-        const productComment = await db.ProductComment.findAll();
+        const productComment = await db.ProductComment.findAll({
+          include: [
+            {
+              model: db.User,
+              attributes: ["firstName", "lastName"],
+            },
+          ],
+        });
 
         resolve({
           errCode: 0,
@@ -92,7 +99,14 @@ const editProductComment = (data) => {
       );
 
       if (updatedRows !== 0) {
-        const productComment = await db.ProductComment.findAll();
+        const productComment = await db.ProductComment.findAll({
+          include: [
+            {
+              model: db.User,
+              attributes: ["firstName", "lastName"],
+            },
+          ],
+        });
 
         resolve({
           errCode: 0,
@@ -127,7 +141,14 @@ const deleteProductComment = (id) => {
 
       // console.log("check delete productComment: ", result);
       if (result !== 0) {
-        const productComment = await db.ProductComment.findAll();
+        const productComment = await db.ProductComment.findAll({
+          include: [
+            {
+              model: db.User,
+              attributes: ["firstName", "lastName"],
+            },
+          ],
+        });
         resolve({
           errCode: 0,
           message: "ProductComment has been deleted !",

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import "./Responsive.css";
 import { BsSuitHeartFill, BsPersonFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo1 from "../../assets/images/logo-app.png";
 import {
   Image,
@@ -22,6 +22,7 @@ export default function Navdar() {
   const [userNmae, setUserName] = useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.user);
   useEffect(() => {
@@ -151,6 +152,7 @@ export default function Navdar() {
                       setloginDropDown(!loginDropDown);
                       localStorage.removeItem("UserToken");
                       dispatch(logoutUser());
+                      navigate("/");
                     }}
                   >
                     Log Out
