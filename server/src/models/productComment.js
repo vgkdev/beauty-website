@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
       userId: DataTypes.INTEGER,
       productId: DataTypes.INTEGER,
       commentContent: DataTypes.TEXT,
-      commentDate: DataTypes.DATE,
     },
     {
       sequelize,

@@ -295,7 +295,7 @@ export const BottomNav = (props) => {
           SẢN PHẨM CHỨC NĂNG <IoIosArrowDown />
         </div>
 
-        <Link to="/cart">
+        <Link to="/products">
           <div id="cart">
             <TbVaccineBottle /> Tất cả sản phẩm
           </div>

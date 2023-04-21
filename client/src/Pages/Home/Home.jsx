@@ -97,7 +97,7 @@ const Home = () => {
                 src={treatmentIcon}
               />
             </Box>
-            <NavLink to="/skin">
+            <NavLink to="/serum">
               <Box>
                 <Text fontSize={["12px", "12px", "15px"]}>
                   Sản phẩm đặc trị
@@ -133,7 +133,7 @@ const Home = () => {
                 src={cleanIcon}
               />
             </Box>
-            <NavLink to="/skin">
+            <NavLink to="/clean">
               <Box>
                 <Text fontSize={["12px", "12px", "15px"]}>Làm sạch</Text>
               </Box>
@@ -150,7 +150,7 @@ const Home = () => {
                 src={personalCareIcon}
               />
             </Box>
-            <NavLink to="/skin">
+            <NavLink to="/personal-care">
               <Box>
                 <Text fontSize={["12px", "12px", "15px"]}>
                   Sản phẩm chức năng

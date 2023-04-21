@@ -30,6 +30,7 @@ import { Buffer } from "buffer";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCategories } from "./reducers/categories";
 import Loading from "./Components/Loading";
+import { setProducts } from "./reducers/products";
 
 function App() {
   const { smallScreen, mediumScreen } = useMedia();
@@ -43,6 +44,26 @@ function App() {
     dispatch(fetchCategories());
     // console.log("check categories redux: ", categories);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (categories.length !== 0) {
+      const allProducts = categories
+        .map((category) => category.Products)
+        .flatMap((products) => products);
+
+      // const updatedProducts = allProducts.map((product) => {
+      //   return {
+      //     ...product,
+      //     price: product.price.toLocaleString("vi-VN", {
+      //       style: "currency",
+      //       currency: "VND",
+      //     }),
+      //   };
+      // });
+      // console.log("check products: ", updatedProducts);
+      dispatch(setProducts(allProducts));
+    }
+  }, [categories, dispatch]);
 
   return (
     <div className="App">

@@ -30,9 +30,7 @@ module.exports = {
       commentContent: {
         type: Sequelize.TEXT,
       },
-      commentDate: {
-        type: Sequelize.DATE,
-      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

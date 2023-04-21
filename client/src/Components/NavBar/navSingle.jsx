@@ -45,6 +45,7 @@ export const NavSingle = ({
                   setState={setState}
                   setnav={setnav}
                   key={content.id}
+                  id={content.id}
                   image={content.imageUrl}
                   name={content.productName}
                   price={content.price}

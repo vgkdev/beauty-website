@@ -25,6 +25,13 @@ import {
   handleDeleteProduct,
 } from "../controllers/productController";
 
+import {
+  handleCreateNewProductComment,
+  handleGetALlProductComments,
+  handleEditProductComment,
+  handleDeleteProductComment,
+} from "../controllers/productCommentController";
+
 const router = express.Router();
 //--------------------------------------------------------
 
@@ -55,6 +62,11 @@ let initAPIRoutes = (app) => {
   router.put("/edit-product", handleEditProduct);
   router.put("/edit-image-product", handleEditProductImage);
   router.delete("/delete-product", handleDeleteProduct);
+
+  router.post("/create-new-product-comment", handleCreateNewProductComment);
+  router.get("/get-all-product-comments", handleGetALlProductComments);
+  router.put("/edit-product-comment", handleEditProductComment);
+  router.delete("/delete-product-comment", handleDeleteProductComment);
 
   return app.use("/api/v1/", router);
 };

@@ -16,23 +16,23 @@ export const categoriesSlice = createSlice({
   name: "categories",
   initialState,
   reducers: {
-    getProductStart: (state) => {
+    getCategoryStart: (state) => {
       state.loading = true;
       state.error = null;
     },
-    getProductSuccess: (state, action) => {
+    getCategorySuccess: (state, action) => {
       state.loading = false;
       state.categories = action.payload;
     },
-    getProductFailure: (state, action) => {
+    getCategoryFailure: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
-    updateProductStart: (state) => {
+    updateCategoryStart: (state) => {
       state.loading = true;
       state.error = null;
     },
-    updateProductSuccess: (state, action) => {
+    updateCategorySuccess: (state, action) => {
       const index = state.categories.findIndex(
         (category) => category.id === action.payload.id
       );
@@ -41,7 +41,7 @@ export const categoriesSlice = createSlice({
         state.categories[index] = action.payload;
       }
     },
-    updateProductFailure: (state, action) => {
+    updateCategoryFailure: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
@@ -49,17 +49,17 @@ export const categoriesSlice = createSlice({
 });
 
 export const {
-  getProductStart,
-  getProductSuccess,
-  getProductFailure,
-  updateProductStart,
-  updateProductSuccess,
-  updateProductFailure,
+  getCategoryStart,
+  getCategorySuccess,
+  getCategoryFailure,
+  updateCategoryStart,
+  updateCategorySuccess,
+  updateCategoryFailure,
 } = categoriesSlice.actions;
 
 export const fetchCategories = () => async (dispatch) => {
   try {
-    dispatch(getProductStart());
+    dispatch(getCategoryStart());
     const response = await getAllCategoriesService();
     // console.log("check categories redux: ", response.data.category);
 
@@ -75,19 +75,19 @@ export const fetchCategories = () => async (dispatch) => {
       }
     }
     // console.log("check categories convert: ", categories);
-    dispatch(getProductSuccess(categories));
+    dispatch(getCategorySuccess(categories));
   } catch (error) {
-    dispatch(getProductFailure(error.message));
+    dispatch(getCategoryFailure(error.message));
   }
 };
 
-export const updateProduct = (data) => async (dispatch) => {
+export const updateCategory = (data) => async (dispatch) => {
   try {
-    dispatch(updateProductStart());
+    dispatch(updateCategoryStart());
     const response = await editCategoryService(data);
-    dispatch(updateProductSuccess(response.data.category));
+    dispatch(updateCategorySuccess(response.data.category));
   } catch (error) {
-    dispatch(updateProductFailure(error.message));
+    dispatch(updateCategoryFailure(error.message));
   }
 };
 

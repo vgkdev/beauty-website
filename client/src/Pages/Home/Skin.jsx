@@ -48,6 +48,7 @@ const Skin = () => {
             products.map((value, i) => (
               <MainProducts
                 key={value.id}
+                id={value.id}
                 image={value.imageUrl}
                 name={value.productName}
                 price={value.price}
