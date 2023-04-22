@@ -40,6 +40,11 @@ import {
   handleDeleteCart,
 } from "../controllers/cartController";
 
+import {
+  handleCreatePayment,
+  handleReturnPayment,
+} from "../controllers/paymentController";
+
 const router = express.Router();
 //--------------------------------------------------------
 
@@ -81,6 +86,9 @@ let initAPIRoutes = (app) => {
   router.get("/get-all-carts-by-userId", handleGetALlCartsByUserId);
   router.put("/edit-cart", handleEditCart);
   router.delete("/delete-cart", handleDeleteCart);
+
+  router.get("/create-payment", handleCreatePayment);
+  router.get("/return-payment", handleReturnPayment);
 
   return app.use("/api/v1/", router);
 };

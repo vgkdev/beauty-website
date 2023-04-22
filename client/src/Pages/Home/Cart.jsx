@@ -269,12 +269,13 @@ const Cart = () => {
               <Badge
                 overflow="hidden"
                 borderRadius="2xl"
-                fontSize={{ base: "15px", md: "xl" }}
+                fontSize={{ base: "15px", md: "lg" }}
                 padding="5px 20px"
                 w="full"
                 variant="subtle"
                 color="gray.800"
                 colorScheme="green"
+                textAlign={"center"}
               >
                 Bạn đang tiết kiệm{" "}
                 {convertPrice(Math.floor((total / 100) * 10))} trên đơn hàng này
@@ -301,9 +302,9 @@ const Cart = () => {
                 colorScheme="whatsapp"
                 color="white"
                 size="lg"
-                // onClick={() => cheakout()}
+                onClick={() => navigate("/payment")}
               >
-                CheckOut
+                Thanh toán
               </Button>
             </Stack>
 

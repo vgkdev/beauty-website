@@ -1,6 +1,5 @@
 import axios from "axios";
 import { dataUrl } from "../share";
-import user from "../reducers/user";
 
 const createNewCartService = (data) => {
   return axios.post(`${dataUrl}/create-new-cart`, data);
