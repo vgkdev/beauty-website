@@ -15,7 +15,7 @@ module.exports = {
           model: "Orders",
           key: "id",
           onUpdate: "CASCADE",
-          onDelete: "SET NULL",
+          onDelete: "CASCADE",
         },
       },
       productId: {

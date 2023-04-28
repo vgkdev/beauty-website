@@ -1,71 +1,89 @@
 import {
   Box,
-  Button,
-  Flex,
-  Image,
-  Divider,
-  Grid,
-  Spacer,
   Text,
-  GridItem,
+  TableContainer,
+  Table,
+  TableCaption,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+  Tfoot,
+  IconButton,
+  Image,
 } from "@chakra-ui/react";
 import React from "react";
+import { FaTrash, FaEdit, FaImage } from "react-icons/fa";
+import { convertPrice } from "../../../Utils/convertData";
 
 const ProductComp = ({
   handleDeleteProduct,
-  productName,
-  imageUrl,
-  id,
-  price,
-  quantity,
-  Category,
   handleShowModalProduct,
+  products,
 }) => {
-  // console.log("check image url: ", imageUrl);
+  console.log("check props: ", products);
   return (
     <Box p={"2"} textAlign={"center"} mb="20px" border={"2px solid #50555e"}>
-      <Text fontWeight={"bold"}>{productName} </Text>
-      <Divider mt="3px" mb="3px" orientation="horizontal" />
-      <Flex flexDirection={["column", "row", "row", "row"]} alignItems="center">
-        <Box w="35%">
-          <Image
-            objectFit="contain"
-            boxSize="200px"
-            src={`data:image/jpeg;base64,${imageUrl}`}
-          />
-        </Box>
-        <Spacer />
-        <Grid w="60%" mt={"15px"} templateColumns="repeat(5, 1fr)" gap={4}>
-          <GridItem colSpan={{ base: 5, lg: 4 }}>
-            <Text>Price - {price} </Text>
-            <Text>Quantity - {quantity} </Text>
-            <Text>Category name - {Category.categoryName} </Text>
-          </GridItem>
+      <TableContainer>
+        <Table variant="striped" colorScheme="teal">
+          <TableCaption>Thông tin sản phẩm</TableCaption>
+          <Thead>
+            <Tr>
+              <Th>ID</Th>
+              <Th>Tên sản phẩm</Th>
+              <Th>Tên danh mục</Th>
+              <Th>Ảnh</Th>
+              <Th>Số lượng</Th>
+              <Th>Giá</Th>
+              <Th>Quản lý</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {products.map((item) => (
+              <Tr key={item.id}>
+                <Td>{item.id}</Td>
+                <Td>{item.productName}</Td>
+                <Td>{item.Category.categoryName}</Td>
+                <Td>
+                  <Image
+                    objectFit="contain"
+                    boxSize="100px"
+                    src={`data:image/jpeg;base64,${item.imageUrl}`}
+                  />
+                </Td>
+                <Td>{item.quantity}</Td>
+                <Td>{convertPrice(item.price)}</Td>
 
-          <GridItem colSpan={{ base: 5, lg: 1 }}>
-            <Button
-              mr={{ base: 5, lg: 0 }}
-              colorScheme={"blue"}
-              onClick={() => handleShowModalProduct(id, "Update")}
-            >
-              Update product
-            </Button>
-            <Button
-              mr={{ base: 5, lg: 0 }}
-              colorScheme={"blue"}
-              onClick={() => handleShowModalProduct(id, "Update_image")}
-            >
-              Update image
-            </Button>
-            <Button
-              colorScheme={"blue"}
-              onClick={() => handleDeleteProduct(id)}
-            >
-              Delete
-            </Button>
-          </GridItem>
-        </Grid>
-      </Flex>
+                <Td>
+                  <IconButton
+                    bg={"none"}
+                    aria-label="Edit"
+                    icon={<FaEdit />}
+                    onClick={() => handleShowModalProduct(item.id, "Update")}
+                    mr="2"
+                  />
+                  <IconButton
+                    bg={"none"}
+                    aria-label="Edit"
+                    icon={<FaImage />}
+                    onClick={() =>
+                      handleShowModalProduct(item.id, "Update_image")
+                    }
+                    mr="2"
+                  />
+                  <IconButton
+                    bg={"none"}
+                    aria-label="Delete"
+                    icon={<FaTrash />}
+                    onClick={() => handleDeleteProduct(item.id)}
+                  />
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 };

@@ -12,6 +12,13 @@ const MyRoutine = ({ users = [], handleShowModalUser, handleDeleteUser }) => {
         orientation="horizontal"
         style={{ color: "red", size: "20" }}
       />
+      <Button
+        m={"20px auto"}
+        colorScheme="whatsapp"
+        onClick={() => handleShowModalUser(null, "Create")}
+      >
+        + Create new user
+      </Button>
       {/* <hr color="black" size="50px" /> */}
       <Box>
         {users &&
@@ -24,13 +31,6 @@ const MyRoutine = ({ users = [], handleShowModalUser, handleDeleteUser }) => {
             />
           ))}
       </Box>
-      <Button
-        style={{ margin: "0 auto" }}
-        colorScheme="whatsapp"
-        onClick={() => handleShowModalUser(null, "Create")}
-      >
-        + Create new user
-      </Button>
     </Box>
   );
 };

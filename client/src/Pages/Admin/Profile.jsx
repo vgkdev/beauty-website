@@ -54,6 +54,8 @@ import {
 
 import { Buffer } from "buffer";
 import FormProduct from "./Comp/FromProduct";
+import { getAllCartsService } from "../../api/cartApi";
+import { deleteOrderService, getAllOrdersService } from "../../api/ortherApi";
 
 const init1 = {
   userSection: false,
@@ -89,6 +91,7 @@ export const Profile = () => {
   const [categories, setCategories] = useState([]);
   const [admins, setAdmins] = useState([]);
   const [products, setProducts] = useState([]);
+  const [orderData, setOrderData] = useState([]);
   const [carts, setCarts] = useState([]);
   const [userDetailInModal, setUserDetailInModal] = useState(null);
   const [categoryDetailInModal, setCategoryDetailInModal] = useState(null);
@@ -100,7 +103,7 @@ export const Profile = () => {
       getUser();
       getAllCategories();
       getAllProducts();
-      getCart();
+      getAllOrder();
     }, 1000);
   }, [change]);
 
@@ -239,7 +242,7 @@ export const Profile = () => {
   const getAllCategories = async () => {
     const response = await getAllCategoriesService();
     if (response.data.errCode === 0) {
-      console.log("check categories: ", response.data.category);
+      // console.log("check categories: ", response.data.category);
       setCategories(response.data.category);
       printS(response.data.message);
     } else {
@@ -370,81 +373,26 @@ export const Profile = () => {
     }
   };
 
-  const getCart = async () => {
-    // axios
-    //   .get(`${dataUrl}/carts/allcarts/sujeet`, { withCredentials: true })
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     setCarts(res.data);
-    //   })
-    //   .catch((e) => printF(e?.response?.data || e.message));
+  const getAllOrder = async () => {
+    const response = await getAllOrdersService();
+    if (response.data.errCode === 0) {
+      const order = response.data.order;
+      console.log("check order data: ", order);
+      printS(response.data.message);
+      setOrderData(order);
+    } else {
+      printF(response.data.message);
+    }
   };
 
-  /* user modal start */
-  const deleteFun = async (email) => {
-    // axios
-    //   .delete(`${dataUrl}/users/`)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     printS(res.data);
-    //     changeIt();
-    //   })
-    //   .catch((e) => printF(e?.response?.data || e.message));
-  };
-
-  const changeRole = async (email, role) => {
-    // axios
-    //   .post(`${dataUrl}/users/`)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     printS(res.data);
-    //     changeIt();
-    //   })
-    //   .catch((e) => printF(e?.response?.data || e.message));
-  };
-
-  const userBan = async (email, status) => {
-    // axios
-    //   .post(`${dataUrl}/users/ban/${email}/${status}`, {
-    //     withCredentials: true,
-    //   })
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     printS(res.data);
-    //     changeIt();
-    //   })
-    //   .catch((e) => printF(e?.response?.data || e.message));
-  };
-  /* user modal end */
-
-  /* ================== */
-
-  /* product modal start */
-  const deletePro = async (id) => {
-    // axios
-    //   .delete(`${dataUrl}/products/delete/${id}`)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     printS(res.data);
-    //     changeIt();
-    //   })
-    //   .catch((e) => printF(e?.response?.data || e.message));
-  };
-
-  /* product modal end */
-
-  /* ================ */
-
-  /* cart modal start */
-  const cartChange = async (id) => {
-    // axios
-    //   .patch(`${dataUrl}/carts/${id}`, { withCredentials: true })
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     printS(res.data);
-    //     changeIt();
-    //   })
-    //   .catch((e) => printF(e?.response?.data || e.message));
+  const deleteOrder = async (id) => {
+    const response = await deleteOrderService(id);
+    if (response.data.errCode === 0) {
+      getAllOrder();
+      printS(response.data.message);
+    } else {
+      printF(response.data.message);
+    }
   };
 
   return (
@@ -583,7 +531,7 @@ export const Profile = () => {
           {/* show data */}
           <Box
             m="auto"
-            w={["96%", "95%", "55%", "55%"]}
+            w={["96%", "95%", "75%", "75%"]}
             style={{ lineHeight: "40px" }}
             textAlign="center"
             mt="50px"
@@ -611,21 +559,21 @@ export const Profile = () => {
                 handleDeleteProduct={deleteProduct}
               />
             )}
-            {orderSection && <Reports carts={carts} cartChange={cartChange} />}
-            {photos && <Photos />}
-            {exercises && <Exercises />}
+            {orderSection && (
+              <Reports orders={orderData} handleDeleteOrder={deleteOrder} />
+            )}
           </Box>
 
           <Spacer />
           {/* total of each data */}
-          <Box textAlign="center" w={["95%", "95%", "20%", "20%"]} mt="50px">
+          {/* <Box textAlign="center" w={["95%", "95%", "20%", "20%"]} mt="50px">
             <Dashboard
               users={users}
               admins={admins}
               products={products}
               carts={carts}
             />
-          </Box>
+          </Box> */}
         </Flex>
       </Box>
       {/* <BoxCrouser/>  */}

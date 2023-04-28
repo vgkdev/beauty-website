@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUserService, registerUserService } from "../api/userApi";
+import {
+  editUserService,
+  loginUserService,
+  registerUserService,
+} from "../api/userApi";
 
 const initialState = {
   loading: false,
@@ -44,6 +48,19 @@ export const userSlice = createSlice({
       state.user = null;
       state.error = action.payload;
     },
+    updateUserStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    updateUserSuccess: (state, action) => {
+      state.loading = false;
+      state.user = action.payload;
+      state.error = null;
+    },
+    updateUserFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   },
 });
 
@@ -55,6 +72,9 @@ export const {
   registerStart,
   registerSuccess,
   registerFailure,
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
 } = userSlice.actions;
 
 export const loginUser = (data, toast, navigate) => async (dispatch) => {
@@ -68,6 +88,30 @@ export const loginUser = (data, toast, navigate) => async (dispatch) => {
     navigate("/");
   } else {
     dispatch(loginFailure(response.data.message));
+    toast.error(response.data.message);
+  }
+};
+
+export const updateUser = (data, toast, navigate) => async (dispatch) => {
+  dispatch(updateUserStart());
+
+  const response = await editUserService(data);
+  if (response.data.errCode === 0) {
+    const userData = JSON.parse(localStorage.getItem("UserToken")) || null;
+    const payload = {
+      ...userData,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.newEmail,
+      address: data.address,
+      phoneNumber: data.phoneNumber,
+    };
+    console.log("check data update: ", payload);
+    dispatch(updateUserSuccess(payload));
+    localStorage.setItem("UserToken", JSON.stringify(payload));
+    toast.success("Cập nhật thông tin tài khoản thành công");
+  } else {
+    dispatch(updateUserFailure(response.data.message));
     toast.error(response.data.message);
   }
 };

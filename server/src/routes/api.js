@@ -45,6 +45,20 @@ import {
   handleReturnPayment,
 } from "../controllers/paymentController";
 
+import {
+  handleCreateNewOrder,
+  handleGetALlOrders,
+  handleEditOrder,
+  handleDeleteOrder,
+} from "../controllers/orderController";
+
+import {
+  handleCreateNewOrderDetail,
+  handleGetALlOrderDetails,
+  handleEditOrderDetail,
+  handleDeleteOrderDetail,
+} from "../controllers/orderDetailController";
+
 const router = express.Router();
 //--------------------------------------------------------
 
@@ -87,8 +101,18 @@ let initAPIRoutes = (app) => {
   router.put("/edit-cart", handleEditCart);
   router.delete("/delete-cart", handleDeleteCart);
 
-  router.get("/create-payment", handleCreatePayment);
+  router.post("/create-payment", handleCreatePayment);
   router.get("/return-payment", handleReturnPayment);
+
+  router.post("/create-new-order", handleCreateNewOrder);
+  router.get("/get-all-orders", handleGetALlOrders);
+  router.put("/edit-order", handleEditOrder);
+  router.delete("/delete-order", handleDeleteOrder);
+
+  router.post("/create-new-order-detail", handleCreateNewOrderDetail);
+  router.get("/get-all-order-details", handleGetALlOrderDetails);
+  router.put("/edit-order-detail", handleEditOrderDetail);
+  router.delete("/delete-order-detail", handleDeleteOrderDetail);
 
   return app.use("/api/v1/", router);
 };

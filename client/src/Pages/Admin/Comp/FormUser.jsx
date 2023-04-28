@@ -38,7 +38,8 @@ const FormUser = (props) => {
         id: user.id,
         firstName: firstName,
         lastName: lastName,
-        email: email,
+        newEmail: email,
+        email: user.email,
         address: address,
         phoneNumber: phoneNumber,
       };

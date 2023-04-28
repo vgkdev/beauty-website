@@ -7,6 +7,7 @@ import {
   Input,
   Select,
   Spacer,
+  Spinner,
   Stack,
   Text,
   VStack,
@@ -19,71 +20,40 @@ import { Navigate, useNavigate } from "react-router-dom";
 import CartSingleCard from "./CartSingleCard";
 import "../../Components/SignUp/SignUp.css";
 import { ToastContainer, toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllCartsByUserIdService } from "../../api/cartApi";
 import { Buffer } from "buffer";
 import { convertPrice } from "../../Utils/convertData";
 import { animateScroll as scroll } from "react-scroll";
 import { createPaymentService } from "../../api/paymentApi";
-// import { vnpay } from "../../index.mjs";
+import { editUserService } from "../../api/userApi";
+import { updateUser } from "../../reducers/user";
+import { createNewOrderService } from "../../api/ortherApi";
 
 const PaymentPage = () => {
+  const user = useSelector((state) => state.user.user);
+  const loading = useSelector((state) => state.user.loading);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  if (!user) {
+    navigate("/login");
+  }
+
   const [cartData, setCartData] = useState([]);
   const [total, setTotal] = useState(0);
   const [dis, setDis] = useState(10);
   const [sub, setSub] = useState(20);
   const [changeone, setchangeone] = useState(0);
+  const [orderType, setOrderType] = useState("");
 
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [confirmpass, setConfirmPass] = useState("");
+  const [firstName, setFirstName] = useState(user.firstName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [email, setEmail] = useState(user.email);
+  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
+  const [address, setAddress] = useState(user.address);
 
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.user.user);
-  if (!user) {
-    navigate("/login");
-  }
-
-  console.log(cartData);
-  // const getPro = () => {
-  //   axios
-  //     .get(`${dataUrl}/order`)
-  //     .then((res) => setPro(res.data))
-  //     .catch((er) => console.log(er));
-  // };
-  // const delPro = (id) => {
-  //   axios
-  //     .delete(`${dataUrl}/order/delete/${id}`)
-  //     .then((res) => {
-  //       toast.success("Remove successfully");
-  //       setchangeone((pre) => pre + 1);
-  //     })
-  //     .catch((er) => console.log(er));
-  // };
-  const cheakout = () => {
-    if (
-      firstname === "" ||
-      lastname === "" ||
-      email === "" ||
-      password === "" ||
-      phone === "" ||
-      confirmpass === ""
-    ) {
-      toast.error("Fill all details");
-    } else {
-      // axios
-      //   .delete(`${dataUrl}/order/delete`)
-      //   .then((res) => {
-      //     toast.success("Order Suceccesfull");
-      //     navigate("/");
-      //     setchangeone((pre) => pre + 1);
-      //   })
-      //   .catch((er) => console.log(er));
-    }
-  };
+  console.log("check cart data: ", cartData);
 
   useEffect(() => {
     scroll.scrollToTop();
@@ -93,6 +63,7 @@ const PaymentPage = () => {
     setTimeout(() => {
       getCartData();
     }, [1000]);
+
     const getCartData = async () => {
       if (user && user.id) {
         const response = await getAllCartsByUserIdService(user.id);
@@ -120,20 +91,58 @@ const PaymentPage = () => {
       });
   }, [cartData]);
 
-  const handleOrder = async () => {
-    const payload = {
-      amount: total,
-      orderId: 2,
-      orderInfo: "Test order",
-      clientIp: "127.0.0.1",
-    };
+  const handleEditUser = async () => {
+    if (!firstName || !lastName || !email || !address || !phoneNumber) {
+      toast.error("Nhập thiếu thông tin !");
+    } else {
+      const payload = {
+        id: user.id,
+        firstName: firstName,
+        lastName: lastName,
+        email: user.email,
+        newEmail: email,
+        address: address,
+        phoneNumber: phoneNumber,
+      };
 
-    const response = await createPaymentService(payload);
-    console.log("check res: ", response);
-    window.location.href = response.data;
+      dispatch(updateUser(payload, toast, navigate));
+    }
   };
 
-  console.log("check cart data: ", cartData);
+  const handleOrder = async () => {
+    // const response = await createPaymentService(payload);
+    // // console.log("check res payment: ", response);
+    // window.location.href = response.data.checkoutUrl;
+    console.log("check order type: ", orderType);
+    if (!orderType) {
+      toast.error("Hãy chọn phương thức thanh toán !");
+      return;
+    }
+
+    if (orderType === "1") {
+      if (!user.id || !total) {
+        toast.error("Thiếu thông tin");
+      } else {
+        const payload = {
+          userId: user.id,
+          totalPrice: total - (total / 100) * 10,
+          status: "Chưa thanh toán",
+          cartData: cartData,
+        };
+
+        const response = await createNewOrderService(payload);
+        console.log("check res: ", response.data.order);
+        if (response.data.errCode === 0) {
+          toast.success("Bạn đã đặt hàng thành công");
+          navigate("/cart");
+        } else {
+          toast.error(response.data.message);
+        }
+      }
+    }
+  };
+
+  // console.log("check cart data: ", cartData);
 
   return (
     <div>
@@ -162,9 +171,9 @@ const PaymentPage = () => {
                       <Input
                         type="text"
                         style={{ paddingLeft: "10px" }}
-                        value={user.firstName}
+                        value={firstName}
                         name="name"
-                        onChange={(e) => setFirstname(e.target.value)}
+                        onChange={(e) => setFirstName(e.target.value)}
                         required
                       />
                     </div>
@@ -175,9 +184,9 @@ const PaymentPage = () => {
                       <br />
                       <Input
                         type="text"
-                        value={user.lastName}
+                        value={lastName}
                         style={{ paddingLeft: "10px" }}
-                        onChange={(e) => setLastname(e.target.value)}
+                        onChange={(e) => setLastName(e.target.value)}
                         required
                       />
                     </div>
@@ -190,7 +199,7 @@ const PaymentPage = () => {
                     <br />
                     <Input
                       type="email"
-                      value={user.email}
+                      value={email}
                       style={{ paddingLeft: "10px" }}
                       name="name"
                       onChange={(e) => setEmail(e.target.value)}
@@ -204,10 +213,10 @@ const PaymentPage = () => {
                     <br />
                     <Input
                       type="text"
-                      value={user.address}
+                      value={address}
                       style={{ paddingLeft: "10px" }}
                       name="number"
-                      onChange={(e) => setPhone(e.target.value)}
+                      onChange={(e) => setAddress(e.target.value)}
                       required
                     />
                   </div>
@@ -218,22 +227,34 @@ const PaymentPage = () => {
                     <br />
                     <Input
                       type="number"
-                      value={user.phoneNumber}
+                      value={phoneNumber}
                       style={{ paddingLeft: "10px" }}
                       name="password"
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
                       required
                     />
                   </div>
+
+                  <Divider borderColor={"silver"} my={5} />
+                  <Button
+                    isLoading={loading}
+                    colorScheme="whatsapp"
+                    onClick={handleEditUser}
+                  >
+                    Cập nhật thông tin cá nhân
+                  </Button>
 
                   <div className="input_details">
                     <label>
                       Phương thức thanh toán<span> *</span>
                     </label>
                     <br />
-                    <Select placeholder="---Chọn phương thức thanh toán---">
-                      <option value="option2">Thanh toán khi nhận hàng</option>
-                      <option value="option3">VNPay</option>
+                    <Select
+                      placeholder="---Chọn phương thức thanh toán---"
+                      onChange={(e) => setOrderType(e.target.value)}
+                    >
+                      <option value={"1"}>Thanh toán khi nhận hàng</option>
+                      <option value={"2"}>VNPay</option>
                     </Select>
                   </div>
                 </form>

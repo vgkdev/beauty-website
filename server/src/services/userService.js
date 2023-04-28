@@ -175,15 +175,19 @@ const getALlUsers = () => {
 };
 
 const editUser = (data) => {
+  const { id, firstName, lastName, email, newEmail, address, phoneNumber } =
+    data;
   return new Promise(async (resolve, reject) => {
     try {
       if (
         !(
-          data.id &&
-          data.firstName &&
-          data.lastName &&
-          data.address &&
-          data.phoneNumber
+          id &&
+          firstName &&
+          lastName &&
+          email &&
+          newEmail &&
+          address &&
+          phoneNumber
         )
       ) {
         resolve({
@@ -192,37 +196,47 @@ const editUser = (data) => {
         });
       }
 
-      const [numAffectedRows, updatedRows] = await db.User.update(
-        {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          address: data.address,
-          phoneNumber: data.phoneNumber,
-        },
-        {
-          where: { id: data.id },
-          returning: true,
-          plain: true,
-        }
-      );
-
-      // console.log("check updated rows: ", updatedRows);
-
-      if (updatedRows !== 0) {
-        const user = await db.User.findAll({
-          attributes: { exclude: ["password"] },
-        });
-
+      const isExist = await userExist(newEmail);
+      // console.log("check eixist: ", isExist);
+      if (isExist === true && email !== newEmail) {
         resolve({
-          errCode: 0,
-          message: "User has been updated",
-          user,
+          errCode: 2,
+          message: "User existed !",
         });
       } else {
-        resolve({
-          errCode: 3,
-          message: "User not found !",
-        });
+        const [numAffectedRows, updatedRows] = await db.User.update(
+          {
+            firstName: firstName,
+            lastName: lastName,
+            email: newEmail,
+            address: address,
+            phoneNumber: phoneNumber,
+          },
+          {
+            where: { id: id },
+            returning: true,
+            plain: true,
+          }
+        );
+
+        // console.log("check updated rows: ", updatedRows);
+
+        if (updatedRows !== 0) {
+          const user = await db.User.findAll({
+            attributes: { exclude: ["password"] },
+          });
+
+          resolve({
+            errCode: 0,
+            message: "User has been updated",
+            user,
+          });
+        } else {
+          resolve({
+            errCode: 3,
+            message: "User not found !",
+          });
+        }
       }
     } catch (e) {
       reject(e);

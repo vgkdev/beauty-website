@@ -15,29 +15,29 @@ const LogsPage = ({
         orientation="horizontal"
         style={{ color: "red", size: "20" }}
       />
-      {products &&
-        products.map((el, index) => (
-          <ProductComp
-            key={index}
-            {...el}
-            handleShowModalProduct={handleShowModalProduct}
-            handleDeleteProduct={handleDeleteProduct}
-          />
-        ))}
+
+      <Button
+        // style={{ margin: "10px auto" }}
+        m={"20px auto"}
+        colorScheme="whatsapp"
+        onClick={() => handleShowModalProduct(null, "Create")}
+      >
+        + Create new category
+      </Button>
+
+      {products && (
+        <ProductComp
+          products={products}
+          handleShowModalProduct={handleShowModalProduct}
+          handleDeleteProduct={handleDeleteProduct}
+        />
+      )}
 
       <Divider
         my={5}
         orientation="horizontal"
         style={{ color: "red", size: "20" }}
       />
-
-      <Button
-        style={{ margin: "0 auto" }}
-        colorScheme="whatsapp"
-        onClick={() => handleShowModalProduct(null, "Create")}
-      >
-        + Create new category
-      </Button>
     </Box>
   );
 };

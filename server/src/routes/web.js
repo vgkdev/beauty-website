@@ -6,7 +6,7 @@ let router = express.Router();
 
 let initWebRoutes = (app) => {
   router.get("/", (req, res) => {
-    return res.send("test server");
+    return res.send("hello server");
   });
 
   return app.use("/", router);

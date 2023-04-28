@@ -18,17 +18,11 @@ module.exports = {
           onDelete: "SET NULL",
         },
       },
-      orderDate: {
-        type: Sequelize.DATE,
-      },
       status: {
         type: Sequelize.STRING,
       },
       totalPrice: {
         type: Sequelize.FLOAT,
-      },
-      address: {
-        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

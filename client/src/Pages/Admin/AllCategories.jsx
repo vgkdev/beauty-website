@@ -17,6 +17,13 @@ const AllCategories = ({
         orientation="horizontal"
         style={{ color: "red", size: "20" }}
       />
+      <Button
+        m={"20px auto"}
+        colorScheme="whatsapp"
+        onClick={() => handleShowModalCategory(null, "Create")}
+      >
+        + Create new category
+      </Button>
       <hr color="black" size="50px" />
       <Box>
         {categories &&
@@ -34,13 +41,6 @@ const AllCategories = ({
         orientation="horizontal"
         style={{ color: "red", size: "20" }}
       />
-      <Button
-        style={{ margin: "0 auto" }}
-        colorScheme="whatsapp"
-        onClick={() => handleShowModalCategory(null, "Create")}
-      >
-        + Create new category
-      </Button>
     </Box>
   );
 };
