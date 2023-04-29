@@ -13,18 +13,30 @@ import {
   MenuButton,
   Button,
   Box,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  IconButton,
+  Flex,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../reducers/user";
+import { SearchIcon, CloseIcon } from "@chakra-ui/icons";
+import { convertPrice, removeDiacritics } from "../../Utils/convertData";
+
 export default function Navdar() {
   const [loginDropDown, setloginDropDown] = useState(false);
   const [loginDropDown2, setloginDropDown2] = useState(false);
   const [userNmae, setUserName] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.user);
+  const products = useSelector((state) => state.products.products);
+
   useEffect(() => {
     if (user) setUserName(user.firstName + " " + user.lastName);
   }, [user]);
@@ -34,24 +46,23 @@ export default function Navdar() {
     setloginDropDown2(false);
   };
 
-  const data = [
-    "All Categories",
-    "--Make up",
-    "----Face",
-    "------Foundation",
-    "------Blush",
-    "------Highlighter",
-    "------Concealer",
-    "------Compact & Powder",
-    "------Face Primer",
-    "------Makeup Remover",
-    "------Bronzer",
-    "------BB Cream",
-    "------Loose Powder",
-    "------Setiig Spray",
-    "------Makeup Kit",
-    "------CC Cream",
-  ];
+  const filteredProducts = searchTerm
+    ? products.filter((product) =>
+        removeDiacritics(product.productName.toLowerCase()).includes(
+          removeDiacritics(searchTerm.toLowerCase())
+        )
+      )
+    : [];
+
+  const handleSearchTermChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // Handle clear search term
+  const handleClearSearchTerm = () => {
+    setSearchTerm("");
+  };
+
   return (
     <div className="mid_nav_main" style={{ backgroundColor: "#6bc6d9" }}>
       <div className="mid_nav_mid">
@@ -96,29 +107,82 @@ export default function Navdar() {
           </div>
 
           {/* search bar */}
-          <div className="search_div">
-            <select className="select">
-              <option>All Categories</option>
-              {data.map((item, index) => (
-                <option key={index} value="option1">
-                  {item}
-                </option>
-              ))}
-            </select>
-            <input className="input" type="search" style={{ border: "none" }} />
-            <div
-              className="search_icon"
-              style={{ backgroundColor: "#ffffff", color: "black" }}
+          <Flex
+            borderRadius={10}
+            bgColor={"white"}
+            className="search_div"
+            direction={"column"}
+          >
+            <InputGroup mb={0}>
+              <InputLeftElement
+                pointerEvents="none"
+                children={<SearchIcon color="gray.300" />}
+              />
+              <Input
+                borderRadius={10}
+                placeholder="Tìm kiếm sản phẩm"
+                value={searchTerm}
+                onChange={handleSearchTermChange}
+              />
+              {searchTerm && (
+                <InputRightElement>
+                  <IconButton
+                    // aria-label="Clear search"
+                    icon={<CloseIcon />}
+                    size="sm"
+                    onClick={handleClearSearchTerm}
+                  />
+                </InputRightElement>
+              )}
+            </InputGroup>
+            <Box
+              w={"99%"}
+              borderRadius={5}
+              display={searchTerm ? "" : "none"}
+              p={5}
+              bgColor={"white"}
+              zIndex={10000}
             >
-              <FiSearch />
-            </div>
-          </div>
+              {filteredProducts.length === 0 ? (
+                <>{searchTerm && <Text>Không tìm thấy sản phẩm.</Text>}</>
+              ) : (
+                filteredProducts.map((product) => (
+                  <Flex
+                    key={product.id}
+                    alignItems="center"
+                    mb={2}
+                    cursor={"pointer"}
+                    onClick={() => {
+                      navigate(`/product/${product.id}`);
+                      handleClearSearchTerm();
+                    }}
+                  >
+                    <Image
+                      src={`data:image/jpeg;base64,${product.imageUrl}`}
+                      boxSize={"100px"}
+                      objectFit="contain"
+                      alt={product.productName}
+                    />
+                    <Text fontWeight={"semibold"} flex={1} mr={2}>
+                      {product.productName}
+                    </Text>
+                    <Text fontWeight={"semibold"}>
+                      {convertPrice(product.price)}
+                    </Text>
+                  </Flex>
+                ))
+              )}
+            </Box>
+          </Flex>
           {/* end search bar */}
         </div>
 
         {/* user */}
         <div className="mid_nav_sec">
-          <Button backgroundColor={"#6bc6d9"}>
+          <Button
+            backgroundColor={"#6bc6d9"}
+            onClick={() => navigate("/favorite-list")}
+          >
             <div
               style={{
                 fontSize: "20px",
@@ -155,7 +219,7 @@ export default function Navdar() {
                       navigate("/");
                     }}
                   >
-                    Log Out
+                    Đăng xuất
                   </MenuItem>
                 ) : (
                   <>
@@ -164,7 +228,7 @@ export default function Navdar() {
                         minH="40px"
                         onClick={() => setloginDropDown(!loginDropDown)}
                       >
-                        Login
+                        Đăng nhập
                       </MenuItem>
                     </Link>
                     <Link to="/signup">
@@ -172,7 +236,7 @@ export default function Navdar() {
                         minH="40px"
                         onClick={() => setloginDropDown(!loginDropDown)}
                       >
-                        Register
+                        Đăng ký
                       </MenuItem>
                     </Link>
                   </>

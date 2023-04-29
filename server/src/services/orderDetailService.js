@@ -40,7 +40,11 @@ const createNewOrderDetail = (data) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -70,7 +74,11 @@ const getALlOrderDetails = () => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -122,7 +130,11 @@ const editOrderDetail = (data) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -163,7 +175,11 @@ const deleteOrderDetail = (id) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };

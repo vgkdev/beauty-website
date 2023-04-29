@@ -9,7 +9,11 @@ const hashUserPassword = (password) => {
       const hashPassword = bcrypt.hashSync(password, salt);
       resolve(hashPassword);
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -29,7 +33,11 @@ const userExist = (email) => {
         resolve(false);
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -88,7 +96,11 @@ const createNewUser = (data) => {
         }
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -144,7 +156,11 @@ const registerUser = (data) => {
         }
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -169,7 +185,11 @@ const getALlUsers = () => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -239,7 +259,11 @@ const editUser = (data) => {
         }
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -276,7 +300,11 @@ const deleteUser = (id) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -329,7 +357,11 @@ const loginUser = (data) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -361,7 +393,11 @@ const verifyUser = (data) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -426,7 +462,11 @@ const changePassword = (data) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };

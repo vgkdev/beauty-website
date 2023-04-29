@@ -40,7 +40,11 @@ const createNewProductComment = (data) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -70,7 +74,11 @@ const getALlProductComments = () => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -120,7 +128,11 @@ const editProductComment = (data) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -161,7 +173,11 @@ const deleteProductComment = (id) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };

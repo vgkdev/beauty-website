@@ -38,6 +38,7 @@ import {
   handleGetALlCartsByUserId,
   handleEditCart,
   handleDeleteCart,
+  handleDeleteCartByUserId,
 } from "../controllers/cartController";
 
 import {
@@ -58,6 +59,14 @@ import {
   handleEditOrderDetail,
   handleDeleteOrderDetail,
 } from "../controllers/orderDetailController";
+
+import {
+  handleCreateNewFavoriteList,
+  handleGetALlFavoriteLists,
+  handleGetFavoriteListByUserId,
+  handleEditFavoriteList,
+  handleDeleteFavoriteList,
+} from "../controllers/favoriteListController";
 
 const router = express.Router();
 //--------------------------------------------------------
@@ -100,6 +109,7 @@ let initAPIRoutes = (app) => {
   router.get("/get-all-carts-by-userId", handleGetALlCartsByUserId);
   router.put("/edit-cart", handleEditCart);
   router.delete("/delete-cart", handleDeleteCart);
+  router.delete("/delete-cart-by-userId", handleDeleteCartByUserId);
 
   router.post("/create-payment", handleCreatePayment);
   router.get("/return-payment", handleReturnPayment);
@@ -113,6 +123,12 @@ let initAPIRoutes = (app) => {
   router.get("/get-all-order-details", handleGetALlOrderDetails);
   router.put("/edit-order-detail", handleEditOrderDetail);
   router.delete("/delete-order-detail", handleDeleteOrderDetail);
+
+  router.post("/create-new-favorite-list", handleCreateNewFavoriteList);
+  router.get("/get-all-favorite-lists", handleGetALlFavoriteLists);
+  router.get("/get-favorite-list-by-userId", handleGetFavoriteListByUserId);
+  router.put("/edit-favorite-list", handleEditFavoriteList);
+  router.delete("/delete-favorite-list", handleDeleteFavoriteList);
 
   return app.use("/api/v1/", router);
 };

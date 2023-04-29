@@ -18,7 +18,7 @@ import { convertPrice } from "../../../Utils/convertData";
 import moment from "moment";
 import { FaTrash, FaEdit } from "react-icons/fa";
 
-const OrderComp = ({ orders, handleDeleteOrder }) => {
+const OrderComp = ({ orders, handleShowModalOrder, handleDeleteOrder }) => {
   // console.log("check props: ", orders);
   return (
     <Box textAlign={"center"} mb="20px" border={"1px solid #50555e"}>
@@ -58,13 +58,13 @@ const OrderComp = ({ orders, handleDeleteOrder }) => {
                   {moment.utc(order.createdAt).local().format("DD-MM-YYYY")}
                 </Td>
                 <Td>
-                  {/* <IconButton
+                  <IconButton
                     bg={"none"}
                     aria-label="Edit"
                     icon={<FaEdit />}
-                    // onClick={() => handleEditOrder(order.id)}
+                    onClick={() => handleShowModalOrder(order.id, "Update")}
                     mr="2"
-                  /> */}
+                  />
                   <IconButton
                     bg={"none"}
                     aria-label="Delete"

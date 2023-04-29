@@ -55,7 +55,12 @@ import {
 import { Buffer } from "buffer";
 import FormProduct from "./Comp/FromProduct";
 import { getAllCartsService } from "../../api/cartApi";
-import { deleteOrderService, getAllOrdersService } from "../../api/ortherApi";
+import {
+  deleteOrderService,
+  editOrderService,
+  getAllOrdersService,
+} from "../../api/ortherApi";
+import FormOrder from "./Comp/FormOrder";
 
 const init1 = {
   userSection: false,
@@ -72,6 +77,8 @@ export const Profile = () => {
   const [isModalUserOpen, setIsModalUserOpen] = useState(false);
   const [isModalCategoryOpen, setIsModalCategoryOpen] = useState(false);
   const [isModalProductOpen, setIsModalProductOpen] = useState(false);
+  const [isModalOrderOpen, setIsModalOrderOpen] = useState(false);
+
   const [change, setChange] = useState(0);
   const { smallScreen, mediumScreen } = useMedia();
   const [section, setSection] = useState({ ...init1, userSection: true });
@@ -96,6 +103,8 @@ export const Profile = () => {
   const [userDetailInModal, setUserDetailInModal] = useState(null);
   const [categoryDetailInModal, setCategoryDetailInModal] = useState(null);
   const [productDetailInModal, setProductDetailInModal] = useState(null);
+  const [orderDetailInModal, setOrderDetailInModal] = useState(null);
+
   const [modalType, setModalType] = useState("");
 
   useEffect(() => {
@@ -377,9 +386,22 @@ export const Profile = () => {
     const response = await getAllOrdersService();
     if (response.data.errCode === 0) {
       const order = response.data.order;
-      console.log("check order data: ", order);
+      // console.log("check order data: ", order);
       printS(response.data.message);
       setOrderData(order);
+    } else {
+      printF(response.data.message);
+    }
+  };
+
+  const editOrder = async (data) => {
+    const response = await editOrderService(data);
+    if (response.data.errCode === 0) {
+      const order = response.data.order;
+      // console.log("check order data: ", order);
+      printS(response.data.message);
+      setOrderData(order);
+      setIsModalOrderOpen(false);
     } else {
       printF(response.data.message);
     }
@@ -393,6 +415,14 @@ export const Profile = () => {
     } else {
       printF(response.data.message);
     }
+  };
+
+  const handleShowModalOrder = (id, type) => {
+    const order = orderData.filter((value) => value.id === id);
+    setOrderDetailInModal(order[0]);
+
+    setModalType(type);
+    setIsModalOrderOpen(true);
   };
 
   return (
@@ -479,8 +509,29 @@ export const Profile = () => {
           </ModalContent>
         </Modal>
 
+        <Modal
+          onClose={() => setIsModalOrderOpen(false)}
+          size={"lg"}
+          isOpen={isModalOrderOpen}
+        >
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>{modalType} Order</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <FormOrder
+                order={orderDetailInModal}
+                handleEditOrder={editOrder}
+              />
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={() => setIsModalOrderOpen(false)}>Close</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
         <Text mt="100px" fontSize={"5xl"} color="#00ff2a">
-          Admin Management Page
+          Trang quản trị viên
         </Text>
 
         <Flex mt="10px" direction={!mediumScreen ? "column" : "row"}>
@@ -560,7 +611,11 @@ export const Profile = () => {
               />
             )}
             {orderSection && (
-              <Reports orders={orderData} handleDeleteOrder={deleteOrder} />
+              <Reports
+                orders={orderData}
+                handleDeleteOrder={deleteOrder}
+                handleShowModalOrder={handleShowModalOrder}
+              />
             )}
           </Box>
 

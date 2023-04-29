@@ -21,7 +21,10 @@ import CartSingleCard from "./CartSingleCard";
 import "../../Components/SignUp/SignUp.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCartsByUserIdService } from "../../api/cartApi";
+import {
+  deleteCartByUserIdService,
+  getAllCartsByUserIdService,
+} from "../../api/cartApi";
 import { Buffer } from "buffer";
 import { convertPrice } from "../../Utils/convertData";
 import { animateScroll as scroll } from "react-scroll";
@@ -113,7 +116,7 @@ const PaymentPage = () => {
     // const response = await createPaymentService(payload);
     // // console.log("check res payment: ", response);
     // window.location.href = response.data.checkoutUrl;
-    console.log("check order type: ", orderType);
+    // console.log("check order type: ", orderType);
     if (!orderType) {
       toast.error("Hãy chọn phương thức thanh toán !");
       return;
@@ -134,7 +137,13 @@ const PaymentPage = () => {
         console.log("check res: ", response.data.order);
         if (response.data.errCode === 0) {
           toast.success("Bạn đã đặt hàng thành công");
-          navigate("/cart");
+          try {
+            await deleteCartByUserIdService(user.id);
+          } catch (e) {
+            console.log(e);
+            toast.error(e);
+          }
+          navigate("/");
         } else {
           toast.error(response.data.message);
         }

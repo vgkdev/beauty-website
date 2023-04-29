@@ -57,7 +57,11 @@ const createNewCategory = (data) => {
         }
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -121,7 +125,11 @@ const getALlCategories = () => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -190,7 +198,11 @@ const editCategory = (data) => {
         }
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -240,7 +252,11 @@ const deleteCategory = (id) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };

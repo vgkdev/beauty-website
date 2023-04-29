@@ -29,10 +29,19 @@ const deleteCartService = (id) => {
   });
 };
 
+const deleteCartByUserIdService = (userId) => {
+  return axios.delete(`${dataUrl}/delete-cart-by-userId`, {
+    data: {
+      userId: userId,
+    },
+  });
+};
+
 export {
   createNewCartService,
   getAllCartsService,
   getAllCartsByUserIdService,
   editCartService,
   deleteCartService,
+  deleteCartByUserIdService,
 };

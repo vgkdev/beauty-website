@@ -13,6 +13,7 @@ import Serum from "../Pages/Home/Serum";
 import Clean from "../Pages/Home/Clean";
 import PersonalCare from "../Pages/Home/PersonalCare";
 import ProductDetail from "../Pages/Home/ProductDetail";
+import FavoriteList from "../Pages/Home/FavoriteList";
 
 const AllRoutes = () => {
   return (
@@ -26,6 +27,7 @@ const AllRoutes = () => {
       <Route path="/product/:id" element={<ProductDetail />}></Route>
       <Route path="/test" element={<Admin />}></Route>
       <Route path="/cart" element={<Cart />}></Route>
+      <Route path="/favorite-list" element={<FavoriteList />}></Route>
       <Route path="/skin" element={<Skin />}></Route>
       <Route path="/serum" element={<Serum />}></Route>
       <Route path="/clean" element={<Clean />}></Route>

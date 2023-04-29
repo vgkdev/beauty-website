@@ -15,10 +15,19 @@ import {
 import "./Products/Products.css";
 import { Image } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { BsSuitHeartFill, BsFillCartPlusFill } from "react-icons/bs";
+import {
+  BsSuitHeartFill,
+  BsFillCartPlusFill,
+  BsFillTrashFill,
+} from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { createNewCartService } from "../api/cartApi";
 import { toast } from "react-toastify";
+import { convertPrice } from "../Utils/convertData";
+import {
+  createNewFavoriteListService,
+  deleteFavoriteListService,
+} from "../api/favoriteListApi";
 
 export function MainProducts(props) {
   const { setnav, setState } = props;
@@ -47,11 +56,27 @@ export function MainProducts(props) {
     const response = await createNewCartService(payload);
     if (response.data.errCode === 0) {
       toast.success("Đã thêm vào giỏ hàng");
-      console.log("add success");
     } else {
       toast.error("Lỗi không thêm được vào giỏ hàng");
     }
-    console.log("check add to cart: ", response);
+  };
+
+  const handleAddFavoriteList = async () => {
+    const payload = {
+      userId: user.id,
+      productId: props.id,
+    };
+
+    const response = await createNewFavoriteListService(payload);
+    if (response.data.errCode === 0) {
+      toast.success("Đã thêm vào danh sách yêu thích");
+    } else {
+      if (response.data.errCode === 2) {
+        toast.error("Sản phẩm đã tồn tại trong danh sách");
+      } else {
+        toast.error("Lỗi không thêm được vào danh sách yêu thích");
+      }
+    }
   };
 
   return (
@@ -87,7 +112,7 @@ export function MainProducts(props) {
             <Heading size="md">{props.name}</Heading>
             <Text fontSize="sm">{props.description}</Text>
             <Text color="blue.600" fontSize="sm">
-              {props.price}đ
+              {convertPrice(props.price)}
             </Text>
           </Stack>
         </CardBody>
@@ -105,9 +130,25 @@ export function MainProducts(props) {
             >
               <BsFillCartPlusFill style={{ marginRight: "5px" }} />
             </Button>
-            <Button bgColor={"#6bc6d9"} color={"#ffffff"} mb={4}>
-              <BsSuitHeartFill />
-            </Button>
+            {props.type && props.type === "FAVORITE" ? (
+              <Button
+                bgColor={"red"}
+                color={"#ffffff"}
+                mb={4}
+                onClick={() => props.handleDeleteItemInFavoriteList(props.id)}
+              >
+                <BsFillTrashFill />
+              </Button>
+            ) : (
+              <Button
+                bgColor={"#6bc6d9"}
+                color={"#ffffff"}
+                mb={4}
+                onClick={handleAddFavoriteList}
+              >
+                <BsSuitHeartFill />
+              </Button>
+            )}
           </ButtonGroup>
         </CardFooter>
       </Card>

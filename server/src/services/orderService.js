@@ -61,7 +61,11 @@ const createNewOrder = (data) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -99,17 +103,21 @@ const getALlOrders = () => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
 
 const editOrder = (data) => {
-  const { id, userId, status, totalPrice } = data;
+  const { id, status } = data;
 
   return new Promise(async (resolve, reject) => {
     try {
-      if (!id || !userId || !status || !totalPrice) {
+      if (!id || !status) {
         resolve({
           errCode: 1,
           message: "Missing paremeter !",
@@ -118,9 +126,7 @@ const editOrder = (data) => {
 
       const [numAffectedRows, updatedRows] = await db.Order.update(
         {
-          userId: userId,
           status: status,
-          totalPrice: totalPrice,
         },
         {
           where: { id: id },
@@ -159,7 +165,11 @@ const editOrder = (data) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -175,6 +185,17 @@ const deleteOrder = (id) => {
         });
       }
 
+      try {
+        await db.OrderDetail.destroy({
+          where: { orderId: id },
+        });
+      } catch (e) {
+        console.log("Error: ", e);
+        reject({
+          errCode: 500,
+          message: "Internal server error",
+        });
+      }
       const result = await db.Order.destroy({
         where: { id: id },
       });
@@ -209,7 +230,11 @@ const deleteOrder = (id) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };

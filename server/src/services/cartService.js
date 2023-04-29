@@ -39,7 +39,11 @@ const createNewCart = (data) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -68,7 +72,11 @@ const getALlCarts = () => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -100,7 +108,11 @@ const getALlCartsByUserId = (userId) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -149,7 +161,11 @@ const editCart = (data) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -189,7 +205,58 @@ const deleteCart = (id) => {
         });
       }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
+    }
+  });
+};
+
+const deleteCartByUserId = (userId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!userId) {
+        resolve({
+          errCode: 1,
+          message: "Missing paremeter !",
+        });
+      }
+
+      const result = await db.Cart.destroy({
+        where: { userId: userId },
+      });
+
+      // console.log("check delete cart: ", result);
+      if (result !== 0) {
+        const cart = await db.Cart.findAll({
+          where: {
+            userId: userId,
+          },
+          include: [
+            {
+              model: db.Product,
+            },
+          ],
+        });
+        resolve({
+          errCode: 0,
+          message: "Cart has been deleted !",
+          cart,
+        });
+      } else {
+        resolve({
+          errCode: 3,
+          message: "Cart not found !",
+        });
+      }
+    } catch (e) {
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -200,4 +267,5 @@ module.exports = {
   getALlCartsByUserId,
   editCart,
   deleteCart,
+  deleteCartByUserId,
 };

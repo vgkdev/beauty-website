@@ -41,7 +41,11 @@ const createPayment = (data) => {
       console.log("check url: ", paymentUrl);
       resolve(paymentUrl);
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
@@ -72,7 +76,11 @@ const returnPayment = (data) => {
       //     res.redirect("/error");
       //   }
     } catch (e) {
-      reject(e);
+      console.log("Error: ", e);
+      reject({
+        errCode: 500,
+        message: "Internal server error",
+      });
     }
   });
 };
