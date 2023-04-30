@@ -8,14 +8,16 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import { BsFacebook, BsInstagram } from "react-icons/bs";
+import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <div>
       <>
         <Box
-          bg="black"
+          bg="#6bc6d9"
           className="FooterMainBox"
-          border={{ base: "1px solid #dd0285", md: "3px solid #dd0285" }}
+          // border={{ base: "1px solid #000000", md: "3px solid #000000" }}
+          py={5}
           mt="1%"
         >
           <SimpleGrid
@@ -25,127 +27,192 @@ const Footer = () => {
             w={{ base: "90%", md: "85%" }}
             rowGap="40px"
             mt="20px"
+            justifyContent={"space-around"}
           >
             <Box>
-              <Text color={"white"}>CONTACT INFO</Text>
-              <Text color="#dd2895">- - - - - -</Text>
+              <Text color={"white"} fontWeight={"bold"} fontSize={17}>
+                THÔNG TIN LIÊN LẠC
+              </Text>
+              <Text color="#fff">- - - - - -</Text>
               <Box
                 color="gray"
                 fontWeight="500"
                 fontSize={{ base: "12px", md: "14px" }}
                 lineHeight="30px"
               >
-                <Text _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  (+91) 7877061041
+                <Text
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  (+84) 123456789
                 </Text>
-                <Text _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  support@beautybebo.com <br /> sales@beautybebo.com
+                <Text
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  heshi.com <br />
                 </Text>
-                <Text _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Open time: 10:00AM - 7:00PM
+                <Text
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  Thành phố Hồ Chí Minh <br />
+                </Text>
+                <Text
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  Giờ mở cửa: 10:00AM - 7:00PM
                 </Text>
                 <Box
                   display="flex"
                   gap="30px"
                   fontSize="30px"
-                  color="#dd0285"
+                  color="#000000"
                   mt="20px"
                 >
-                  <BsFacebook></BsFacebook>
+                  <a
+                    rel="noreferrer"
+                    target="_blank"
+                    href="https://www.facebook.com/profile.php?id=100091881355909"
+                  >
+                    <BsFacebook cursor={"pointer"} />
+                  </a>
+
                   <BsInstagram />
                 </Box>
               </Box>
             </Box>
 
             <Box>
-              <Text color={"white"}>QUICK LINKS</Text>
-              <Text color="#dd2895">- - - - - -</Text>
+              <Text color={"white"} fontWeight={"bold"} fontSize={17}>
+                Đường dẫn
+              </Text>
+              <Text color="#fff">- - - - - -</Text>
               <UnorderedList
                 color="gray"
                 fontWeight="500"
                 fontSize={{ base: "12px", md: "14px" }}
                 lineHeight="30px"
               >
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  About Us
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  Về chúng tôi
                 </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Contact Us
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  Liên hệ chúng tôi
                 </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Terms & Conditions
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  Điều khoản và điều kiện
                 </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Privacy Policy
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  Chính sách bảo mật
                 </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Return & Refund Policy
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  Chính sách đổi trả & hoàn tiền
                 </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Shipping Policy
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  Chính sách vận chuyển
                 </ListItem>
               </UnorderedList>
             </Box>
 
             <Box>
-              <Text color={"white"}>CUSTOMER INFO</Text>
-              <Text color="#dd2895">- - - - - -</Text>
+              <Text color={"white"} fontWeight={"bold"} fontSize={17}>
+                THÔNG TIN KHÁC HÀNG
+              </Text>
+              <Text color="#fff">- - - - - -</Text>
               <UnorderedList
                 color="gray"
                 fontWeight="500"
                 fontSize={{ base: "12px", md: "14px" }}
                 lineHeight="30px"
               >
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  My Account
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  <Link to={"/"}>Tài khoản</Link>
                 </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Track your Order
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  <Link to={"/"}>Theo dõi đơn hàng của bạn</Link>
                 </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Order returns
+
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  <Link to={"/favorite-list"}>Danh sách yêu thích</Link>
                 </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Wishlist
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  Tin tức và sự kiện
                 </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  News & Events
-                </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
                   FAQ
                 </ListItem>
               </UnorderedList>
             </Box>
 
             <Box>
-              <Text color={"white"}>CATEGORIES</Text>
-              <Text color="#dd2895">- - - - - -</Text>
+              <Text color={"white"} fontWeight={"bold"} fontSize={17}>
+                Danh mục
+              </Text>
+              <Text color="#fff">- - - - - -</Text>
               <UnorderedList
                 color="gray"
                 fontWeight="500"
                 fontSize={{ base: "12px", md: "14px" }}
                 lineHeight="30px"
               >
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Makeup
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  <Link to={"/treatment"}>Sản phẩm đặc trị</Link>
                 </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Skin
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  <Link to={"/skin"}>Dưỡng da</Link>
                 </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Hair
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  <Link to={"/clean"}>Làm sạch</Link>
                 </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Personal Care
-                </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Mom & Baby Care
-                </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Fragrance
-                </ListItem>
-                <ListItem _hover={{ color: "#dd0285", cursor: "pointer" }}>
-                  Ayurveda
+                <ListItem
+                  textColor={"#000000"}
+                  _hover={{ color: "#000000", cursor: "pointer" }}
+                >
+                  <Link to={"/personal-care"}>Thực phẩm chức năng</Link>
                 </ListItem>
               </UnorderedList>
             </Box>

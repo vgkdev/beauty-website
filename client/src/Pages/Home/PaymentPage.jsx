@@ -157,7 +157,7 @@ const PaymentPage = () => {
     <div>
       <VStack marginTop={{ base: "220px", md: "180px" }} justify="center">
         <Text fontSize="2xl" fontWeight="extrabold">
-          My Bag {cartData.length} item(S)
+          Có {cartData.length} sản phẩm trong giỏ hàng
         </Text>
 
         <Stack
@@ -174,7 +174,7 @@ const PaymentPage = () => {
                   <div className="name_div">
                     <div className="name">
                       <label>
-                        First Name<span> *</span>
+                        Họ<span> *</span>
                       </label>
                       <br />
                       <Input
@@ -188,7 +188,7 @@ const PaymentPage = () => {
                     </div>
                     <div className="name">
                       <label>
-                        Last Name<span> *</span>
+                        Tên<span> *</span>
                       </label>
                       <br />
                       <Input
@@ -217,7 +217,7 @@ const PaymentPage = () => {
                   </div>
                   <div className="input_details">
                     <label>
-                      Address<span> *</span>
+                      Địa chỉ<span> *</span>
                     </label>
                     <br />
                     <Input
@@ -231,7 +231,7 @@ const PaymentPage = () => {
                   </div>
                   <div className="input_details">
                     <label>
-                      Phone<span> *</span>
+                      SĐT<span> *</span>
                     </label>
                     <br />
                     <Input

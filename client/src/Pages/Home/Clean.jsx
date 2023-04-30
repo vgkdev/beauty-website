@@ -23,7 +23,7 @@ const Clean = () => {
 
   useEffect(() => {
     const cleanProducts = categories.filter((value) => {
-      return value.categoryName === "Clean";
+      return value.categoryName === "Làm sạch";
     });
     setProducts(cleanProducts[0].Products);
   }, [categories]);
@@ -38,7 +38,7 @@ const Clean = () => {
         fontWeight="semibold"
         margin="15px"
       >
-        Clean Products
+        Sản phẩm làm sạch
       </Text>
 
       <Wrap justify="center" my={"16"}>

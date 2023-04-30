@@ -9,7 +9,7 @@ const LogsPage = ({
 }) => {
   return (
     <Box>
-      <Text fontSize="xl">All Products</Text>
+      <Text fontSize="xl">Tất cả sản phẩm</Text>
       <Divider
         my={5}
         orientation="horizontal"

@@ -1,4 +1,12 @@
-import { Box, Button, Container, Flex, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Image,
+  Text,
+  Divider,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
 import axios from "axios";
@@ -42,6 +50,12 @@ const Reports = ({ orders, handleDeleteOrder, handleShowModalOrder }) => {
     <>
       {/* {orders && orders.map((el, i) => <OrderComp key={i} {...el} />)}
        */}
+      <Text fontSize="xl">Tất cả đơn đặt hàng</Text>
+      <Divider
+        my={5}
+        orientation="horizontal"
+        style={{ color: "red", size: "20" }}
+      />
       <Button
         mb={5}
         colorScheme="yellow"

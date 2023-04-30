@@ -59,10 +59,10 @@ export default function Login() {
       <div className="input_div_main">
         {/* sign in */}
         <div className="input_div">
-          <div className="input_heading">REGISTERED CUSTOMERS</div>
+          <div className="input_heading">ĐĂNG NHẬP</div>
 
           <div className="tit">
-            If you have an account, sign in with your email address.
+            Nếu bạn có tài khoản, hãy đăng nhập bằng địa chỉ email của bạn.
           </div>
 
           <div className="input_details">
@@ -80,7 +80,7 @@ export default function Login() {
 
           <div className="input_details">
             <label>
-              Password<span> *</span>
+              Mật khẩu<span> *</span>
             </label>
             <br />
             <Input
@@ -93,7 +93,7 @@ export default function Login() {
 
           <div className="input_button">
             <Button colorScheme="blue" onClick={onLogin}>
-              SIGN IN
+              ĐĂNG NHẬP
             </Button>
             {/* <a href="#">Forgot Your Password?</a> */}
           </div>
@@ -102,16 +102,15 @@ export default function Login() {
 
         {/* create account */}
         <div className="register">
-          <div className="input_heading">NEW CUSTOMERS</div>
+          <div className="input_heading">ĐĂNG KÝ MỚI</div>
 
           <div className="tit">
-            Creating an account has many benefits: check out faster, keep more
-            than one address, track orders and more.
+            Tạo một tài khoản có nhiều lợi ích: kiểm tra nhanh hơn, theo dõi đơn
+            đặt hàng và hơn thế nữa.
           </div>
           <div className="input_button">
             <Link to="/signup">
-              {" "}
-              <Button colorScheme="blue">CREATE AN ACCOUNT</Button>
+              <Button colorScheme="blue">TẠO MỘT TÀI KHOẢN</Button>
             </Link>
           </div>
         </div>

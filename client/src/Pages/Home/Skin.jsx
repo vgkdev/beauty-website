@@ -24,7 +24,7 @@ const Skin = () => {
 
   useEffect(() => {
     const skinProducts = categories.filter((value) => {
-      return value.categoryName === "Skin care";
+      return value.categoryName === "Dưỡng da";
     });
     setProducts(skinProducts[0].Products);
   }, [categories]);
@@ -39,7 +39,7 @@ const Skin = () => {
         fontWeight="semibold"
         margin="15px"
       >
-        Skin Products
+        Sản phẩm dưỡng da
       </Text>
 
       <Wrap justify="center" my={"16"}>

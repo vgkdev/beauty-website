@@ -46,35 +46,43 @@ export function MainProducts(props) {
   };
 
   const handleAddToCart = async () => {
-    const payload = {
-      userId: user.id,
-      productId: props.id,
-      quantity: 1,
-    };
-
-    // console.log("check payload: ", payload);
-    const response = await createNewCartService(payload);
-    if (response.data.errCode === 0) {
-      toast.success("Đã thêm vào giỏ hàng");
+    if (!user) {
+      toast.error("Xin hãy đăng nhập !");
     } else {
-      toast.error("Lỗi không thêm được vào giỏ hàng");
+      const payload = {
+        userId: user.id,
+        productId: props.id,
+        quantity: 1,
+      };
+
+      // console.log("check payload: ", payload);
+      const response = await createNewCartService(payload);
+      if (response.data.errCode === 0) {
+        toast.success("Đã thêm vào giỏ hàng");
+      } else {
+        toast.error("Lỗi không thêm được vào giỏ hàng");
+      }
     }
   };
 
   const handleAddFavoriteList = async () => {
-    const payload = {
-      userId: user.id,
-      productId: props.id,
-    };
-
-    const response = await createNewFavoriteListService(payload);
-    if (response.data.errCode === 0) {
-      toast.success("Đã thêm vào danh sách yêu thích");
+    if (!user) {
+      toast.error("Xin hãy đăng nhập !");
     } else {
-      if (response.data.errCode === 2) {
-        toast.error("Sản phẩm đã tồn tại trong danh sách");
+      const payload = {
+        userId: user.id,
+        productId: props.id,
+      };
+
+      const response = await createNewFavoriteListService(payload);
+      if (response.data.errCode === 0) {
+        toast.success("Đã thêm vào danh sách yêu thích");
       } else {
-        toast.error("Lỗi không thêm được vào danh sách yêu thích");
+        if (response.data.errCode === 2) {
+          toast.error("Sản phẩm đã tồn tại trong danh sách");
+        } else {
+          toast.error("Lỗi không thêm được vào danh sách yêu thích");
+        }
       }
     }
   };

@@ -33,6 +33,7 @@ import moment from "moment";
 import ListComment from "../../Components/ListComment";
 import { createNewCartService } from "../../api/cartApi";
 import { toast } from "react-toastify";
+import { createNewFavoriteListService } from "../../api/favoriteListApi";
 
 // import { addToCart } from "../redux/cartSlice";
 
@@ -75,35 +76,70 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = async () => {
-    const payload = {
-      userId: user.id,
-      productId: data.id,
-      quantity: quantity,
-    };
-
-    // console.log("check payload: ", payload);
-    const response = await createNewCartService(payload);
-    if (response.data.errCode === 0) {
-      toast.success("Đã thêm vào giỏ hàng");
-      // console.log("add success");
+    if (!user) {
+      toast.error("Xin hãy đăng nhập !");
     } else {
-      toast.error("Lỗi không thêm được vào giỏ hàng");
+      const payload = {
+        userId: user.id,
+        productId: data.id,
+        quantity: quantity,
+      };
+
+      // console.log("check payload: ", payload);
+      const response = await createNewCartService(payload);
+      if (response.data.errCode === 0) {
+        toast.success("Đã thêm vào giỏ hàng");
+        // console.log("add success");
+      } else {
+        toast.error("Lỗi không thêm được vào giỏ hàng");
+      }
+      console.log("check add to cart: ", response);
     }
-    console.log("check add to cart: ", response);
+  };
+
+  const handleAddFavoriteList = async () => {
+    if (!user) {
+      toast.error("Xin hãy đăng nhập !");
+    } else {
+      const payload = {
+        userId: user.id,
+        productId: id,
+      };
+
+      const response = await createNewFavoriteListService(payload);
+      if (response.data.errCode === 0) {
+        toast.success("Đã thêm vào danh sách yêu thích");
+      } else {
+        if (response.data.errCode === 2) {
+          toast.error("Sản phẩm đã tồn tại trong danh sách");
+        } else {
+          toast.error("Lỗi không thêm được vào danh sách yêu thích");
+        }
+      }
+    }
   };
 
   const handleSubmitComment = async () => {
-    const payload = {
-      userId: user.id,
-      productId: data.id,
-      commentContent: comment,
-    };
+    if (!user) {
+      toast.error("Xin hãy đăng nhập !");
+    } else {
+      if (comment === "") {
+        toast.error("Xin hãy nhập nội dung bình luận !");
+      } else {
+        const payload = {
+          userId: user.id,
+          productId: data.id,
+          commentContent: comment,
+        };
 
-    const response = await createNewProductCommentService(payload);
-    if (response.data.errCode === 0) {
-      setCommentAdded(!commentAdded);
-      setComment("");
+        const response = await createNewProductCommentService(payload);
+        if (response.data.errCode === 0) {
+          setCommentAdded(!commentAdded);
+          setComment("");
+        }
+      }
     }
+
     // console.log("check payload: ", response);
   };
 
@@ -169,7 +205,12 @@ const ProductDetail = () => {
                 <BsFillCartPlusFill style={{ marginRight: "6px" }} />
                 Thêm vào giỏ hàng
               </Button>
-              <Button bgColor={"#6bc6d9"} color={"#ffffff"} mb={4}>
+              <Button
+                onClick={handleAddFavoriteList}
+                bgColor={"#6bc6d9"}
+                color={"#ffffff"}
+                mb={4}
+              >
                 <BsSuitHeartFill />
               </Button>
             </Box>

@@ -25,7 +25,7 @@ const Serum = () => {
 
   useEffect(() => {
     const serumProducts = categories.filter((value) => {
-      return value.categoryName === "Treatment";
+      return value.categoryName === "Sản phẩm đặc trị";
     });
     setProducts(serumProducts[0].Products);
   }, [categories]);
@@ -40,7 +40,7 @@ const Serum = () => {
         fontWeight="semibold"
         margin="15px"
       >
-        Serum Products
+        Sản phẩm đặc trị
       </Text>
 
       <Wrap justify="center" my={"16"}>

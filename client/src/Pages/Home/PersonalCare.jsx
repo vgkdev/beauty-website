@@ -23,7 +23,7 @@ const PersonalCare = () => {
 
   useEffect(() => {
     const personalCareProducts = categories.filter((value) => {
-      return value.categoryName === "Personal care";
+      return value.categoryName === "Sản phẩm chức năng";
     });
     setProducts(personalCareProducts[0].Products);
   }, [categories]);
@@ -38,7 +38,7 @@ const PersonalCare = () => {
         fontWeight="semibold"
         margin="15px"
       >
-        PersonalCare Products
+        Sản phẩm chức năng
       </Text>
 
       <Wrap justify="center" my={"16"}>

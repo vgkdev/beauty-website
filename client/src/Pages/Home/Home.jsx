@@ -94,7 +94,7 @@ const Home = () => {
                 fontWeight="bold"
                 fontSize={["13px", "12px", "16px"]}
               >
-                ALL CATEGORIES
+                TẤT CẢ DANH MỤC
               </Text>
             </Box>
           </Box>
@@ -109,7 +109,7 @@ const Home = () => {
                 src={treatmentIcon}
               />
             </Box>
-            <NavLink to="/serum">
+            <NavLink to="/treatment">
               <Box>
                 <Text fontSize={["12px", "12px", "15px"]}>
                   Sản phẩm đặc trị

@@ -5,7 +5,7 @@ import UserComp from "./Comp/UserComp";
 const MyRoutine = ({ users = [], handleShowModalUser, handleDeleteUser }) => {
   return (
     <Box>
-      <Text>All Users</Text>
+      <Text>Tất cả người dùng</Text>
       <Divider
         mt="3px"
         mb="3px"
@@ -17,7 +17,7 @@ const MyRoutine = ({ users = [], handleShowModalUser, handleDeleteUser }) => {
         colorScheme="whatsapp"
         onClick={() => handleShowModalUser(null, "Create")}
       >
-        + Create new user
+        + Tạo người dùng mới
       </Button>
       {/* <hr color="black" size="50px" /> */}
       <Box>

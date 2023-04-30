@@ -10,7 +10,7 @@ const AllCategories = ({
 }) => {
   return (
     <Box>
-      <Text>All categories</Text>
+      <Text>Tất cả danh mục</Text>
       <Divider
         mt="3px"
         mb="3px"
@@ -22,7 +22,7 @@ const AllCategories = ({
         colorScheme="whatsapp"
         onClick={() => handleShowModalCategory(null, "Create")}
       >
-        + Create new category
+        + Tạo danh mục mới
       </Button>
       <hr color="black" size="50px" />
       <Box>

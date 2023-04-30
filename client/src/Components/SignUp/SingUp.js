@@ -53,13 +53,13 @@ export default function SingUp() {
     <div>
       <div className="input_div_main">
         <div className="input_div">
-          <div className="input_heading">PERSONAL INFORMATION</div>
+          <div className="input_heading">THÔNG TIN CÁ NHÂN</div>
 
           <form>
             <div className="name_div">
               <div className="name">
                 <label>
-                  First Name<span> *</span>
+                  Họ<span> *</span>
                 </label>
                 <br />
                 <Input
@@ -72,7 +72,7 @@ export default function SingUp() {
               </div>
               <div className="name">
                 <label>
-                  Last Name<span> *</span>
+                  Tên<span> *</span>
                 </label>
                 <br />
                 <Input
@@ -101,7 +101,7 @@ export default function SingUp() {
 
             <div className="input_details">
               <label>
-                Password<span> *</span>
+                Mật khẩu<span> *</span>
               </label>
               <br />
               <Input
@@ -115,7 +115,7 @@ export default function SingUp() {
 
             <div className="input_details">
               <label>
-                Confirm Password<span> *</span>
+                Xác nhận mật khẩu<span> *</span>
               </label>
               <br />
               <Input
@@ -129,7 +129,7 @@ export default function SingUp() {
 
             <div className="input_details">
               <label>
-                Phone<span> *</span>
+                SĐT<span> *</span>
               </label>
               <br />
               <Input
@@ -143,7 +143,7 @@ export default function SingUp() {
 
             <div className="input_details">
               <label>
-                Address<span> *</span>
+                Địa chỉ<span> *</span>
               </label>
               <br />
               <Input
@@ -156,7 +156,7 @@ export default function SingUp() {
             </div>
 
             <div className="input_button">
-              <button onClick={onsubmit}>CREATE AN ACCOUNT </button>
+              <button onClick={onsubmit}>TẠO TÀI KHOẢN</button>
             </div>
           </form>
         </div>

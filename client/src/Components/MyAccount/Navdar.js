@@ -208,19 +208,42 @@ export default function Navdar() {
             <Box style={{ zIndex: "10000" }}>
               <MenuList>
                 {user ? (
-                  <MenuItem
-                    minH="40px"
-                    // id="register_dropdown"
-                    backgroundColor={"none"}
-                    onClick={() => {
-                      setloginDropDown(!loginDropDown);
-                      localStorage.removeItem("UserToken");
-                      dispatch(logoutUser());
-                      navigate("/");
-                    }}
-                  >
-                    Đăng xuất
-                  </MenuItem>
+                  <>
+                    <MenuItem
+                      minH="40px"
+                      // id="register_dropdown"
+                      backgroundColor={"none"}
+                      onClick={() => {
+                        setloginDropDown(!loginDropDown);
+                        localStorage.removeItem("UserToken");
+                        dispatch(logoutUser());
+                        navigate("/");
+                      }}
+                    >
+                      Đăng xuất
+                    </MenuItem>
+                    <MenuItem
+                      minH="40px"
+                      // id="register_dropdown"
+                      backgroundColor={"none"}
+                      onClick={() => {
+                        navigate("/update-user");
+                      }}
+                    >
+                      Cập nhật thông tin
+                    </MenuItem>
+
+                    {user.role == 1 && (
+                      <MenuItem
+                        minH="40px"
+                        // id="register_dropdown"
+                        backgroundColor={"none"}
+                        onClick={() => navigate("/admin")}
+                      >
+                        Quản lý
+                      </MenuItem>
+                    )}
+                  </>
                 ) : (
                   <>
                     <Link to="/login">

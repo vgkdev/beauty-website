@@ -543,7 +543,7 @@ export const Profile = () => {
               style={{ cursor: "pointer" }}
             >
               <FaUsers style={{ width: "20px", marginRight: "5px" }} />
-              <Text fontSize="sm"> All Users </Text>
+              <Text fontSize="sm"> Tất cả người dùng </Text>
             </Flex>
             <Divider mt="3px" mb="3px" orientation="horizontal" />
 
@@ -553,7 +553,7 @@ export const Profile = () => {
               style={{ cursor: "pointer" }}
             >
               <MdCategory style={{ width: "20px", marginRight: "5px" }} />
-              <Text fontSize="sm"> All Categories </Text>
+              <Text fontSize="sm"> Tất cả danh mục </Text>
             </Flex>
             <Divider mt="3px" mb="3px" orientation="horizontal" />
 
@@ -563,7 +563,7 @@ export const Profile = () => {
               style={{ cursor: "pointer" }}
             >
               <FaWineBottle style={{ width: "20px", marginRight: "5px" }} />
-              <Text fontSize="sm"> All Products </Text>
+              <Text fontSize="sm"> Tất cả sản phẩm </Text>
             </Flex>
             <Divider mt="3px" mb="3px" orientation="horizontal" />
             <Flex
@@ -572,7 +572,7 @@ export const Profile = () => {
               style={{ cursor: "pointer" }}
             >
               <FaClipboardList style={{ width: "20px", marginRight: "5px" }} />
-              <Text fontSize="sm"> All Orders </Text>
+              <Text fontSize="sm"> Tất cả đơn đặt hàng </Text>
             </Flex>
 
             <Divider mt="3px" mb="3px" orientation="horizontal" />

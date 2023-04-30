@@ -34,187 +34,8 @@ export const BottomNav = (props) => {
     setAyurveda,
     setBrand,
   ];
-  const makeupArr = [
-    {
-      FACE: [
-        "BB creame",
-        "Blush",
-        "Bronzer",
-        "CC Cream",
-        "Contour",
-        "Concealer",
-        "Compact & Powder",
-        "Face Primer",
-        "Foundation",
-        "Highlighters",
-        "Loose Powder",
-        "Makeup Kits",
-        "Makeup Remover",
-        "Setting Spray",
-      ],
-    },
-    {
-      EYE: [
-        "Contact Lenses",
-        "Eye Kit",
-        "Eyeliner",
-        "Eye Shadow",
-        "Eye Primer",
-        "Eye-Palettes",
-        "Eye Makeup Remover",
-        "Eye Brow Enhancers",
-        "False Eyelashes",
-        "Kajal",
-        "Mascara",
-        "Under Eye Concealer",
-      ],
-    },
-  ];
-  const skinArr = [
-    {
-      "EYE CARE": [
-        "Dark Circles",
-        "Eye Contour Care",
-        "Eye Cream",
-        "Eye Masks",
-        "Eye Serums",
-        "Puffiness",
-        "Under Eye Creams",
-        "Under Eye Wrinkles",
-      ],
-    },
-    {
-      "FACE CARE": [
-        "Anti- Ageing Creams",
-        "Bleach Creams",
-        "Brightening Cream",
-        "Face Wash",
-        "Facial Wipes",
-        "Face Oil",
-        "Face Cleansers",
-        "Facial Kits",
-        "Face Tools",
-        "Moisturizer",
-        "Mask & Peels",
-        "Serum",
-        "Toner & Astringents",
-      ],
-    },
-    {
-      "BODY CARE": [
-        "All Cream",
-        "Body Moisturizers",
-        "Body Toners",
-        "Body Sun Care",
-        "Brightening Lotion",
-        "Dark Circles & Wrinkles",
-        "Day Cream",
-        "Foot Cream",
-        "Clean Remover Cream",
-        "Hand Creams",
-        "Hands & Feet",
-        "Kits & Combos",
-        "Night Cream",
-        "Neck Creams",
-      ],
-    },
-  ];
-  const cleanArr = [
-    {
-      "HAIR CARE": [
-        "Color Protection",
-        "Dandruff",
-        "Dry Shampoo",
-        "Gels & Waxes",
-        "Clean Spray",
-        "Clean Color/ Dye",
-        "Clean Creams & Masks ",
-        "Clean Styling",
-        "Cleanfall & Thinning ",
-        "Straighteners ",
-      ],
-    },
-    {
-      "HAIR LOSS": [
-        "Conditioner",
-        "Clean Oil",
-        "Clean Serum",
-        "Clean Growth Solutions",
-        "Shampoo",
-      ],
-    },
-  ];
-  const personalcare = [
-    {
-      "BATH & BODY": [
-        "Body Cleansers",
-        "Body Massage Oil",
-        "Body Wash",
-        "Creams",
-        "Essential Oils",
-        "Foot Cream",
-        "Scrubs & Exfoliants",
-        "Ubtan & Face Packs",
-      ],
-    },
-    {
-      "BATHING ACCESSORIES": [
-        "Bath Brushes",
-        "Loofahs",
-        "Shower Caps",
-        "Sponges",
-      ],
-    },
-    { "BATH & SHOWER": ["Body Soaps", "Shower Gel"] },
-  ];
-  const mombabyArr = [
-    {
-      "BABY CARE": [
-        "Bath Time",
-        "Diapers",
-        "Lotions & Creams",
-        "Oils",
-        "Powder",
-        "Shampoo",
-        "Soaps",
-        "Sterilizer & Cleaners",
-        "Rash Cream",
-        "Wipes",
-      ],
-    },
-    { "MOM CARE": ["Lotions & Creams", "Personal Care"] },
-  ];
-  const ayurvedaArr = [
-    {
-      "NATURAL SKIN CARE": [
-        "Body Wash",
-        "Body Lotion",
-        "Cleansers",
-        "Cream",
-        "Eye Care",
-        "Face Wash",
-        "Gel",
-        "Lip Care",
-        "Mask",
-        "Pack",
-        "Scrub",
-        "Sun Protection",
-      ],
-    },
-    {
-      "NATURAL HAIR CARE": [
-        "Conditioner",
-        "Clean Oils",
-        "Clean Serum",
-        "Clean Gel",
-        "Shampoo",
-      ],
-    },
-  ];
-  const fragrances = [
-    { "": ["Perfumes", "Deodorants roll ons", "Body Mist/Spray"] },
-  ];
-  const brands = [{ "": [] }];
+
+  // const brands = [{ "": [] }];
   return (
     <div id="bottom_nav">
       {/* menu */}
@@ -349,18 +170,16 @@ export const BottomNav = (props) => {
 
       {dropDownSerum && (
         <NavSingle
-          array={makeupArr}
           products={serumProducts}
           state={makeup}
           setState={setMakeup}
           setnav={setDropDownSerum}
-          path={"/serum"}
+          path={"/treatment"}
         />
       )}
 
       {dropDownSkin && (
         <NavSingle
-          array={skinArr}
           products={skinProducts}
           state={skin}
           setState={setSkin}
@@ -371,7 +190,6 @@ export const BottomNav = (props) => {
 
       {dropDownClean && (
         <NavSingle
-          array={cleanArr}
           products={cleanProducts}
           state={clean}
           setState={setClean}
@@ -382,7 +200,6 @@ export const BottomNav = (props) => {
 
       {dropDownPersonalCare && (
         <NavSingle
-          array={personalcare}
           products={personalProducts}
           state={pcare}
           setState={setPcare}

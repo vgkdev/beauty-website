@@ -10,22 +10,22 @@ export const Navbar = () => {
   const loading = useSelector((state) => state.categories.loading);
   const error = useSelector((state) => state.categories.error);
 
-  // console.log("check makup data: ", categories);
+  console.log("check categories data: ", categories);
 
   const serumProducts = categories.filter((value) => {
-    return value.categoryName === "Treatment";
+    return value.categoryName === "Sản phẩm đặc trị";
   });
 
   const skinProducts = categories.filter((value) => {
-    return value.categoryName === "Skin care";
+    return value.categoryName === "Dưỡng da";
   });
 
   const cleanProducts = categories.filter((value) => {
-    return value.categoryName === "Clean";
+    return value.categoryName === "Làm sạch";
   });
 
   const personalProducts = categories.filter((value) => {
-    return value.categoryName === "Personal care";
+    return value.categoryName === "Sản phẩm chức năng";
   });
 
   return (

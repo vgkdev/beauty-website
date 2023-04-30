@@ -17,13 +17,21 @@ import {
 } from "../../api/favoriteListApi";
 import { convertImageToBase64 } from "../../Utils/convertData";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const FavoriteList = () => {
+  const user = useSelector((state) => state.user.user);
+  const navigate = useNavigate();
+
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [changeData, setChangeData] = useState(false);
 
-  const user = useSelector((state) => state.user.user);
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     const fetchFavoriteProducts = async () => {
@@ -53,7 +61,7 @@ const FavoriteList = () => {
       }
     };
     fetchFavoriteProducts();
-  }, [user.id, changeData]);
+  }, [user?.id, changeData]);
 
   const handleDeleteItemInFavoriteList = async (id) => {
     // console.log("check product id: ", props.id);
@@ -65,6 +73,10 @@ const FavoriteList = () => {
     }
     setChangeData(!changeData);
   };
+
+  // if (!user) {
+  //   navigate("/login");
+  // }
   // console.log("check data: ", data);
 
   return (
