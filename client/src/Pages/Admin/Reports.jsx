@@ -61,7 +61,7 @@ const Reports = ({ orders, handleDeleteOrder, handleShowModalOrder }) => {
         colorScheme="yellow"
         onClick={(e) => exportToCSV(orders, "order-list")}
       >
-        Export to excel
+        Xuất ra file excel
       </Button>
       {orders && (
         <OrderComp

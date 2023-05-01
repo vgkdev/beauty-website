@@ -28,17 +28,17 @@ const CategoryComp = ({
             colorScheme={"blue"}
             onClick={() => handleShowModalCategory(id, "Detail")}
           >
-            Detail
+            Chi tiết
           </Button>
           <Button
             colorScheme={"blue"}
             onClick={() => handleShowModalCategory(id, "Update")}
           >
-            Update
+            Cập nhật
           </Button>
           <Button colorScheme={"blue"} onClick={() => handleDeleteCategory(id)}>
             {" "}
-            Delete{" "}
+            Xóa{" "}
           </Button>
         </GridItem>
       </Grid>

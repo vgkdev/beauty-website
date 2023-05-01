@@ -14,6 +14,7 @@ const vnpay = new VNPay({
 });
 
 const handleCreatePayment = (req, res) => {
+  console.log("check data: ", req.body);
   const checkoutData = {
     amount: parseInt(req.body.amount, 10),
     orderInfo: req.body.orderInfo,

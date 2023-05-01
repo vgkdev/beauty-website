@@ -99,6 +99,8 @@ const Cart = () => {
           }
           setCartData(carts);
           toast.success("Xóa đơn hàng thành công");
+        } else {
+          setCartData([]);
         }
       }
     } else {
@@ -115,15 +117,33 @@ const Cart = () => {
     // console.log("check payload: ", payload);
     const response = await editCartService(payload);
     if (response.data.errCode === 0) {
-      const carts = response.data.cart;
-      for (let i = 0; i < carts.length; i++) {
-        const products = carts[i].Product;
-        const buffer = products.imageUrl;
-        const base64String = new Buffer(buffer, "base64").toString("base64");
-        carts[i].Product.imageUrl = base64String;
+      // const carts = response.data.cart;
+      // for (let i = 0; i < carts.length; i++) {
+      //   const products = carts[i].Product;
+      //   const buffer = products.imageUrl;
+      //   const base64String = new Buffer(buffer, "base64").toString("base64");
+      //   carts[i].Product.imageUrl = base64String;
+      // }
+      // setCartData(carts);
+      // toast.success("Cập nhật đơn hàng thành công");
+      if (user && user.id) {
+        const response = await getAllCartsByUserIdService(user.id);
+        if (response.data.errCode === 0) {
+          const carts = response.data.cart;
+          for (let i = 0; i < carts.length; i++) {
+            const products = carts[i].Product;
+            const buffer = products.imageUrl;
+            const base64String = new Buffer(buffer, "base64").toString(
+              "base64"
+            );
+            carts[i].Product.imageUrl = base64String;
+          }
+          setCartData(carts);
+          toast.success("Xóa đơn hàng thành công");
+        } else {
+          setCartData([]);
+        }
       }
-      setCartData(carts);
-      toast.success("Cập nhật đơn hàng thành công");
     } else {
       toast.error("Cập nhật đơn hàng thất bại !");
     }

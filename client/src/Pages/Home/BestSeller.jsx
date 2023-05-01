@@ -38,7 +38,7 @@ const BestSeller = () => {
             fontWeight="black"
             fontSize={["16px", "19px", "19px"]}
           >
-            BEST SELLER
+            BÁN CHẠY NHẤT
           </Text>
           <Box marginBottom="20px">
             <Best></Best>
@@ -56,7 +56,7 @@ const BestSeller = () => {
             fontWeight="black"
             fontSize={["16px", "19px", "19px"]}
           >
-            LATEST PRODUCTS
+            SẢN PHẨM MỚI
           </Text>
           <Box marginBottom="20px">
             <Latest></Latest>
@@ -74,7 +74,7 @@ const BestSeller = () => {
             fontWeight="black"
             fontSize={["16px", "19px", "19px"]}
           >
-            MOST VIEWED
+            XEM NHIỀU NHẤT
           </Text>
           <Box marginBottom="20px">
             <Most></Most>

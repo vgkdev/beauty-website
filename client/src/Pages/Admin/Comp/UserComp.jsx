@@ -13,27 +13,27 @@ const UserComp = ({
   return (
     <Box textAlign={"center"} mb="20px" border={"2px solid #50555e"} p={3}>
       <SimpleGrid columns={[1, 2, 2, 3, 3]} spacing={10}>
-        <Text fontSize="lg">Name: {firstName + " " + lastName} </Text>
+        <Text fontSize="lg">Họ và tên: {firstName + " " + lastName} </Text>
         <Text fontSize="lg">Email: {email} </Text>
-        <Text fontSize="lg">phone: {phoneNumber} </Text>
+        <Text fontSize="lg">SĐT: {phoneNumber} </Text>
 
         <Button
           colorScheme={"blue"}
           onClick={() => handleShowModalUser(id, "Detail")}
         >
-          Detail
+          Chi tiết
         </Button>
 
         <Button
           colorScheme={"blue"}
           onClick={() => handleShowModalUser(id, "Update")}
         >
-          Update
+          Cập nhật
         </Button>
 
         <Button colorScheme={"blue"} onClick={() => handleDeleteUser(id)}>
           {" "}
-          Delete{" "}
+          Xóa{" "}
         </Button>
       </SimpleGrid>
     </Box>

@@ -47,10 +47,11 @@ export default function Navdar() {
   };
 
   const filteredProducts = searchTerm
-    ? products.filter((product) =>
-        removeDiacritics(product.productName.toLowerCase()).includes(
-          removeDiacritics(searchTerm.toLowerCase())
-        )
+    ? products.filter(
+        (product) =>
+          removeDiacritics(product.productName.toLowerCase()).includes(
+            removeDiacritics(searchTerm.toLowerCase())
+          ) || parseFloat(product.price) === parseFloat(searchTerm)
       )
     : [];
 

@@ -148,6 +148,16 @@ const PaymentPage = () => {
           toast.error(response.data.message);
         }
       }
+    } else {
+      // const payload = {
+      //   userId: user.id,
+      //   totalPrice: total - (total / 100) * 10,
+      //   status: "Đã thanh toán",
+      //   cartData: cartData,
+      // };
+      // const response = await createPaymentService(payload);
+      // // console.log("check res payment: ", response);
+      // window.location.href = response.data.checkoutUrl;
     }
   };
 

@@ -34,12 +34,12 @@ const FormCategory = (props) => {
     <form>
       <Stack spacing={3}>
         <FormControl>
-          <FormLabel>Catogory name</FormLabel>
+          <FormLabel>Tên danh mục</FormLabel>
           <Input
             type="text"
             value={categoryName}
             onChange={(event) => setCategoryName(event.target.value)}
-            placeholder="Enter category name"
+            placeholder="Tên danh mục"
             disabled={type === "Detail"}
           />
         </FormControl>

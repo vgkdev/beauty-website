@@ -27,7 +27,12 @@ import Exercises from "./Exercises";
 import Messages from "./Messages";
 import Dashboard from "./Dashboard";
 import "./profile.css";
-import { FaUsers, FaWineBottle, FaClipboardList } from "react-icons/fa";
+import {
+  FaUsers,
+  FaWineBottle,
+  FaClipboardList,
+  FaDollarSign,
+} from "react-icons/fa";
 import { MdCategory } from "react-icons/md";
 import {
   createNewUserService,
@@ -61,12 +66,14 @@ import {
   getAllOrdersService,
 } from "../../api/ortherApi";
 import FormOrder from "./Comp/FormOrder";
+import Revenue from "./Revenue";
 
 const init1 = {
   userSection: false,
   productSection: false,
   orderSection: false,
   categorySection: false,
+  revenueSection: false,
   photos: false,
   exercises: false,
   messages: false,
@@ -86,6 +93,7 @@ export const Profile = () => {
     userSection,
     productSection,
     orderSection,
+    revenueSection,
     categorySection,
     photos,
     exercises,
@@ -576,6 +584,16 @@ export const Profile = () => {
             </Flex>
 
             <Divider mt="3px" mb="3px" orientation="horizontal" />
+            <Flex
+              mb="7px"
+              onClick={() => changePages("revenueSection")}
+              style={{ cursor: "pointer" }}
+            >
+              <FaDollarSign style={{ width: "20px", marginRight: "5px" }} />
+              <Text fontSize="sm"> Thống kê doanh thu </Text>
+            </Flex>
+
+            <Divider mt="3px" mb="3px" orientation="horizontal" />
           </Box>
 
           <Spacer />
@@ -617,6 +635,8 @@ export const Profile = () => {
                 handleShowModalOrder={handleShowModalOrder}
               />
             )}
+
+            {revenueSection && <Revenue orders={orderData} />}
           </Box>
 
           <Spacer />

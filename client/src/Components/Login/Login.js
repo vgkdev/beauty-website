@@ -71,7 +71,7 @@ export default function Login() {
             </label>
             <br />
             <Input
-              placeholder="Enter your email"
+              placeholder="Nhập email của bạn"
               type="email"
               style={{ paddingLeft: "10px" }}
               onChange={(e) => setEmail(e.target.value)}
@@ -84,7 +84,7 @@ export default function Login() {
             </label>
             <br />
             <Input
-              placeholder="Enter your password"
+              placeholder="Mật khẩu"
               type="password"
               style={{ paddingLeft: "10px" }}
               onChange={(e) => setPassword(e.target.value)}

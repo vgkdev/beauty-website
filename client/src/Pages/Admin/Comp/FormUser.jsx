@@ -52,24 +52,24 @@ const FormUser = (props) => {
     <form>
       <Stack spacing={3}>
         <FormControl>
-          <FormLabel htmlFor="firstName">First Name</FormLabel>
+          <FormLabel htmlFor="firstName">Họ</FormLabel>
           <Input
             type="text"
             name="firstName"
             value={firstName}
             onChange={(event) => setFirstName(event.target.value)}
-            placeholder="Enter your first name"
+            placeholder="Họ"
             disabled={type === "Detail"}
           />
         </FormControl>
         <FormControl>
-          <FormLabel htmlFor="lastName">Last Name</FormLabel>
+          <FormLabel htmlFor="lastName">Tên</FormLabel>
           <Input
             type="text"
             name="lastName"
             value={lastName}
             onChange={(event) => setLastName(event.target.value)}
-            placeholder="Enter your last name"
+            placeholder="Tên"
             disabled={type === "Detail"}
           />
         </FormControl>
@@ -80,39 +80,39 @@ const FormUser = (props) => {
             name="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            placeholder="Enter your email"
+            placeholder="Email"
             disabled={type === "Detail"}
           />
         </FormControl>
         <FormControl display={type === "Create" ? "" : "none"}>
-          <FormLabel htmlFor="password">Password</FormLabel>
+          <FormLabel htmlFor="password">Mật khẩu</FormLabel>
           <Input
             type="password"
             name="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            placeholder="Enter your password"
+            placeholder="Mật khẩu"
           />
         </FormControl>
         <FormControl>
-          <FormLabel htmlFor="address">Address</FormLabel>
+          <FormLabel htmlFor="address">Địa chỉ</FormLabel>
           <Input
             type="text"
             name="address"
             value={address}
             onChange={(event) => setAdress(event.target.value)}
-            placeholder="Enter your address"
+            placeholder="Địa chỉ"
             disabled={type === "Detail"}
           />
         </FormControl>
         <FormControl>
-          <FormLabel htmlFor="phone">Phone</FormLabel>
+          <FormLabel htmlFor="phone">SĐT</FormLabel>
           <Input
             type="text"
             name="phone"
             value={phoneNumber}
             onChange={(event) => setPhoneNumber(event.target.value)}
-            placeholder="Enter your phone number"
+            placeholder="Số điện thoại"
             disabled={type === "Detail"}
           />
         </FormControl>

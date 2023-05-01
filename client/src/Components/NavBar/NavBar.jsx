@@ -31,10 +31,10 @@ export const Navbar = () => {
   return (
     <>
       <BottomNav
-        serumProducts={serumProducts[0].Products}
-        skinProducts={skinProducts[0].Products}
-        cleanProducts={cleanProducts[0].Products}
-        personalProducts={personalProducts[0].Products}
+        serumProducts={serumProducts[0]?.Products}
+        skinProducts={skinProducts[0]?.Products}
+        cleanProducts={cleanProducts[0]?.Products}
+        personalProducts={personalProducts[0]?.Products}
       />
     </>
   );

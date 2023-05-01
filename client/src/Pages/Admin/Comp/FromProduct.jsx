@@ -73,57 +73,57 @@ const FormProduct = (props) => {
     <form>
       <Stack spacing={3}>
         <FormControl display={type === "Update_image" ? "none" : ""}>
-          <FormLabel>Product name</FormLabel>
+          <FormLabel>Tên sản phẩm</FormLabel>
           <Input
             type="text"
             value={productName}
             onChange={(event) => setProductName(event.target.value)}
-            placeholder="Enter product name"
+            placeholder="Tên sản phẩm"
             disabled={type === "Detail"}
           />
         </FormControl>
 
         <FormControl display={type === "Update_image" ? "none" : ""}>
-          <FormLabel>Quantity</FormLabel>
+          <FormLabel>Số lượng</FormLabel>
           <Input
             type="text"
             value={quantity}
             onChange={(event) => setQuantity(event.target.value)}
-            placeholder="Enter quantity"
+            placeholder="Số lượng"
             disabled={type === "Detail"}
           />
         </FormControl>
 
         <FormControl display={type === "Update_image" ? "none" : ""}>
-          <FormLabel>Price</FormLabel>
+          <FormLabel>Giá</FormLabel>
           <Input
             type="text"
             value={price}
             onChange={(event) => setPrice(event.target.value)}
-            placeholder="Enter price"
+            placeholder="Giá"
             disabled={type === "Detail"}
           />
         </FormControl>
 
         <FormControl display={type === "Update_image" ? "none" : ""}>
-          <FormLabel>Description</FormLabel>
+          <FormLabel>Mô tả</FormLabel>
           <Input
             type="text"
             value={description}
             onChange={(event) => setDescription(event.target.value)}
-            placeholder="Enter description"
+            placeholder="Mô tả"
             disabled={type === "Detail"}
           />
         </FormControl>
 
         <FormControl display={type === "Update_image" ? "none" : ""}>
-          <FormLabel>Category Name</FormLabel>
+          <FormLabel>Tên danh mục</FormLabel>
           <Select
             name="categoryName"
             value={categoryId}
             onChange={(event) => setCategoryId(event.target.value)}
           >
-            <option value={""}>---Category name---</option>
+            <option value={""}>---Tên danh mục---</option>
             {categories.map((value) => (
               <option key={value.id} value={value.id}>
                 {value.categoryName}
@@ -133,7 +133,7 @@ const FormProduct = (props) => {
         </FormControl>
 
         <FormControl display={type === "Update" ? "none" : ""}>
-          <FormLabel>Image</FormLabel>
+          <FormLabel>Ảnh</FormLabel>
           <Input
             type="file"
             onChange={(event) => setImageUrl(event.target.files[0])}

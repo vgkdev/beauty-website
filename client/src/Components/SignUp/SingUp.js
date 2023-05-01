@@ -65,7 +65,7 @@ export default function SingUp() {
                 <Input
                   type="text"
                   style={{ paddingLeft: "10px" }}
-                  placeholder="Enter your first name"
+                  placeholder="Họ"
                   onChange={(e) => setFirstName(e.target.value)}
                   required
                 />
@@ -78,7 +78,7 @@ export default function SingUp() {
                 <Input
                   type="text"
                   style={{ paddingLeft: "10px" }}
-                  placeholder="Enter your last name"
+                  placeholder="Tên"
                   onChange={(e) => setLastName(e.target.value)}
                   required
                 />
@@ -93,7 +93,7 @@ export default function SingUp() {
               <Input
                 type="email"
                 style={{ paddingLeft: "10px" }}
-                placeholder="Enter your email"
+                placeholder="email"
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
@@ -107,7 +107,7 @@ export default function SingUp() {
               <Input
                 type="password"
                 style={{ paddingLeft: "10px" }}
-                placeholder="Enter your password"
+                placeholder="Mật khẩu"
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
@@ -120,7 +120,7 @@ export default function SingUp() {
               <br />
               <Input
                 type="password"
-                placeholder="Confirm Password"
+                placeholder="Xác nhận mật khẩu"
                 style={{ paddingLeft: "10px" }}
                 onChange={(e) => setConfirmPass(e.target.value)}
                 required
@@ -135,7 +135,7 @@ export default function SingUp() {
               <Input
                 type="number"
                 style={{ paddingLeft: "10px" }}
-                placeholder="Enter your phone"
+                placeholder="Số điện thoại"
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 required
               />
@@ -149,7 +149,7 @@ export default function SingUp() {
               <Input
                 type="text"
                 style={{ paddingLeft: "10px" }}
-                placeholder="Enter your address"
+                placeholder="Địa chỉ"
                 onChange={(e) => setAddress(e.target.value)}
                 required
               />

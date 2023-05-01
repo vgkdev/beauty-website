@@ -41,13 +41,6 @@ const Home = () => {
   };
   const [data, setData] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${dataUrl}/products/`)
-  //     .then((res) => setData(res.data))
-  //     .catch((er) => console.log(er));
-  // }, []);
-
   useEffect(() => {
     // console.log("data------", data);
   }, [data]);
