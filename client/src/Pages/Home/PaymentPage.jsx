@@ -32,6 +32,7 @@ import { createPaymentService } from "../../api/paymentApi";
 import { editUserService } from "../../api/userApi";
 import { updateUser } from "../../reducers/user";
 import { createNewOrderService } from "../../api/ortherApi";
+import moment from "moment";
 
 const PaymentPage = () => {
   const user = useSelector((state) => state.user.user);
@@ -149,15 +150,20 @@ const PaymentPage = () => {
         }
       }
     } else {
-      // const payload = {
-      //   userId: user.id,
-      //   totalPrice: total - (total / 100) * 10,
-      //   status: "Đã thanh toán",
-      //   cartData: cartData,
-      // };
-      // const response = await createPaymentService(payload);
-      // // console.log("check res payment: ", response);
-      // window.location.href = response.data.checkoutUrl;
+      const payload = {
+        userId: user.id,
+        orderId: moment.utc(Date.now()).local().format("HH:mm:ss"),
+        orderInfo: "ORDER_" + Date.now(),
+        clientIp: "127.0.0.1",
+        amount: total - (total / 100) * 10,
+        status: "Đã thanh toán",
+        cartData: cartData,
+        orderDescription: "Thanh toán vnpay",
+        createDate: moment.utc(Date.now()).local().format("YYYYMMDDHHmmss"),
+      };
+      const response = await createPaymentService(payload);
+      console.log("check res payment: ", response);
+      window.location.href = response.data.vnpUrl;
     }
   };
 
