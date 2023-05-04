@@ -263,7 +263,7 @@ const ProductDetail = () => {
 
           <Divider my={8} />
           <Text fontSize="xl" fontWeight="bold" mb={4}>
-            Sản phẩm khác
+            Sản phẩm cùng loại
           </Text>
           <Grid
             templateColumns={{

@@ -150,20 +150,22 @@ const PaymentPage = () => {
         }
       }
     } else {
+      const date = Date.now();
       const payload = {
         userId: user.id,
-        orderId: moment.utc(Date.now()).local().format("HH:mm:ss"),
-        orderInfo: "ORDER_" + Date.now(),
+        orderId: moment.utc(date).local().format("HH:mm:ss"),
+        transactionId: "ORDER_" + date,
+        orderInfo: "ORDER_" + date,
         clientIp: "127.0.0.1",
         amount: total - (total / 100) * 10,
         status: "Đã thanh toán",
         cartData: cartData,
         orderDescription: "Thanh toán vnpay",
-        createDate: moment.utc(Date.now()).local().format("YYYYMMDDHHmmss"),
+        createDate: moment.utc(date).local().format("YYYYMMDDHHmmss"),
       };
       const response = await createPaymentService(payload);
       console.log("check res payment: ", response);
-      window.location.href = response.data.vnpUrl;
+      window.location.href = response.data.checkoutUrl;
     }
   };
 
