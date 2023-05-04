@@ -117,7 +117,7 @@ const CartSingleCard = ({ cartData, deleteCart, updateCart }) => {
           size="md"
           colorScheme="cyan"
           color="white"
-          onClick={() => updateCart(cartData.id, quantity)}
+          onClick={() => updateCart(cartData.id, quantity, cartData.Product.id)}
         >
           Cập nhật số lượng
         </Button>

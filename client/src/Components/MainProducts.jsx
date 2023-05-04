@@ -34,6 +34,7 @@ export function MainProducts(props) {
 
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.user);
+  const products = useSelector((state) => state.products.products);
 
   // console.log("check props: ", props);
 
@@ -55,12 +56,17 @@ export function MainProducts(props) {
         quantity: 1,
       };
 
-      // console.log("check payload: ", payload);
-      const response = await createNewCartService(payload);
-      if (response.data.errCode === 0) {
-        toast.success("Đã thêm vào giỏ hàng");
+      const productAddToCart = products.find((p) => p.id === props.id);
+      if (productAddToCart.quantity > 0) {
+        // console.log("check payload: ", payload);
+        const response = await createNewCartService(payload);
+        if (response.data.errCode === 0) {
+          toast.success("Đã thêm vào giỏ hàng");
+        } else {
+          toast.error("Lỗi không thêm được vào giỏ hàng");
+        }
       } else {
-        toast.error("Lỗi không thêm được vào giỏ hàng");
+        toast.error("Số lượng sản phẩm hiện tại không đủ !");
       }
     }
   };

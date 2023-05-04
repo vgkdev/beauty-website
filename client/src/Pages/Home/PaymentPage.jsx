@@ -33,6 +33,7 @@ import { editUserService } from "../../api/userApi";
 import { updateUser } from "../../reducers/user";
 import { createNewOrderService } from "../../api/ortherApi";
 import moment from "moment";
+import { editProductService } from "../../api/productApi";
 
 const PaymentPage = () => {
   const user = useSelector((state) => state.user.user);
@@ -140,6 +141,17 @@ const PaymentPage = () => {
           toast.success("Bạn đã đặt hàng thành công");
           try {
             await deleteCartByUserIdService(user.id);
+            for (let i = 0; i < cartData.length; i++) {
+              await editProductService({
+                id: cartData[i].Product.id,
+                newProductName: cartData[i].Product.productName,
+                productName: cartData[i].Product.productName,
+                categoryId: cartData[i].Product.categoryId,
+                quantity: cartData[i].Product.quantity - cartData[i].quantity,
+                price: cartData[i].Product.price,
+                description: cartData[i].Product.description,
+              });
+            }
           } catch (e) {
             console.log(e);
             toast.error(e);
@@ -169,7 +181,7 @@ const PaymentPage = () => {
     }
   };
 
-  // console.log("check cart data: ", cartData);
+  console.log("check cart data from payment page: ", cartData);
 
   return (
     <div>

@@ -39,6 +39,8 @@ const Cart = () => {
   const [changeone, setchangeone] = useState(0);
 
   const user = useSelector((state) => state.user.user);
+  const products = useSelector((state) => state.products.products);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -108,44 +110,56 @@ const Cart = () => {
     }
   };
 
-  const updateCart = async (id, quantity) => {
+  const updateCart = async (id, quantity, productId) => {
     const payload = {
       id: id,
       quantity: quantity,
     };
 
     // console.log("check payload: ", payload);
-    const response = await editCartService(payload);
-    if (response.data.errCode === 0) {
-      // const carts = response.data.cart;
-      // for (let i = 0; i < carts.length; i++) {
-      //   const products = carts[i].Product;
-      //   const buffer = products.imageUrl;
-      //   const base64String = new Buffer(buffer, "base64").toString("base64");
-      //   carts[i].Product.imageUrl = base64String;
-      // }
-      // setCartData(carts);
-      // toast.success("Cập nhật đơn hàng thành công");
-      if (user && user.id) {
-        const response = await getAllCartsByUserIdService(user.id);
-        if (response.data.errCode === 0) {
-          const carts = response.data.cart;
-          for (let i = 0; i < carts.length; i++) {
-            const products = carts[i].Product;
-            const buffer = products.imageUrl;
-            const base64String = new Buffer(buffer, "base64").toString(
-              "base64"
-            );
-            carts[i].Product.imageUrl = base64String;
+    const productEditCart = products.find((p) => p.id === productId);
+    if (productEditCart.quantity >= quantity) {
+      const response = await editCartService(payload);
+      if (response.data.errCode === 0) {
+        if (user && user.id) {
+          const response = await getAllCartsByUserIdService(user.id);
+          if (response.data.errCode === 0) {
+            const carts = response.data.cart;
+            for (let i = 0; i < carts.length; i++) {
+              const products = carts[i].Product;
+              const buffer = products.imageUrl;
+              const base64String = new Buffer(buffer, "base64").toString(
+                "base64"
+              );
+              carts[i].Product.imageUrl = base64String;
+            }
+            setCartData(carts);
+            toast.success("Cập nhật đơn hàng thành công");
+          } else {
+            setCartData([]);
           }
-          setCartData(carts);
-          toast.success("Xóa đơn hàng thành công");
-        } else {
-          setCartData([]);
         }
+      } else {
+        toast.error("Cập nhật đơn hàng thất bại !");
       }
     } else {
-      toast.error("Cập nhật đơn hàng thất bại !");
+      toast.error("Số lượng sản phẩm hiện tại không đủ !");
+    }
+  };
+
+  const handlePayment = () => {
+    if (cartData && cartData.length !== 0) {
+      for (let i = 0; i < cartData.length; i++) {
+        if (cartData[i].Product.quantity < cartData[i].quantity) {
+          toast.error(
+            `Số lượng sản phẩm hiện tại không đủ, xin bạn giảm bớt số lượng sản phẩm ${cartData[i].Product.productName} !`
+          );
+          return;
+        }
+      }
+      navigate("/payment");
+    } else {
+      toast.error("Giỏ hàng trống !");
     }
   };
 
@@ -153,7 +167,7 @@ const Cart = () => {
     return <Navigate to="/login" />;
   }
 
-  //   console.log("check cart data: ", cartData);
+  console.log("check cart data: ", cartData);
   return (
     <div>
       <VStack marginTop={{ base: "220px", md: "180px" }} justify="center">
@@ -338,7 +352,7 @@ const Cart = () => {
                 colorScheme="whatsapp"
                 color="white"
                 size="lg"
-                onClick={() => navigate("/payment")}
+                onClick={handlePayment}
               >
                 Thanh toán
               </Button>

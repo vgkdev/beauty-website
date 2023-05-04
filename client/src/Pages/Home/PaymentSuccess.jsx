@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { createNewOrderService } from "../../api/ortherApi";
 import { toast } from "react-toastify";
 import { Buffer } from "buffer";
+import { editProductService } from "../../api/productApi";
 
 const PaymentSuccess = () => {
   const user = useSelector((state) => state.user.user);
@@ -70,6 +71,17 @@ const PaymentSuccess = () => {
     if (response.data.errCode === 0) {
       try {
         await deleteCartByUserIdService(user.id);
+        for (let i = 0; i < cartData.length; i++) {
+          await editProductService({
+            id: cartData[i].Product.id,
+            newProductName: cartData[i].Product.productName,
+            productName: cartData[i].Product.productName,
+            categoryId: cartData[i].Product.categoryId,
+            quantity: cartData[i].Product.quantity - cartData[i].quantity,
+            price: cartData[i].Product.price,
+            description: cartData[i].Product.description,
+          });
+        }
       } catch (e) {
         console.log(e);
         toast.error(e);
